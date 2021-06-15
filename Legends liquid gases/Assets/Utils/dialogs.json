@@ -1,0 +1,16 @@
+{
+   "dialogs":[
+      {
+         "id":"lvl1_text1",
+         "dialogText":"Texto 1: Pebbles el gato cientifico."
+      },
+      {
+         "id":"lvl1_text2",
+         "dialogText":"Texto 2: Lana la gatita doctora."
+      },
+      {
+         "id":"lvl1_text3",
+         "dialogText":"Texto 3: Tifa y Mccree los ayudantes."
+      }
+   ]
+}

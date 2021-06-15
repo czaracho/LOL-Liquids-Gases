@@ -6,6 +6,7 @@ using DG.Tweening;
 public class PipePlacementManager : MonoBehaviour
 {
     public static PipePlacementManager instance;
+    [HideInInspector]
     public Piece pieceSelected;
 
     private void Awake()

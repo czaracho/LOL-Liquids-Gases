@@ -154,7 +154,7 @@
 			_parent = new GameObject ("_metaBalls");
 			_parent.hideFlags = HideFlags.HideInHierarchy;
 			WaterDropsObjects [0].transform.SetParent (_parent.transform);
-			WaterDropsObjects [0].transform.localScale = new Vector3 (size, size, 1f);
+			WaterDropsObjects [0].transform.localScale = new Vector3 (size*0.1f, size*0.1f, 1f);
 			WaterDropsObjects [0].GetComponent<MetaballParticleClass>().Active = false;
 
 
@@ -165,7 +165,7 @@
 				WaterDropsObjects[i] = Instantiate(WaterDropsObjects[0], gameObject.transform.position, new Quaternion(0,0,0,0)) as GameObject;
 				WaterDropsObjects [i].GetComponent<MetaballParticleClass>().Active = false;
 				WaterDropsObjects [i].transform.SetParent (_parent.transform);
-				WaterDropsObjects [i].transform.localScale = new Vector3 (size, size, 1f);
+				WaterDropsObjects [i].transform.localScale = new Vector3 (size*0.1f, size*0.1f, 1f);
                 WaterDropsObjects[i].layer = WaterDropsObjects[0].layer;
                 //WaterDropsObjects[i].SetActive(false);
             }
@@ -389,13 +389,14 @@
 		}
 
 		public void StartWaterSpawner() {
+			LevelManager.instance.waterIsPumped = true;
+			LevelManager.instance.DeactivatePieces();
 			instance.Spawn();
 		}
 
 		public void StopWaterSpawner() {
 			JustStopSpawner();
 		}
-
 	}
 
 }

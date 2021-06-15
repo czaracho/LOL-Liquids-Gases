@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static int CurrentTotalStars = 0;
+    public static GameController instance;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (instance != null)
+        {
+            return;
+        }
+        instance = this;
     }
 }
