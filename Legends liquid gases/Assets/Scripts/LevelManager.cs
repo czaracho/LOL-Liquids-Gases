@@ -14,7 +14,8 @@ public class LevelManager : MonoBehaviour
     public GameObject nextLevelLayout;
     public string nextLevel = "level2";
     public static LevelManager instance;
-    private Piece[] pieces;
+    [HideInInspector]
+    public Piece[] pieces;
     public int lvlMaxScoreMoves = 5;
     public int lvlMidScoreMoves = 7;
     public int lvlMinScoreMoves = 10;
@@ -90,6 +91,18 @@ public class LevelManager : MonoBehaviour
         else if (currentLvlMoves > lvlMinScoreMoves) {
             currentLvlStarsEarned = 0;
             currentLevelStarsEarned.text = "Stars = 0";
+        }
+    }
+
+    public void RestartToNonSelectedPiece()
+    {
+        foreach (Piece piece in pieces)
+        {
+            if (piece.isSelected) {
+                piece.isSelected = false;
+                piece.CancelPulsatingAnimation();
+                piece.ResumeFloatAnimation();
+            }
         }
     }
 }

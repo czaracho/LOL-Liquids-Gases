@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/DialogScreen.unity
     guid: f4b7d4c20d2d8e84eb176f518b8bfbe1
   - enabled: 1
-    path: Assets/Scenes/level1.unity
+    path: Assets/Scenes/_levelTemplate.unity
     guid: b2acc4b04b2d9ba449c62a18c289e419
   - enabled: 1
     path: Assets/Scenes/level2.unity

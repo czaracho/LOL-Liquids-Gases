@@ -6,16 +6,20 @@ using DG.Tweening;
 
 public class Piece : MonoBehaviour
 {
-    public enum PieceType { straight, pipeL, pipeT}
+    public enum PieceType { straight, pipeL, pipeT }
     public PieceType piece;
+    public bool pieceStartOnBoard = false;
 
-    private bool isSelected = false;
+    [HideInInspector]
+    public bool isSelected = false;
     public bool isPlaced = false;
     private bool isRotating = false;
     private int nextAngle;
-    //public int startingAngle = 0;
     public int currentAngle = 0;
     PipePlacementManager pipePlacementManager;
+    private int[] startingAngles = { 0, 0, 25, 45, -45, -25 };
+    private float[] startingDelay = { 0.25f, 0.5f, 0.75f};
+    public Transform parentSlot;
 
     private void Start()
     {
@@ -24,19 +28,23 @@ public class Piece : MonoBehaviour
             transform.parent.rotation = Quaternion.Euler(0, 0, currentAngle);
         }
         else {
-            transform.parent.localScale = new Vector3(transform.parent.localScale.x * 0.75f, transform.parent.localScale.x * 0.75f, 1);
 
+            int i = Random.Range(0, 5);
+            int j = Random.Range(0,2);
+            //es para que aparezca con un angulo random en la nube
+            int randomAngle = startingAngles[i];
+            //es para que aparezca con un delay en la animacion de subir arriba y abajo
+            float randomDelay = startingDelay[j];
+
+            transform.parent.rotation = Quaternion.Euler(0, 0, randomAngle);
+            transform.parent.localScale = new Vector3(transform.parent.localScale.x * 0.85f, transform.parent.localScale.y * 0.85f, 1);
+
+            StartCoroutine(InitTweenSequence(randomDelay));
         }
 
         pipePlacementManager = PipePlacementManager.instance;
         nextAngle = GetNextAngle(currentAngle);
     }
-
-    private void Update()
-    {
-        //Debug.Log("NextAngle: " + nextAngle + " - Current Angle: " + currentAngle);
-    }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -56,15 +64,19 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (LevelManager.instance.waterIsPumped) {
+        if (LevelManager.instance.waterIsPumped || pieceStartOnBoard) {
             return;
         }
 
+        LevelManager.instance.RestartToNonSelectedPiece();
+
+        isSelected = true;
+
         if (!isPlaced)
         {
-            isSelected = true;
+            DOTween.Pause("float" + transform.parent.name);
             pipePlacementManager.pieceSelected = this;
-            transform.parent.DOScale(transform.parent.localScale.x * 1.1f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
+            transform.parent.DOScale(transform.parent.localScale.x * 1.1f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased().SetId("pulsing" + transform.parent.name);
         }
         else
         {
@@ -76,8 +88,10 @@ public class Piece : MonoBehaviour
     }
 
     public void MoveToTile(Transform tile) {
+        DOTween.Kill("float" + transform.parent.name);
+        DOTween.Kill("pulsing" + transform.parent.name);
+        transform.parent.rotation = Quaternion.Euler(0, 0, 0);
         LevelManager.instance.addMoveCounter();
-        DOTween.KillAll();
         transform.parent.parent = null;
         transform.parent.localScale = Vector3.one;
         isPlaced = true;
@@ -134,4 +148,23 @@ public class Piece : MonoBehaviour
     public void DeactivatePiece() {
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
     }
+
+    IEnumerator InitTweenSequence(float randomDelay) {
+        yield return new WaitForSeconds(randomDelay);
+        transform.parent.DOMoveY(transform.parent.position.y + 0.25f, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).SetId("float" + transform.parent.name).SetAutoKill(false);
+    }
+
+    public void CancelPulsatingAnimation() {
+        DOTween.Kill("pulsing" + transform.parent.name);
+
+        if (!isPlaced) {
+            transform.parent.localScale = new Vector3(0.85f, 0.85f, 1);
+
+        }
+    }
+
+    public void ResumeFloatAnimation() {
+        DOTween.Play("float" + transform.parent.name);
+    }
+
 }
