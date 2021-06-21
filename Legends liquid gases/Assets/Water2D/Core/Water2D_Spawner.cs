@@ -60,6 +60,7 @@
 
 		[Header("Material & color")]
 		public Material WaterMaterial;
+		public Material SmokeMaterial;
 		public Color FillColor = new Color(0f,112/255f,1f);
 		public Color StrokeColor = new Color(4/255f,156/255f,1f);
 		public Color SmokeColor = new Color(0f, 112 / 255f, 1f);
@@ -297,7 +298,7 @@
 					if (DynamicChanges) {
 						_initSpeed = initSpeed;
 						MetaBall.transform.localScale = new Vector3 (size, size, 1f);
-						SetWaterColor (FillColor, StrokeColor);
+						//SetWaterColor (FillColor, StrokeColor);
 					}
 
 					WaterDropsObjects [i].GetComponent<Rigidbody2D> ().velocity = _initSpeed;
@@ -355,7 +356,7 @@
                     {
                         _initSpeed = initSpeed;
                         MetaBall.transform.localScale = new Vector3(size, size, 1f);
-                        SetWaterColor(FillColor, StrokeColor);
+                        //SetWaterColor(FillColor, StrokeColor);
                     }
 
                     WaterDropsObjects[i].GetComponent<Rigidbody2D>().velocity = _initSpeed;
@@ -391,6 +392,7 @@
 		public void StartWaterSpawner() {
 			LevelManager.instance.waterIsPumped = true;
 			LevelManager.instance.DeactivatePieces();
+			UIBehaviour.instance.PlayBouncyAnimation("spawnWater");
 			instance.Spawn();
 		}
 

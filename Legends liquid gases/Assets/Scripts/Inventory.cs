@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour
     Transform[] inventorySlots;
     Transform[] pieces;
     public GameObject dialogBubble;
+    public float bubbleScale = 1f;
+    public float bubbleScaleSpeed = 0.25f;
 
     private void Awake()
     {
@@ -32,7 +34,8 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        dialogBubble.transform.DOScale(dialogBubble.transform.localScale.x * 1.05f, 0.25f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
+        bubbleScale = 1 + (bubbleScale / 100);
+        dialogBubble.transform.DOScale(dialogBubble.transform.localScale.x * bubbleScale, bubbleScaleSpeed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
     }
 
 }

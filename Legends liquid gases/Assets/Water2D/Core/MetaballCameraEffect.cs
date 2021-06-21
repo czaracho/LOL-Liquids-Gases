@@ -37,7 +37,6 @@ namespace UnityStandardAssets.ImageEffects
         }
 
         public Material cutOutMaterial;
-
         public Camera bgCamera;
 
 
@@ -124,17 +123,17 @@ namespace UnityStandardAssets.ImageEffects
 			DownSample4x(source, buffer);
 
 
-            // Blur the small texture
+            //Blur the small texture
             for (int i = 0; i < iterations; i++)
             {
-					buffer2 = RenderTexture.GetTemporary (rtW, rtH, 0);
-					FourTapCone (buffer, buffer2, i);
-					RenderTexture.ReleaseTemporary (buffer);
-					buffer = buffer2;
+                buffer2 = RenderTexture.GetTemporary(rtW, rtH, 0);
+                FourTapCone(buffer, buffer2, i);
+                RenderTexture.ReleaseTemporary(buffer);
+                buffer = buffer2;
             }
 
 
-     
+
             Graphics.Blit(bgTargetTexture, destination); // background
 			Graphics.Blit(buffer, destination, cutOutMaterial); // water
             RenderTexture.ReleaseTemporary(buffer);

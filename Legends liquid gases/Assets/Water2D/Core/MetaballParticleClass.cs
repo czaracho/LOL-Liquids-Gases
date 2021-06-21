@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Water2D;
 
 public class MetaballParticleClass : MonoBehaviour {
 
 	public GameObject MObject;
 	public float LifeTime;
 	private SpriteRenderer sprite;
+	private Burner burner;
+	private Color steamColor;
+	private Color steamStrokeColor;
+
 	public bool Active{
 		get{ return _active;}
 		set{ _active = value;
@@ -32,6 +37,8 @@ public class MetaballParticleClass : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 		tr = GetComponent<TrailRenderer> ();
 		sprite = GetComponent<SpriteRenderer>();
+		//steamColor = Water2D_Spawner.instance.SmokeColor;
+		//steamStrokeColor = Water2D_Spawner.instance.SmokeStrokeColor;
 
 	}
 
@@ -56,10 +63,6 @@ public class MetaballParticleClass : MonoBehaviour {
 
 	}
 
-	private void ImpulseWater() { 
-		
-	}
-
 
 	void VelocityLimiter()
 	{		
@@ -76,19 +79,23 @@ public class MetaballParticleClass : MonoBehaviour {
 
 		switch (collision.name) {
             case "right":
-                redirectWater(new Vector2(1, 1), collision);
+                redirectWater(new Vector2(1, 1));
                 break;
             case "left":
-                redirectWater(new Vector2(-1, 1), collision);
+                redirectWater(new Vector2(-1, 1));
                 break;
             case "up":
-                redirectWater(new Vector2(0, 2), collision);
+                redirectWater(new Vector2(0, 2));
                 break;
             case "down":
-                redirectWater(new Vector2(0, -2), collision);
+                redirectWater(new Vector2(0, -2));
                 break;
             case "WaterPumpToContainer":
 				StartCoroutine(ActivateTrailSprite());
+				break;
+			case "Burner":
+				Debug.Log("Tocamos al barn burner");
+				transformToSteam(new Vector2(0,0));
 				break;
 			default:
 				break;
@@ -104,10 +111,18 @@ public class MetaballParticleClass : MonoBehaviour {
 	}
 	
 
-	void redirectWater(Vector2 waterDirection, Collider2D collision) {
+	void redirectWater(Vector2 waterDirection) {
 		rb.velocity = Vector2.zero;
 		sprite.enabled = false;
 		tr.enabled = false;
+	}
+
+	void transformToSteam(Vector2 steamDirection)
+	{
+		
+		rb.velocity = Vector2.zero;
+		rb.AddForce(transform.right * 5f, ForceMode2D.Impulse);
+		rb.gravityScale = -5;
 	}
 
 	IEnumerator ActivateTrailSprite() {

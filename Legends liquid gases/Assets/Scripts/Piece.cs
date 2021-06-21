@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class Piece : MonoBehaviour
 {
-    public enum PieceType { straight, pipeL, pipeT }
+    public enum PieceType { straight, pipeL, pipeT, burner }
     public PieceType piece;
     public bool pieceStartOnBoard = false;
 
@@ -14,12 +14,14 @@ public class Piece : MonoBehaviour
     public bool isSelected = false;
     public bool isPlaced = false;
     private bool isRotating = false;
-    private int nextAngle;
+    [HideInInspector]
+    public int nextAngle;
     public int currentAngle = 0;
     PipePlacementManager pipePlacementManager;
     private int[] startingAngles = { 0, 0, 25, 45, -45, -25 };
     private float[] startingDelay = { 0.25f, 0.5f, 0.75f};
     public Transform parentSlot;
+    public Burner burner;
 
     private void Start()
     {
@@ -104,10 +106,16 @@ public class Piece : MonoBehaviour
         LevelManager.instance.addMoveCounter();
         isRotating = true;
         transform.parent.DORotate(new Vector3(transform.parent.rotation.x, transform.parent.rotation.y, transform.parent.rotation.z + 90f), 0.4f, RotateMode.WorldAxisAdd);
+
         StartCoroutine(AllowRotation());
     }
 
     IEnumerator AllowRotation() {
+
+        if (burner != null) {
+            burner.angle = nextAngle;
+        }
+
         yield return new WaitForSeconds(0.6f);
         transform.parent.rotation = Quaternion.Euler(0, 0, nextAngle);
         nextAngle = nextAngle + 90;
@@ -120,7 +128,7 @@ public class Piece : MonoBehaviour
     }
 
     private int GetNextAngle(int angle) {
-        
+
         int newAngle = 0;
 
         switch (angle)

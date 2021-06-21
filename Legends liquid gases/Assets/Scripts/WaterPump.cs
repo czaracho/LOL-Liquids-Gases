@@ -19,7 +19,5 @@ public class WaterPump : MonoBehaviour
         if (collision.tag == "Metaball_liquid") {
             collision.gameObject.transform.position = PumpEnd.transform.position;
         }
-
     }
-
 }

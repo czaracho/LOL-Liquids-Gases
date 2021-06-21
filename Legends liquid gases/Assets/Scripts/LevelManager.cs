@@ -52,12 +52,17 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void goToNextLevel() {
-        SceneManager.LoadScene(nextLevel);
+    public void goToNextLevel()
+    {
+        waterIsPumped = true;
+        UIBehaviour.instance.FadeTo(nextLevel);
     }
 
-    public void restartLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    public void restartLevel()
+    {
+        waterIsPumped = true;
+        UIBehaviour.instance.PlayBouncyAnimation("restart");
+        UIBehaviour.instance.FadeTo(SceneManager.GetActiveScene().name);
     }
 
     public void DeactivatePieces() {
