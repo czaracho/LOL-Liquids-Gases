@@ -7,8 +7,12 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    [HideInInspector]
     public bool waterIsPumped = false;
+    [HideInInspector]
+    public bool levelCleared = false;
     public int requiredDropQuantity = 100;
+    [HideInInspector]
     public int currentDropQuantity = 0;
     public GameObject ingameLayout;
     public GameObject nextLevelLayout;
@@ -21,7 +25,6 @@ public class LevelManager : MonoBehaviour
     public int lvlMinScoreMoves = 10;
     public int currentLvlStarsEarned = 0;
     public Text currentMovesText;
-    public Text currentLevelStarsEarned;
 
     [HideInInspector]
     public int currentLvlMoves = 0;
@@ -39,7 +42,6 @@ public class LevelManager : MonoBehaviour
     {
         waterIsPumped = false;
         pieces = FindObjectsOfType<Piece>();
-        currentMovesText.text = "Current Moves = 0";
     }
 
     public void AddWaterDrop() {
@@ -48,6 +50,7 @@ public class LevelManager : MonoBehaviour
         if (currentDropQuantity == requiredDropQuantity) {
             ingameLayout.SetActive(false);
             nextLevelLayout.SetActive(true);
+            levelCleared = true;
             checkStarScore();
         }
     }
@@ -55,6 +58,7 @@ public class LevelManager : MonoBehaviour
     public void goToNextLevel()
     {
         waterIsPumped = true;
+        UIBehaviour.instance.PlayBouncyAnimation("nextLevel");
         UIBehaviour.instance.FadeTo(nextLevel);
     }
 
@@ -81,21 +85,17 @@ public class LevelManager : MonoBehaviour
         if (currentLvlMoves <= lvlMaxScoreMoves)
         {
             currentLvlStarsEarned = 3;
-            currentLevelStarsEarned.text = "Stars = 3";
         }
         else if (currentLvlMoves <= lvlMidScoreMoves)
         {
             currentLvlStarsEarned = 2;
-            currentLevelStarsEarned.text = "Stars = 2";
         }
         else if (currentLvlMoves <= lvlMinScoreMoves)
         {
             currentLvlStarsEarned = 1;
-            currentLevelStarsEarned.text = "Stars = 1";
         }
         else if (currentLvlMoves > lvlMinScoreMoves) {
             currentLvlStarsEarned = 0;
-            currentLevelStarsEarned.text = "Stars = 0";
         }
     }
 

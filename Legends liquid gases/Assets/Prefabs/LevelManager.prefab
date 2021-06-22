@@ -50,10 +50,9 @@ MonoBehaviour:
   nextLevelLayout: {fileID: 0}
   nextLevel: level2
   pieces: []
-  lvlMaxScoreMoves: 7
-  lvlMidScoreMoves: 9
-  lvlMinScoreMoves: 11
+  lvlMaxScoreMoves: 3
+  lvlMidScoreMoves: 4
+  lvlMinScoreMoves: 5
   currentLvlStarsEarned: 0
   currentMovesText: {fileID: 0}
-  currentLevelStarsEarned: {fileID: 0}
   currentLvlMoves: 0

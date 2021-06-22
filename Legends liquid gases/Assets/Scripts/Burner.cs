@@ -4,36 +4,23 @@ using UnityEngine;
 
 public class Burner : MonoBehaviour
 {
-    public Piece piece;
-    [HideInInspector]
-    public bool touched = false;
-    [HideInInspector]
-    public string direction = "down";
-    [HideInInspector]
-    public int angle = 0;
+    public Water2D.Water2D_Spawner SmokeSpawner;
+    bool isActive = false;
+    float counter = 0f;
 
 
-    public string steamDirection() {
-
-        switch (angle)
-        {
-            case 0:
-                direction = "down";
-                break;
-            case 90:
-                direction = "right";
-                break;
-            case 180:
-                direction = "up";
-                break;
-            case -90:
-                direction = "left";
-                break;
-            default:
-                break;
-        }
-
-        return direction;
+    private void Update()
+    {
+        
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Metaball_liquid") {
+            collision.gameObject.SetActive(false);
+            SmokeSpawner.StartSmokeSpawner();
+        }
+    }
+
 
 }

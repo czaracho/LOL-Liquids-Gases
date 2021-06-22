@@ -1,83 +1,491 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Water2D;
-
-public class MetaballParticleClass : MonoBehaviour {
-
-	public GameObject MObject;
-	public float LifeTime;
-	private SpriteRenderer sprite;
-	private Burner burner;
-	private Color steamColor;
-	private Color steamStrokeColor;
-
-	public bool Active{
-		get{ return _active;}
-		set{ _active = value;
-			if (MObject) {
-				MObject.SetActive (value);
-
-				if (tr)
-					tr.Clear ();
-
-			}
-		}
-	}
-	public bool witinTarget; // si esta dentro de la zona de vaso de vidrio en la meta
+using UnityEditor;
+using DG.Tweening;
 
 
-	bool _active;
-	float delta;
-	Rigidbody2D rb;
-	TrailRenderer tr;
+[ExecuteInEditMode]
+public class MetaballParticleClass : MonoBehaviour
+{
+    public GameObject MObject;
+    public float LifeTime;
+    public Water2D.Water2D_Spawner SpawnerParent;
+    private SpriteRenderer sprite;
+    public Color steamColor;
+    public Color steamStrokeColor;
+    private PipeImpulser pipeImpulser;
+    private float smallForce = 0.25f;
+    private float mediumForce = 0.5f;
 
-	void Start () {
-		//MObject = gameObject;
-		rb = GetComponent<Rigidbody2D> ();
-		tr = GetComponent<TrailRenderer> ();
-		sprite = GetComponent<SpriteRenderer>();
-		//steamColor = Water2D_Spawner.instance.SmokeColor;
-		//steamStrokeColor = Water2D_Spawner.instance.SmokeStrokeColor;
+    public bool Active
+    {
+        get { return _active; }
+        set
+        {
+            _active = value;
+            if (MObject)
+            {
+                MObject.SetActive(value);
 
-	}
+                if (tr)
+                    tr.Clear();
 
-	void Update () {
+            }
 
-		if (Active == true) {
+            if (value)
+            {
+                delta *= 0;
+                wakeUpTime = Time.time;
 
-			VelocityLimiter ();
+                if (glowSP)
+                    glowSP.enabled = true;
+            }
 
-			if (LifeTime < 0)
-				return;
+            if (!value)
+            {
+                //substrac 1 unit of particle using.
+                if(SpawnerParent)
+                    SpawnerParent.DropsUsed--;
 
-			if (delta > LifeTime) {
-				delta *= 0;
-				Active = false;
-			} else {
-				delta += Time.deltaTime;
-			}
+                if (rb != null) // reset speed simulation in Editor
+                    rb.velocity *= 0f;
+
+                if (_isFreeze)
+                {
+                    rb.constraints = RigidbodyConstraints2D.None;
+                    rb.sharedMaterial = null;
+                    _isFreeze = false;
+                }
+                   
+
+                delta *= 0;
+
+            }
+            ScaleDownIsPerforming = false;
+
+        }
+    }
+    public bool witinTarget;
+
+    public Vector2 Editor_Velocity; // velocity used within editor simulation
+    public Vector2 Velocity_Limiter_X; // Limiter of speed in X in simulation
+    public Vector2 Velocity_Limiter_Y; // Limiter of speed in X in simulation
+
+    public bool ScaleDown = false;
+    public float endSize = 0f;
+    public bool BlendingColor;
+    public SpriteRenderer glowSP;
+
+    public void SetColor(Color _color)
+    {
+        sr.color = _color;
+    }
+
+    public void SetFreeze(bool _val = true)
+    {
+        _isFreeze = _val;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+       //rb.gravityScale = .5f;
+    }
+
+    public bool GetFreeze()
+    { return _isFreeze; }
+
+    public void SetHighDensity(bool _val = true)
+    {
+        _isFreeze = _val;
+        //rb.drag = 25f;
+        rb.angularDrag = 25f;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void removeGlow()
+    {
+        glowSP.enabled = false;
+    }
+
+    bool _active;
+    bool _isFreeze;
+    float delta;
+    Rigidbody2D rb;
+    CircleCollider2D cc;
+    TrailRenderer tr;
+    SpriteRenderer sr;
+    Collider2D[] Contacts;
+    float deltaSimul;
+    float fixedDeltaSimul = 0f;
+    float wakeUpTime;
+
+#if UNITY_EDITOR
+
+    private void OnEnable()
+    {
+        EditorApplication.update += Update;
+    }
+
+    private void OnDisable()
+    {
+        EditorApplication.update -= Update;
+    }
+
+#endif
+
+    void Start()
+    {
+        //MObject = gameObject;
+        rb = GetComponent<Rigidbody2D>();
+        tr = GetComponent<TrailRenderer>();
+        cc = GetComponent<CircleCollider2D>();
+        sr = GetComponent <SpriteRenderer>();
+
+        Contacts = new Collider2D[4];
+    }
+
+    void Update()
+    {
+
+       
+
+        if (Active == true)
+        {
+            // cache the spriterender component
+            if (SpawnerParent.GlowEffect && glowSP == null)
+            {
+                Transform t = MObject.transform.Find("_glow");
+                if(t != null)
+                    glowSP = t.GetComponent<SpriteRenderer>();
+            }
+
+            if(sr != null)
+                if(sr.isVisible)
+                    ResizeQuadEffectController.setMinMaxParticlePosition(transform.position, transform.localScale.x*.12f);
 
 
-		}
 
-	}
+            if (ScaleDown)
+                ScaleItDown();
+
+            VelocityLimiter();
+
+            if (BlendingColor) {
+               
+                Blend();
+            }
+
+            if(SpawnerParent.Water2DEmissionType == Water2D.Water2D_Spawner.EmissionType.FillerCollider)
+                return;
+
+            if (LifeTime < 0)
+                return;
+
+            if (delta > LifeTime)
+            {
+                delta *= 0;
+                Active = false;
+            }
+            else
+            {
+                delta += Time.deltaTime;
+            }
 
 
-	void VelocityLimiter()
-	{		
-		Vector2 _vel = rb.velocity;
-		if (_vel.y < -8f) {
-			_vel.y = -8f;
-		}
-		rb.velocity = _vel;
-	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+            // Handle collisions in fixedtime only editor
+            if (deltaSimul > fixedDeltaSimul)
+            {
+                deltaSimul *= 0;
+                OnCollisionEnter2DEditor();
+            }
+            else
+            {
+                deltaSimul += Time.deltaTime;
+            }
+
+           
+
+        }
+
+    }
+
+    Vector3 pos_aux;
+    void AnimInEditor()
+    {
+        Editor_Velocity += Physics2D.gravity * .0001f;
+       // VelocityLimiterEditor();
+        pos_aux = transform.position;
+        pos_aux = (Vector2)pos_aux + Editor_Velocity;
+        transform.position = pos_aux;
+        //print(Time.deltaTime);
+    }
+
+    void VelocityLimiter()
+    {
+        if (rb == null)
+            return;
+
+        Vector2 _vel = rb.velocity;
+        _vel = rb.velocity;
+
+        if (_vel.x < Velocity_Limiter_X.x)
+        {
+            _vel.x = Velocity_Limiter_X.x;
+        }
+
+        if (_vel.x > Velocity_Limiter_X.y)
+        {
+            _vel.x = Velocity_Limiter_X.y;
+        }
+
+        if (_vel.y < Velocity_Limiter_Y.x)
+        {
+            _vel.y = Velocity_Limiter_Y.x;
+        }
+
+        if (_vel.y > Velocity_Limiter_Y.y)
+        {
+            _vel.y = Velocity_Limiter_Y.y;
+        }
+
+        rb.velocity = _vel;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
 
 
-		switch (collision.name) {
+        SpawnerParent.InvokeOnCollisionEnter2D(gameObject, collision.contacts[0].collider.gameObject);
+    }
+
+   // private void OnCollisionExit2D(Collision2D collision)
+   //{
+       // SpawnerParent.InvokeOnCollisionEnter2D(gameObject);
+   // }
+
+    private void OnCollisionEnter2DEditor()
+    {
+        if (Application.isPlaying)
+            return;
+
+        if (cc == null)
+            return;
+
+        if (Contacts == null)
+            return;
+
+
+        int i = Physics2D.OverlapCircleNonAlloc(rb.position, cc.radius * .9f, Contacts);
+
+        if (i > 0)
+        {
+            for (int j = 0; j < Contacts.Length; j++)
+            {
+                if (Contacts[j] == null)
+                    continue;
+
+                if (Contacts[j].GetInstanceID() == gameObject.GetInstanceID())
+                    continue;
+
+                SpawnerParent.InvokeOnCollisionEnter2D(gameObject, Contacts[j].gameObject);
+            }
+           
+        }
+
+        
+    }
+
+    bool ScaleDownIsPerforming = false;
+    Vector2 deltaScale;
+    Vector2 initScale;
+    Vector2 tmpScale;
+    void ScaleItDown()
+    {
+        // Initializes
+        if (!ScaleDownIsPerforming) {
+            ScaleDownIsPerforming = true;
+        }
+
+        if(ScaleDownIsPerforming)
+            ScaleDownPerform();
+    }
+    void ScaleDownPerform()
+    {
+         transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(endSize, endSize), (delta /LifeTime) * Time.deltaTime * .8f );
+        //print(Time.deltaTime);
+        //elapsedTime += Time.deltaTime;
+    }
+
+
+    int breathFrames = 6;
+    int framesCount = 0;
+
+
+    void Blend()
+    {
+        if (true)
+        {
+           
+            if (cc == null)
+                return;
+
+            if (Contacts == null)
+            {
+                Contacts = new Collider2D[2];
+            }
+
+            if(framesCount < breathFrames)
+            {
+                framesCount++;
+                return;
+            }
+
+            framesCount *= 0;
+            
+            //mix only in movement
+
+            if (rb.velocity.sqrMagnitude < 0.00000001f)
+              return;
+
+            int i = Physics2D.OverlapCircleNonAlloc(rb.position, cc.radius * 8f, Contacts, 1 << gameObject.layer);
+
+            if (i > 0)
+            {
+
+
+                for (int j = 0; j < Contacts.Length; j++)
+                {
+                    if (Contacts[j] == null)
+                        continue;
+
+                    if (!Contacts[j].gameObject.activeSelf)
+                        continue;
+
+                    if (Contacts[j].GetInstanceID() == gameObject.GetInstanceID())
+                        continue;
+
+                    if (Contacts[j].tag != "Metaball_liquid")
+                        continue;
+
+                    //print("blending");
+                    Color c2 = Contacts[j].GetComponent<SpriteRenderer>().color;
+                    //print(j);
+                    if (c2 == sr.color)
+                        return;
+
+                    //print("mixing");
+
+                    sr.color = Color.Lerp(sr.color, c2, .045f);
+                    if (Contacts[j].GetComponent<MetaballParticleClass>().SpawnerParent.Blending) {
+                        Contacts[j].GetComponent<SpriteRenderer>().color = Color.Lerp(c2, sr.color, .045f);
+                    }
+                    
+                }
+
+            }
+
+
+        }
+    }
+
+    void Blend2()
+    {
+        if (true)
+        {
+
+            if (cc == null)
+                return;
+
+           
+
+            if (framesCount < breathFrames)
+            {
+                framesCount++;
+                return;
+            }
+
+            framesCount *= 0;
+
+            //mix only in movement
+
+            if (rb.velocity.sqrMagnitude < 0.00000001f)
+                return;
+
+            int c = 0;
+            int ContactsMax = 60;
+            MetaballParticleClass []_contacts = new MetaballParticleClass[ContactsMax] ;
+
+           
+
+            if (Water2D.SpawnersManager.instance == null)
+                Water2D.SpawnersManager.GetAllParticles();
+            
+
+            if (Water2D.SpawnersManager.instance._allparticles == null)
+                return;
+            
+
+            for (int i = 0; i < Water2D.SpawnersManager.instance._allparticles.Length; i++)
+            {
+                if (c >= ContactsMax)
+                    break;
+
+                if (Water2D.SpawnersManager.instance._allparticles[i].gameObject.GetHashCode() == gameObject.GetHashCode())
+                    continue;
+
+                if (!Water2D.SpawnersManager.instance._allparticles[i].gameObject.activeSelf)
+                    continue;
+
+                if (Water2D.SpawnersManager.instance._allparticles[i].gameObject.tag != "Metaball_liquid")
+                    continue;
+
+                if ((Water2D.SpawnersManager.instance._allparticles[i].transform.position - gameObject.transform.position).sqrMagnitude < (cc.radius +.1f) * (cc.radius + .1f))
+                {
+                    // Contact!SpawnersManager.instance._allparticles[i];
+                    c++;
+                   
+                }
+            }
+            
+
+            //int i = Physics2D.OverlapCircleNonAlloc(rb.position, cc.radius * .9f, Contacts, 1 << gameObject.layer);
+
+            if (c > 0)
+            {
+
+                for (int j = 0; j < _contacts.Length; j++)
+                {
+                    if (_contacts[j] == null)
+                        continue;
+
+                    
+                    Color c2 = _contacts[j].gameObject.GetComponent<SpriteRenderer>().color;
+
+                    if (c2 == sr.color)
+                        return;
+
+
+
+                    sr.color = Color.LerpUnclamped(sr.color, c2, .02f);
+                   // print(sr.color + " " + c2);
+                }
+
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (collision.tag)
+        {
+            case "Destroyer":
+                this.Active = false;
+                break;
+            default:
+                break;
+        }
+
+        switch (collision.name)
+        {
             case "right":
                 redirectWater(new Vector2(1, 1));
                 break;
@@ -90,44 +498,120 @@ public class MetaballParticleClass : MonoBehaviour {
             case "down":
                 redirectWater(new Vector2(0, -2));
                 break;
-            case "WaterPumpToContainer":
-				StartCoroutine(ActivateTrailSprite());
-				break;
-			case "Burner":
-				Debug.Log("Tocamos al barn burner");
-				transformToSteam(new Vector2(0,0));
-				break;
-			default:
-				break;
-		}
+            case "WaterContainer":
+                StartCoroutine(ActivateTrailSprite());
+                break;
+            case "Burner":
+                this.Active = false;
+                break;
+            default:
+                break;
+        }
 
-		switch (collision.tag) {
-			case "Destroyer":
-				this.Active = false;
-				break;
-			default:
-				break;
-		}
-	}
-	
 
-	void redirectWater(Vector2 waterDirection) {
-		rb.velocity = Vector2.zero;
-		sprite.enabled = false;
-		tr.enabled = false;
-	}
+    }
 
-	void transformToSteam(Vector2 steamDirection)
-	{
-		
-		rb.velocity = Vector2.zero;
-		rb.AddForce(transform.right * 5f, ForceMode2D.Impulse);
-		rb.gravityScale = -5;
-	}
 
-	IEnumerator ActivateTrailSprite() {
-		yield return new WaitForSeconds(0.25f);
-		sprite.enabled = true;
-		tr.enabled = true;
-	}
+    void redirectWater(Vector2 waterDirection)
+    {
+        rb.velocity = Vector2.zero;
+        sr.enabled = false;
+        tr.enabled = false;
+    }
+
+    IEnumerator ActivateTrailSprite()
+    {
+        yield return new WaitForSeconds(0.25f);
+        sr.enabled = true;
+        tr.enabled = true;
+    }
+
+    //void PrepareForImpulse() {
+
+    //    switch (pipeImpulser.piece.pieceType)
+    //    {
+    //        case Piece.PieceType.pipeL:
+    //            ImpulseSmokeDrop();
+    //            break;
+    //        case Piece.PieceType.straight:
+    //            break;
+    //        case Piece.PieceType.pipeT:
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //}
+
+    //void TransformToSteam()
+    //{
+    //    rb.velocity = Vector2.zero;
+    //    rb.gravityScale = -5;
+
+    //    switch (pipeImpulser.direction)
+    //    {
+    //        case "down":
+    //            this.gameObject.SetActive(false);
+    //            break;
+    //        case "up":
+    //            break;
+    //        case "left":
+    //            rb.AddForce(new Vector2(-smallForce, 0));
+    //            break;
+    //        case "right":
+    //            rb.AddForce(new Vector2(smallForce, 0));
+    //            break;
+    //        default:
+    //            break;
+    //    }
+
+
+
+    //    //switch (pipeImpulser.direction)
+    //    //{
+    //    //    case "down":
+
+    //    //        if (pipeImpulser.currentActiveHole == 0)
+    //    //        {
+    //    //            dropDirection = new Vector2(smallForce, 0);
+    //    //            StartCoroutine(waitForImpulse(dropDirection, 0.1f));
+    //    //        }
+    //    //        else if (pipeImpulser.currentActiveHole == 1)
+    //    //        {
+    //    //            dropDirection = new Vector2(0, mediumForce);
+    //    //            StartCoroutine(waitForImpulse(dropDirection, 0.1f));
+    //    //        }
+
+    //    //        break;
+    //    //    case "up":
+
+    //    //        if (pipeImpulser.currentActiveHole == 0)
+    //    //        {
+    //    //            dropDirection = new Vector2(-mediumForce * 5, 0);
+    //    //            this.transform.DOMove(pipeImpulser.gameObject.transform.position, 0f);
+    //    //            StartCoroutine(waitForImpulse(dropDirection, 0));
+    //    //        }
+    //    //        else if (pipeImpulser.currentActiveHole == 1)
+    //    //        {
+    //    //            dropDirection = new Vector2(0, -mediumForce * 2);
+    //    //            StartCoroutine(waitForImpulse(dropDirection, 0));
+    //    //        }
+
+    //    //        break;
+    //    //    case "left":
+    //    //        break;
+    //    //    case "right":
+    //    //        break;
+    //    //    default:
+    //    //        break;
+    //    //}
+    //}
+
+
+    IEnumerator waitForImpulse(Vector2 direction, float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        rb.AddForce(direction, ForceMode2D.Impulse);
+    }
+
+
+
 }

@@ -7,12 +7,19 @@ using DG.Tweening;
 
 public class UIBehaviour : MonoBehaviour
 {
+    //Ingame
     public Button playButton;
     public Button restartButton;
-    public GameObject playUnpressedImg;
-    public GameObject playPressedImg;
-    public GameObject restartUnpressedImg;
-    public GameObject restartPressedImg;
+    public Sprite playPressedSprite;
+    public Sprite restartPressedSprite;
+
+    //Next Level Layout
+    public Button restartButtonNxt;
+    public Sprite restartPressedNextSprite;
+    public Button nextLvlButton;
+    public Sprite nextLevelPressedSprite;
+
+
     [HideInInspector]
     public static UIBehaviour instance;
 
@@ -36,20 +43,25 @@ public class UIBehaviour : MonoBehaviour
 
     public void PlayBouncyAnimation(string button) {
 
-        if (button == "spawnWater") {
-            playUnpressedImg.SetActive(false);
-            playPressedImg.SetActive(true);
-            playButton.transform.DOScale(new Vector3(1.1f, 1.1f), 5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
-            playButton.enabled = false;
+        switch (button) {
+            case "spawnWater":
+                bouncyAnimationButton(playButton, playPressedSprite);
+                break;
 
+            case "restart":
+                if (!LevelManager.instance.levelCleared)
+                {
+                    bouncyAnimationButton(restartButton, restartPressedSprite);
+                }
+                else
+                {
+                    bouncyAnimationButton(restartButtonNxt, restartPressedNextSprite);
+                }
+               break;
 
-        }
-        else if (button == "restart") {
-
-            restartUnpressedImg.SetActive(false);
-            restartPressedImg.SetActive(true);
-            restartButton.transform.DOScale(new Vector3(1.1f, 1.1f), 5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
-            restartButton.enabled = false;
+            case "nextLevel":
+                    bouncyAnimationButton(nextLvlButton, restartPressedSprite);
+                break;
         }
     }
 
@@ -80,8 +92,6 @@ public class UIBehaviour : MonoBehaviour
         }
 
         SceneManager.LoadScene(scene);
-
-
     }
 
     public void FadeTo(string scene)
@@ -89,4 +99,10 @@ public class UIBehaviour : MonoBehaviour
         StartCoroutine(FadeOut(scene));
     }
 
+    void bouncyAnimationButton(Button button, Sprite pressedSprite) {
+
+        button.GetComponent<Button>().image.sprite = pressedSprite;
+        button.transform.DOScale(new Vector3(0.9f, 0.9f), 10f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
+        button.enabled = false;
+    }
 }

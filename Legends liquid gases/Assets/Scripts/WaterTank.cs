@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class WaterTank : MonoBehaviour
 {
-    public LevelManager levelManager;
+    LevelManager levelManager;
     public int waterDropLimit = 10;
     private int currentDropQuantity = 0;
+
+    private void Awake()
+    {
+        GameObject lvlMan = GameObject.Find("LevelManager");
+        levelManager = lvlMan.GetComponent<LevelManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

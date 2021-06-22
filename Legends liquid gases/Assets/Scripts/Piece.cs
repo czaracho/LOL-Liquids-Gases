@@ -7,24 +7,32 @@ using DG.Tweening;
 public class Piece : MonoBehaviour
 {
     public enum PieceType { straight, pipeL, pipeT, burner }
-    public PieceType piece;
-    public bool pieceStartOnBoard = false;
-
+    public PieceType pieceType;
+    [HideInInspector]
+    public bool pieceNotOnBoard = false;
+    [HideInInspector]
+    public bool isPlaced = false;
     [HideInInspector]
     public bool isSelected = false;
-    public bool isPlaced = false;
     private bool isRotating = false;
     [HideInInspector]
     public int nextAngle;
+    [HideInInspector]
     public int currentAngle = 0;
     PipePlacementManager pipePlacementManager;
     private int[] startingAngles = { 0, 0, 25, 45, -45, -25 };
     private float[] startingDelay = { 0.25f, 0.5f, 0.75f};
     public Transform parentSlot;
     public Burner burner;
+    public PipeImpulser pipeImpulser;
+
 
     private void Start()
     {
+        currentAngle = pipeImpulser.currentPieceAngle;
+        pieceNotOnBoard = pipeImpulser.pieceOffBoard;
+        isPlaced = pipeImpulser.pieceIsPlaced;
+
         if (isPlaced)
         {
             transform.parent.rotation = Quaternion.Euler(0, 0, currentAngle);
@@ -45,13 +53,19 @@ public class Piece : MonoBehaviour
         }
 
         pipePlacementManager = PipePlacementManager.instance;
+
+        if (pipeImpulser != null) {
+            pipeImpulser.adjustDirection(currentAngle);
+
+        }
+
         nextAngle = GetNextAngle(currentAngle);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Metaball_liquid") {
-            switch (piece){
+            switch (pieceType){
                 case PieceType.straight:                  
                     break;
                 case PieceType.pipeL:
@@ -66,7 +80,7 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (LevelManager.instance.waterIsPumped || pieceStartOnBoard) {
+        if (LevelManager.instance.waterIsPumped || pieceNotOnBoard) {
             return;
         }
 
@@ -76,7 +90,6 @@ public class Piece : MonoBehaviour
 
         if (!isPlaced)
         {
-            DOTween.Pause("float" + transform.parent.name);
             pipePlacementManager.pieceSelected = this;
             transform.parent.DOScale(transform.parent.localScale.x * 1.1f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased().SetId("pulsing" + transform.parent.name);
         }
@@ -112,8 +125,8 @@ public class Piece : MonoBehaviour
 
     IEnumerator AllowRotation() {
 
-        if (burner != null) {
-            burner.angle = nextAngle;
+        if (pipeImpulser != null) {
+            pipeImpulser.adjustDirection(nextAngle);
         }
 
         yield return new WaitForSeconds(0.6f);
