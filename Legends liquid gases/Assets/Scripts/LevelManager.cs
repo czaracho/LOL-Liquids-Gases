@@ -14,8 +14,6 @@ public class LevelManager : MonoBehaviour
     public int requiredDropQuantity = 100;
     [HideInInspector]
     public int currentDropQuantity = 0;
-    public GameObject ingameLayout;
-    public GameObject nextLevelLayout;
     public string nextLevel = "level2";
     public static LevelManager instance;
     [HideInInspector]
@@ -48,8 +46,7 @@ public class LevelManager : MonoBehaviour
         currentDropQuantity++;
 
         if (currentDropQuantity == requiredDropQuantity) {
-            ingameLayout.SetActive(false);
-            nextLevelLayout.SetActive(true);
+            UIBehaviour.instance.toNextLevelTransition();
             levelCleared = true;
             checkStarScore();
         }

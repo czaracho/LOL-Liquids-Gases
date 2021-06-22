@@ -7,6 +7,11 @@ using DG.Tweening;
 
 public class UIBehaviour : MonoBehaviour
 {
+    //Layouts
+    public GameObject ingameLayout;
+    public GameObject nextLevelLayout;
+    public GameObject nextLevelPanel;
+
     //Ingame
     public Button playButton;
     public Button restartButton;
@@ -19,6 +24,15 @@ public class UIBehaviour : MonoBehaviour
     public Button nextLvlButton;
     public Sprite nextLevelPressedSprite;
 
+    //Transitions
+    public float moveDuration = 0.45f;
+    public float panelScaleDuration = 0.15f;
+    public float levelCompleteDuration = 0.15f;
+    public float starsMoveDuration = 0.25f;
+    public GameObject levelCompleteText;
+
+    //Stars
+    public GameObject[] stars;
 
     [HideInInspector]
     public static UIBehaviour instance;
@@ -38,6 +52,7 @@ public class UIBehaviour : MonoBehaviour
         }
 
         StartCoroutine(FadeIn());
+        //StartCoroutine(startTransition());
 
     }
 
@@ -104,5 +119,48 @@ public class UIBehaviour : MonoBehaviour
         button.GetComponent<Button>().image.sprite = pressedSprite;
         button.transform.DOScale(new Vector3(0.9f, 0.9f), 10f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
         button.enabled = false;
+    }
+
+    public void toNextLevelTransition() {
+
+        ingameLayout.SetActive(false);
+        nextLevelLayout.SetActive(true);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(nextLevelPanel.transform.DOLocalMove(new Vector2(0,0), moveDuration));
+        seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 0.85f), panelScaleDuration));
+        seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 1), panelScaleDuration));
+        seq.Append(levelCompleteText.transform.DOScale(new Vector2(1.25f, 1.25f), levelCompleteDuration * 0.5f));
+        seq.Append(levelCompleteText.transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
+
+        int currentStars = LevelManager.instance.currentLvlStarsEarned;
+
+        for (int i = 0; i < currentStars; i++)
+        {
+            seq.Append(stars[i].transform.DOScale(new Vector2(1.25f, 1.25f), levelCompleteDuration * 0.5f));
+            seq.Append(stars[i].transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
+        }
+
+        nextLvlButton.transform.DOScale(new Vector2(1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    IEnumerator startTransition() {
+        yield return new WaitForSeconds(1f);
+        toNextLevelTransition();
+    }
+
+    IEnumerator starsTransition() {
+
+        LevelManager.instance.currentLvlStarsEarned = 3;
+        int currentStars = LevelManager.instance.currentLvlStarsEarned;
+
+        Sequence sStars = DOTween.Sequence();
+
+
+        for (int i = 0; i < currentStars; i++) { 
+        
+        }
+
+        yield return new WaitForSeconds(0.25f);
     }
 }
