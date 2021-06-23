@@ -75,7 +75,7 @@ public class UIBehaviour : MonoBehaviour
                break;
 
             case "nextLevel":
-                    bouncyAnimationButton(nextLvlButton, restartPressedSprite);
+                    bouncyAnimationButton(nextLvlButton, nextLevelPressedSprite);
                 break;
         }
     }
@@ -126,41 +126,23 @@ public class UIBehaviour : MonoBehaviour
         ingameLayout.SetActive(false);
         nextLevelLayout.SetActive(true);
 
+
         Sequence seq = DOTween.Sequence();
         seq.Append(nextLevelPanel.transform.DOLocalMove(new Vector2(0,0), moveDuration));
         seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 0.85f), panelScaleDuration));
         seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 1), panelScaleDuration));
-        seq.Append(levelCompleteText.transform.DOScale(new Vector2(1.25f, 1.25f), levelCompleteDuration * 0.5f));
-        seq.Append(levelCompleteText.transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
+        seq.Insert(0.25f, levelCompleteText.transform.DOScale(new Vector2(1.2f, 1.2f), levelCompleteDuration * 0.5f));
+        seq.Insert(0.35f, levelCompleteText.transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
 
         int currentStars = LevelManager.instance.currentLvlStarsEarned;
+        Debug.Log("CurrentStars: " + currentStars);
 
         for (int i = 0; i < currentStars; i++)
         {
             seq.Append(stars[i].transform.DOScale(new Vector2(1.25f, 1.25f), levelCompleteDuration * 0.5f));
-            seq.Append(stars[i].transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
+            seq.Append(stars[i].transform.DOScale(new Vector2(1, 1), levelCompleteDuration * 0.75f));
         }
 
         nextLvlButton.transform.DOScale(new Vector2(1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo);
-    }
-
-    IEnumerator startTransition() {
-        yield return new WaitForSeconds(1f);
-        toNextLevelTransition();
-    }
-
-    IEnumerator starsTransition() {
-
-        LevelManager.instance.currentLvlStarsEarned = 3;
-        int currentStars = LevelManager.instance.currentLvlStarsEarned;
-
-        Sequence sStars = DOTween.Sequence();
-
-
-        for (int i = 0; i < currentStars; i++) { 
-        
-        }
-
-        yield return new WaitForSeconds(0.25f);
     }
 }

@@ -20,11 +20,11 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        inventorySlots = new Transform[transform.childCount];
+        inventorySlots = new Transform[transform.GetChild(0).childCount];
 
         for (int i = 0; i < inventorySlots.Length; i++)
         {
-            inventorySlots[i] = transform.GetChild(i);
+            inventorySlots[i] = transform.GetChild(0).GetChild(i);
         }
     }
 

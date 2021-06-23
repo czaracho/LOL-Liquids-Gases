@@ -29,7 +29,7 @@ public class Piece : MonoBehaviour
 
     private void Start()
     {
-        currentAngle = pipeImpulser.currentPieceAngle;
+        currentAngle = (int)transform.parent.rotation.eulerAngles.z;
         pieceNotOnBoard = pipeImpulser.pieceOffBoard;
         isPlaced = pipeImpulser.pieceIsPlaced;
 

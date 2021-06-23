@@ -5,7 +5,6 @@ using UnityEngine;
 public class PipeImpulser : MonoBehaviour
 {
     public Piece piece;
-    public int currentPieceAngle = 0;
     public bool pieceOffBoard = false;
     public bool pieceIsPlaced = false;
     [HideInInspector]

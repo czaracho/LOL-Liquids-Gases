@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instance: {fileID: 1704136850}
   HashID: 0
-  Water2DType: 0
+  Water2DType: 2
   Water2DEmissionType: 0
   Water2DFillerType: 0
   FillerColliderMasked: 0
@@ -153,9 +153,59 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ParticlesTag: Metaball_liquid
   PersistentFluid: 0
-  size: 5
+  size: 4.25
   ScaleDown: 0
   LifeTime: 0
   DelayBetweenParticles: 0.05
@@ -166,12 +216,12 @@ MonoBehaviour:
   StyleByID: 0
   Sorting: 0
   ColorScheme: 1
-  FillColor: {r: 0.09614368, g: 0.8901961, b: 0.06666664, a: 0.9}
-  StrokeColor: {r: 0.831752, g: 0.9716981, b: 0.8204432, a: 0.5647059}
+  FillColor: {r: 0, g: 1, b: 0.22968554, a: 1}
+  StrokeColor: {r: 1, g: 1, b: 1, a: 0.5803922}
   Blending: 0
   _lastBlending: 0
-  AlphaCutOff: 0.25
-  AlphaStroke: 2.27
+  AlphaCutOff: 0.533
+  AlphaStroke: 1.213
   TintColor: {r: 0, g: 0.4392157, b: 1, a: 1}
   Intensity: 0.5
   LensMag: 1.2
@@ -184,7 +234,7 @@ MonoBehaviour:
   GlossOffset: 1
   _lastGlowEnabledValue: 0
   initSpeed: {x: 1, y: -1.8}
-  Speed: 6.000001
+  Speed: 6.0000014
   PhysicMat: {fileID: 6200000, guid: b0a58d042ab47e4459e8de12a0bf051f, type: 2}
   ColliderSize: 0.0327
   AutoMass: 1
@@ -198,9 +248,9 @@ MonoBehaviour:
   SimulateOnAwake: 0
   SimulateInEditor: 0
   SimulateInPlayMode: 0
-  DropCount: 100
-  _lastDropCount: 100
-  Loop: 1
+  DropCount: 150
+  _lastDropCount: 150
+  Loop: 0
   DropsUsed: 0
   DynamicChanges: 1
   OnValidateShapeFill:
@@ -224,7 +274,7 @@ MonoBehaviour:
   OnSpawnerEmitingParticle:
     m_PersistentCalls:
       m_Calls: []
-  TheIdentifier: 528368
+  TheIdentifier: 949546
   isRefractingMaterial: 0
 --- !u!1 &3697032044502194336
 GameObject:
@@ -361,6 +411,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3697032044659006779}
   - component: {fileID: 3697032044659006780}
+  - component: {fileID: 3697032044594958276}
+  - component: {fileID: 3697032044594958275}
   m_Layer: 0
   m_Name: WaterFountain
   m_TagString: Untagged
@@ -437,6 +489,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3697032044594958276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697032044659006781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1589fc05e553574b910701add1ad5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterSpawner: {fileID: 1704136850}
+  switchOnOff: {fileID: 3697032044594958275}
+--- !u!114 &3697032044594958275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697032044659006781}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e8cd7298733e443a8372f69545db60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSprite: {fileID: 3697032046498157838}
+  offSprite: {fileID: 3697032045144810043}
 --- !u!1 &3697032045144810043
 GameObject:
   m_ObjectHideFlags: 0

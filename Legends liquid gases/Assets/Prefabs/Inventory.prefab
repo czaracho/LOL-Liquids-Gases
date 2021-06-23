@@ -151,7 +151,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3511291891559032772}
-  - component: {fileID: 3511291891559032775}
   m_Layer: 0
   m_Name: inventorySlots
   m_TagString: Untagged
@@ -179,27 +178,6 @@ Transform:
   m_Father: {fileID: 3511291892891423865}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3511291891559032775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511291891559032773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e597b96c0850ed445a25826caad84e11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pipeStraight: {fileID: 4735519316617921962, guid: e7f04019e5a7bda4dad8fa14400705f3,
-    type: 3}
-  pipeL: {fileID: 5558703866147724137, guid: 3cda267d49986984190cec1301ee815c, type: 3}
-  pipeT: {fileID: 1470638207978612527, guid: 00c79b87b274b9c4190e8998964b1ade, type: 3}
-  burner: {fileID: 8840275743200112391, guid: 35f94b3e7e3fc63468ca9b06c82654f3, type: 3}
-  dialogBubble: {fileID: 308510857838469879}
-  bubbleScale: 5
-  bubbleScaleSpeed: 1
-  pieceType: 0100000000000000
 --- !u!1 &3511291892891423870
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3511291892891423865}
+  - component: {fileID: 1295320888}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -232,6 +211,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1295320888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511291892891423870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e597b96c0850ed445a25826caad84e11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipeStraight: {fileID: 4735519316617921962, guid: e7f04019e5a7bda4dad8fa14400705f3,
+    type: 3}
+  pipeL: {fileID: 5558703866147724137, guid: 3cda267d49986984190cec1301ee815c, type: 3}
+  pipeT: {fileID: 1470638207978612527, guid: 00c79b87b274b9c4190e8998964b1ade, type: 3}
+  burner: {fileID: 8840275743200112391, guid: 35f94b3e7e3fc63468ca9b06c82654f3, type: 3}
+  dialogBubble: {fileID: 308510857838469879}
+  bubbleScale: 5
+  bubbleScaleSpeed: 1
+  pieceType: 00000000010000000000000001000000
 --- !u!1 &3511291892981646605
 GameObject:
   m_ObjectHideFlags: 0

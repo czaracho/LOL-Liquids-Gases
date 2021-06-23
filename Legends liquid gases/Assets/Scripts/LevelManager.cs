@@ -43,12 +43,13 @@ public class LevelManager : MonoBehaviour
     }
 
     public void AddWaterDrop() {
+        
         currentDropQuantity++;
 
         if (currentDropQuantity == requiredDropQuantity) {
+            checkStarScore();
             UIBehaviour.instance.toNextLevelTransition();
             levelCleared = true;
-            checkStarScore();
         }
     }
 
@@ -83,11 +84,11 @@ public class LevelManager : MonoBehaviour
         {
             currentLvlStarsEarned = 3;
         }
-        else if (currentLvlMoves <= lvlMidScoreMoves)
+        else if (currentLvlMoves <= lvlMidScoreMoves && currentLvlMoves > lvlMaxScoreMoves)
         {
             currentLvlStarsEarned = 2;
         }
-        else if (currentLvlMoves <= lvlMinScoreMoves)
+        else if (currentLvlMoves <= lvlMinScoreMoves && currentLvlMoves > lvlMidScoreMoves)
         {
             currentLvlStarsEarned = 1;
         }

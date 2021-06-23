@@ -7,6 +7,8 @@ public class WaterTank : MonoBehaviour
     LevelManager levelManager;
     public int waterDropLimit = 10;
     private int currentDropQuantity = 0;
+    public SwitchOnOff switchOn;
+    private bool tankIsActive = false;
 
     private void Awake()
     {
@@ -16,10 +18,19 @@ public class WaterTank : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Metaball_liquid") {
+        if (collision.tag == "Metaball_liquid" || collision.tag == "Smoke") {
+
+            Debug.Log("Entramos al cosito bro");
+
             if (currentDropQuantity <= waterDropLimit) {
                 levelManager.AddWaterDrop();
                 currentDropQuantity++;
+            }
+
+            if (tankIsActive == false)
+            {
+                tankIsActive = true;
+                switchOn.SwitchOn();
             }
         }
     }

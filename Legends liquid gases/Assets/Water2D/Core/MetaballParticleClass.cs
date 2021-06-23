@@ -498,7 +498,10 @@ public class MetaballParticleClass : MonoBehaviour
             case "down":
                 redirectWater(new Vector2(0, -2));
                 break;
-            case "WaterContainer":
+            case "SmokeTankPumper":
+                StartCoroutine(ActivateTrailSprite());
+                break;
+            case "WaterTankPumper":
                 StartCoroutine(ActivateTrailSprite());
                 break;
             case "Burner":
@@ -507,8 +510,6 @@ public class MetaballParticleClass : MonoBehaviour
             default:
                 break;
         }
-
-
     }
 
 

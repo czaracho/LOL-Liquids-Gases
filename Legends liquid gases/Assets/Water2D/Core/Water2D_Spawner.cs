@@ -506,6 +506,7 @@
             {
                 GameObject _o = GameObject.Find(_parentNameID + GetInstanceID());
                 if (_o != null) DestroyImmediate(_o);
+                //if (_o != null) Destroy(_o);
             }
 
             if (_parent != null) {
@@ -1416,11 +1417,7 @@
                         _checkOnFillComplete = true;
                         _breakCheckOnFill = true;
                     }
-                }
-                
-
-                
-
+                }                            
             }
         }
 
@@ -1441,7 +1438,8 @@
             instance.Spawn();
         }
 
-        public void StartSmokeSpawner() {
+        public void StartSmokeSpawner()
+        {
             instance.Spawn();
         }
 
