@@ -26,7 +26,6 @@ public class Piece : MonoBehaviour
     public Burner burner;
     public PipeImpulser pipeImpulser;
 
-
     private void Start()
     {
         currentAngle = (int)transform.parent.rotation.eulerAngles.z;

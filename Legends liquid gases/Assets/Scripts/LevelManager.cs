@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    public GameMaster game_master;
     [HideInInspector]
     public bool waterIsPumped = false;
     [HideInInspector]
@@ -14,7 +15,7 @@ public class LevelManager : MonoBehaviour
     public int requiredDropQuantity = 100;
     [HideInInspector]
     public int currentDropQuantity = 0;
-    public string nextLevel = "level2";
+    public string nextLevel = "";
     public static LevelManager instance;
     [HideInInspector]
     public Piece[] pieces;
@@ -34,6 +35,10 @@ public class LevelManager : MonoBehaviour
             return;
         }
         instance = this;
+
+        if (GameMaster.instance == null) {
+            Instantiate(game_master);
+        }
     }
 
     private void Start()
@@ -95,6 +100,8 @@ public class LevelManager : MonoBehaviour
         else if (currentLvlMoves > lvlMinScoreMoves) {
             currentLvlStarsEarned = 0;
         }
+
+        GameMaster.instance.total_stars_earned = GameMaster.instance.total_stars_earned + currentLvlStarsEarned;
     }
 
     public void RestartToNonSelectedPiece()
@@ -107,5 +114,11 @@ public class LevelManager : MonoBehaviour
                 piece.ResumeFloatAnimation();
             }
         }
+    }
+
+    public void goToNextLevelForTesting()
+    {
+        SceneManager.LoadScene(nextLevel);
+
     }
 }

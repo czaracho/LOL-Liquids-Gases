@@ -18,13 +18,19 @@ public class LanguageSceneManager : MonoBehaviour {
 	void Awake () {
 		JSONNode defs = SharedState.LanguageDefs;
 
-		welcome.text = defs["welcome"];
-		readyToPlay.text = defs["readyToPlay"];
-		greatJob.text = defs["greatJob"];
-		onePlusOne.text = defs["onePlusOne"];
-		pressContinue.text = defs["pressContinue"];
+        welcome.text = defs["welcome"];
+        readyToPlay.text = defs["readyToPlay"];
+        greatJob.text = defs["greatJob"];
+        onePlusOne.text = defs["onePlusOne"];
+        pressContinue.text = defs["pressContinue"];
 
-		backButton.onClick.AddListener(OnClickBack);
+        //welcome.text = "welcome";
+        //readyToPlay.text = "readyToPlay";
+        //greatJob.text = "greatJob";
+        //onePlusOne.text = "onePlusOne";
+        //pressContinue.text = "pressContinue";
+
+        backButton.onClick.AddListener(OnClickBack);
 	}
 
 	private void OnClickBack () {
