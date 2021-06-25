@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameMaster game_master;
     [HideInInspector]
     public bool waterIsPumped = false;
     [HideInInspector]
@@ -35,10 +34,6 @@ public class LevelManager : MonoBehaviour
             return;
         }
         instance = this;
-
-        if (GameMaster.instance == null) {
-            Instantiate(game_master);
-        }
     }
 
     private void Start()
