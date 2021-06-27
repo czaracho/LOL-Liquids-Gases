@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     [HideInInspector]
-    public bool waterIsPumped = false;
+    public bool playerCanInteract = true;
     [HideInInspector]
     public bool levelCleared = false;
     public int requiredDropQuantity = 100;
@@ -38,8 +39,14 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        waterIsPumped = false;
+        EventManager.instance.WaitForNextLevelTrigger += GoToNextLevelFromSlides;
         pieces = FindObjectsOfType<Piece>();
+
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.instance.WaitForNextLevelTrigger -= GoToNextLevelFromSlides;
     }
 
     public void AddWaterDrop() {
@@ -55,14 +62,14 @@ public class LevelManager : MonoBehaviour
 
     public void goToNextLevel()
     {
-        waterIsPumped = true;
+        playerCanInteract = false;
         UIBehaviour.instance.PlayBouncyAnimation("nextLevel");
         UIBehaviour.instance.FadeTo(nextLevel);
     }
 
     public void restartLevel()
     {
-        waterIsPumped = true;
+        playerCanInteract = false;
         UIBehaviour.instance.PlayBouncyAnimation("restart");
         UIBehaviour.instance.FadeTo(SceneManager.GetActiveScene().name);
     }
@@ -111,9 +118,8 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void goToNextLevelForTesting()
-    {
-        SceneManager.LoadScene(nextLevel);
+    public void GoToNextLevelFromSlides() {
 
+        UIBehaviour.instance.FadeTo(nextLevel);
     }
 }

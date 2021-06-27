@@ -9,7 +9,7 @@ public class Piece : MonoBehaviour
     public enum PieceType { straight, pipeL, pipeT, burner }
     public PieceType pieceType;
     [HideInInspector]
-    public bool pieceNotOnBoard = false;
+    public bool pieceIsFixed = false;
     [HideInInspector]
     public bool isPlaced = false;
     [HideInInspector]
@@ -29,7 +29,7 @@ public class Piece : MonoBehaviour
     private void Start()
     {
         currentAngle = (int)transform.parent.rotation.eulerAngles.z;
-        pieceNotOnBoard = pipeImpulser.pieceOffBoard;
+        pieceIsFixed = pipeImpulser.pieceOffBoard;
         isPlaced = pipeImpulser.pieceIsPlaced;
 
         if (isPlaced)
@@ -79,7 +79,7 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (LevelManager.instance.waterIsPumped || pieceNotOnBoard) {
+        if (!LevelManager.instance.playerCanInteract || pieceIsFixed) {
             return;
         }
 

@@ -1432,7 +1432,7 @@
 
         public void StartWaterSpawner()
         {
-            LevelManager.instance.waterIsPumped = true;
+            LevelManager.instance.playerCanInteract = false;
             LevelManager.instance.DeactivatePieces();
             UIBehaviour.instance.PlayBouncyAnimation("spawnWater");
             instance.Spawn();

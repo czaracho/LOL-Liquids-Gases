@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public class UIBehaviour : MonoBehaviour
 {
+    //UI Type
+    public bool isSlideLevel = false;
+
     //Layouts
     public GameObject ingameLayout;
     public GameObject nextLevelLayout;
@@ -30,6 +33,7 @@ public class UIBehaviour : MonoBehaviour
     public float levelCompleteDuration = 0.15f;
     public float starsMoveDuration = 0.25f;
     public GameObject levelCompleteText;
+    public GameObject Bubble;
 
     //Stars
     public GameObject[] stars;
@@ -40,6 +44,14 @@ public class UIBehaviour : MonoBehaviour
     //Scene Fader
     public Image img;
     public AnimationCurve curve;
+
+    //Bubble Text Controller
+    public TypeWriter TypeWriter;
+    public SpriteRenderer[] slides;
+    public string[] dialogLines;
+    private int currentLine = 0;
+    public int lineToSwitchImages = 0;
+    bool isWaitingForClick = false;
 
     private void Start()
     {
@@ -52,8 +64,11 @@ public class UIBehaviour : MonoBehaviour
         }
 
         StartCoroutine(FadeIn());
-        //StartCoroutine(startTransition());
 
+        if (dialogLines.Length > 0) {
+            EventManager.instance.WaitingForClickTrigger += SetWaitingForClickStatus;
+            StartCoroutine(waitforReadFirstTime());
+        }
     }
 
     public void PlayBouncyAnimation(string button) {
@@ -82,7 +97,7 @@ public class UIBehaviour : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-
+        LevelManager.instance.playerCanInteract = true;
         float t = 2f;
 
         while (t > 0f)
@@ -135,7 +150,6 @@ public class UIBehaviour : MonoBehaviour
         seq.Insert(0.35f, levelCompleteText.transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
 
         int currentStars = LevelManager.instance.currentLvlStarsEarned;
-        Debug.Log("CurrentStars: " + currentStars);
 
         for (int i = 0; i < currentStars; i++)
         {
@@ -144,5 +158,94 @@ public class UIBehaviour : MonoBehaviour
         }
 
         nextLvlButton.transform.DOScale(new Vector2(1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo);
+    }
+
+    public void SwitchToAnotherImage(SpriteRenderer image1, SpriteRenderer image2) {
+       
+        Sequence seq = DOTween.Sequence();
+        seq.Append(image1.DOFade(0f, 1f));
+        seq.Append(image2.DOFade(1f, 1f));
+    }
+
+    public void BubbleTextController(bool activateBubble) {
+
+        Sequence seq = DOTween.Sequence();
+
+        if (activateBubble)
+        {
+            seq.Append(Bubble.transform.DOScale(1.1f, 0.25f));
+            seq.Append(Bubble.transform.DOScale(1.0f, 0.25f));
+        }
+        else {
+            seq.Append(Bubble.transform.DOScale(1.1f, 0.25f));
+            seq.Append(Bubble.transform.DOScale(0f, 0.25f));
+        }
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!LevelManager.instance.playerCanInteract)
+            {
+                if (isWaitingForClick)
+                {
+                    isWaitingForClick = false;
+
+                    if (currentLine > 0 && currentLine < dialogLines.Length - 1)
+                    {
+                        TypeWriter.WriteText(dialogLines[currentLine]);
+                        currentLine++;
+
+                        if (lineToSwitchImages > 0 && currentLine == lineToSwitchImages)
+                        {
+                            if (slides.Length > 1)
+                            {
+                                SwitchToAnotherImage(slides[0], slides[1]);
+                            }
+                        }
+
+                    }
+                    else if (currentLine == dialogLines.Length - 1)
+                    {
+                        //Si el nivel es de slides, ir directo a la siguiente pantalla                        
+                        LevelManager.instance.playerCanInteract = true;
+
+                        currentLine++;
+
+                        if (isSlideLevel)
+                        {
+                            TypeWriter.isLastSlide = true;
+                            TypeWriter.WriteText(dialogLines[currentLine-1]);
+                        }
+                        else
+                        {
+                            TypeWriter.HideAll();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator waitforReadFirstTime()
+    {
+        yield return new WaitForSeconds(1.0f);
+        BubbleTextController(true);
+        yield return new WaitForSeconds(1.0f);
+        TypeWriter.WriteText(dialogLines[0]);
+        currentLine++;
+    }
+
+    void SetWaitingForClickStatus()
+    {
+        LevelManager.instance.playerCanInteract = false;
+        isWaitingForClick = true;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.instance.WaitingForClickTrigger -= SetWaitingForClickStatus;
     }
 }

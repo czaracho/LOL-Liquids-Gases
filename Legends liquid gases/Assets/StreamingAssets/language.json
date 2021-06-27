@@ -5,10 +5,17 @@
       }
    },
    "en":{
-      "slide1_1": "Everything you can see and touch is made up of matter. Matter exists in three main forms: solids, liquids, and gases.",
-	  "slide1_2": "There's also the plasma state and has certain properties that other states does not have.",
-	  "slide1_3": "Every state of matter has different properties.",
-	  "slide1_4": "Let's see if we can use some of the matter properties to create some potions.",
+	  "click_anywhere":"Click anywhere to continue...",
+	  "slide1_1": "Hey! I'm Pebbles the potion master. You and me we'll be preparing some nice potions.",
+	  "slide1_2": "But first, we need to know some useful concepts.",
+	  "slide1_3": "All matter is made from atoms. Individual atoms can combine with other atoms to form molecules.",
+      "slide1_4": "Everything we can see and touch is made up of matter. Matter exists in three main forms: solids, liquids, and gases.",
+	  "slide1_5": "There's also the plasma state and has certain properties that other states does not have.",
+	  "slide1_6": "Every state of matter has different properties.",
+	  "slide1_7": "Let's see if we can use some of the matter properties to create some potions.",	 
+	  "slide2_1": "In a liquid, particles of matter move relative to one another but remain in contact.",
+	  "slide2_2": "The movement of the particles causes the liquid to be variable in shape.",
+	  "slide2_3": "Liquids will flow and fill the lowest portion of a container, taking on the shape of the container but not changing in volume.",
       "newGame":"New Game"
    }
 }

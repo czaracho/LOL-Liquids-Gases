@@ -9,152 +9,110 @@ using SimpleJSON;
 
 public class TypeWriter : MonoBehaviour
 {
-    //public SkeletonGraphic Star;
-    public GameObject Bar;
-
     TextMeshProUGUI text;
-    //[SerializeField] private TextMeshProUGUI textContinue;
-    //[SerializeField] private TextMeshProUGUI textFinished;
-    public string JSONKey = "empty";
+    [SerializeField] private TextMeshProUGUI textContinue;
 
     string textToType = "";
     string currentText = "";
-
-    private bool _isGameSpace = false;
+    [HideInInspector]
+    public bool isLastSlide = false;
+    [HideInInspector]
+    public bool canSpeedUptext = false;
+    [HideInInspector]
+    public float textspeed = 0.025f;
 
     JSONNode _lang;
 
-    //[SerializeField] private GameObject CatGray;
-    //[SerializeField] private GameObject CatNormal;
-    //[SerializeField] private GameObject CatSpaceship;
     void Awake()
     {
         text = GetComponent<TextMeshProUGUI>();
         _lang = SharedState.LanguageDefs;
-        HideText();
+        HideAll();
         text.text = "";
     }
 
-    public void SetSpaceGame()
+    private void Update()
     {
-        _isGameSpace = true;
-        HideAll();
-    }
+        if (Input.GetMouseButton(0)) {
+            textspeed = 0.025f / 3f;
+        }
 
-    public void ShowCatGray()
-    {
-        HideAll();
-        //CatGray.SetActive(true);
-    }
+        if (Input.GetMouseButtonUp(0)) {
+            textspeed = 0.025f;
 
-    public void ShowCatNormal()
-    {
-        HideAll();
-        //CatNormal.SetActive(true);
-    }
+        }
 
-    public void ShowCatSpaceship()
-    {
-        HideAll();
-        //CatSpaceship.SetActive(true);
-    }
-
-    public void ShowStar()
-    {
-        HideAll();
-        //Star.gameObject.SetActive(true);
     }
 
     public void HideAll()
     {
-        //Star.gameObject.SetActive(false);
-        //CatGray.SetActive(false);
-        //CatNormal.SetActive(false);
-        //CatSpaceship.SetActive(false);
-    }
-
-
-
-    private void Start()
-    {
-        //EventsManager.instance.HasClickedAfterWaitingTrigger += HideText;
-        //Star.AnimationState.SetAnimation(0, "idle", true);
-
-    }
-
-    private void OnDestroy()
-    {
-        //EventsManager.instance.HasClickedAfterWaitingTrigger -= HideText;
-        StopAllCoroutines();
-    }
-
-    private void HideText()
-    {
         StopAllCoroutines();
         text.text = "";
         currentText = "";
         textToType = "";
-        //textContinue.gameObject.SetActive(false);
+        textContinue.gameObject.SetActive(false);
 
-        if (Bar != null)
+        if (UIBehaviour.instance.Bubble != null)
         {
-            Bar?.SetActive(false);
-        }
-
-        if (_isGameSpace)
-        {
-            HideAll();
-        }
-        else
-        {
-
+            UIBehaviour.instance.Bubble.SetActive(false);
         }
     }
 
-    public void WriteTextGameSpace(string jsonKey)
+    public void WriteText(string jsonKey)
     {
-        _isGameSpace = true;
+        canSpeedUptext = true;
         StopAllCoroutines();
-        Bar?.SetActive(true);
-        //textContinue.gameObject.SetActive(false);
+        UIBehaviour.instance.Bubble.SetActive(true);
+        textContinue.gameObject.SetActive(false);
         LOLSDK.Instance.SpeakText(jsonKey);
         text.text = "";
         currentText = "";
         textToType = _lang[jsonKey];
-        StartCoroutine(TypeTextSpaceGame());
+        StartCoroutine(TypeTextInBubble());
     }
 
-    IEnumerator TypeTextSpaceGame()
+    IEnumerator TypeTextInBubble()
     {
-        Bar?.SetActive(true);
         while (currentText.Length != textToType.Length)
         {
             for (int i = 0; i < textToType.Length; i++)
             {
-                yield return new WaitForSeconds(0.025f);
+                yield return new WaitForSeconds(textspeed);
                 SoundsFX.instance.PlayType();
                 currentText += textToType[i];
                 text.text = currentText;
             }
-
         }
 
-        StartCoroutine(WaitForClick());
+        if (!isLastSlide) {
+            StartCoroutine(WaitForClick());
+        }
+        else {
+            StartCoroutine(WaitForLastSlide());
+        }
     }
+
 
     IEnumerator WaitForClick()
     {
-        yield return new WaitForSeconds(3f);
-        //textContinue.gameObject.SetActive(true);
-        //EventsManager.instance.OnWaitingForClickTrigger();
+        yield return new WaitForSeconds(0.5f);
+        
+        textContinue.gameObject.SetActive(true);
+        EventManager.instance.OnWaitingForClickTrigger();
     }
+
+    IEnumerator WaitForLastSlide() {
+        yield return new WaitForSeconds(0.5f);
+        HideAll();
+        EventManager.instance.OnWaitForNextLevelTrigger();
+    }
+
 
     public void WriteNewText(string jsonKey)
     {
         StopAllCoroutines();
-        Bar?.SetActive(true);
-        //textContinue.gameObject.SetActive(false);
-        //Star.AnimationState.SetAnimation(0, "talking", true);
+        UIBehaviour.instance.Bubble.SetActive(true);
+        textContinue.gameObject.SetActive(false);
         LOLSDK.Instance.SpeakText(jsonKey);
         text.text = "";
         currentText = "";
@@ -162,79 +120,22 @@ public class TypeWriter : MonoBehaviour
         StartCoroutine(TypeText());
     }
 
-    public void ShowFinished()
-    {
-        StopAllCoroutines();
-        Bar?.SetActive(true);
-        //textContinue.gameObject.SetActive(false);
-        //Star.AnimationState.SetAnimation(0, "talking", true);
-        LOLSDK.Instance.SpeakText("gameFinished");
-        //textFinished.gameObject.SetActive(true);
-        //textFinished.text = _lang["gameFinished"];
-        //textContinue.gameObject.SetActive(true);
-        //EventsManager.instance.OnWaitingForClickTrigger();
-    }
-
-    public void WriteNewTextAndHide(string jsonKey)
-    {
-        StopAllCoroutines();
-        //textContinue.gameObject.SetActive(false);
-        //Star.AnimationState.SetAnimation(0, "talking", true);
-        LOLSDK.Instance.SpeakText(jsonKey);
-        Bar?.SetActive(true);
-        text.text = "";
-        currentText = "";
-        textToType = _lang[jsonKey];
-        StartCoroutine(TypeTextAndHide());
-    }
-
-    IEnumerator ClearText()
-    {
-        while (currentText.Length > 0)
-        {
-            yield return new WaitForSeconds(0.001f);
-            currentText = currentText.Substring(0, currentText.Length - 1);
-            text.text = currentText;
-        }
-        StartCoroutine(TypeText());
-    }
 
     IEnumerator TypeText()
     {
-        Bar?.SetActive(true);
+        UIBehaviour.instance.Bubble.SetActive(true);
         while (currentText.Length != textToType.Length)
         {
             for (int i = 0; i < textToType.Length; i++)
             {
-                yield return new WaitForSeconds(0.025f);
+                yield return new WaitForSeconds(textspeed);
                 SoundsFX.instance.PlayType();
                 currentText += textToType[i];
                 text.text = currentText;
             }
-
         }
-        //Star.AnimationState.SetAnimation(0, "idle", true);
+
         StartCoroutine(WaitForClick());
     }
 
-    IEnumerator TypeTextAndHide()
-    {
-        while (currentText.Length != textToType.Length)
-        {
-            for (int i = 0; i < textToType.Length; i++)
-            {
-                yield return new WaitForSeconds(0.025f);
-                SoundsFX.instance.PlayType();
-                currentText += textToType[i];
-                text.text = currentText;
-            }
-
-        }
-        //Star.AnimationState.SetAnimation(0, "idle", true);
-        yield return new WaitForSeconds(7f);
-        text.text = "";
-        currentText = "";
-        textToType = "";
-        Bar?.SetActive(false);
-    }
 }

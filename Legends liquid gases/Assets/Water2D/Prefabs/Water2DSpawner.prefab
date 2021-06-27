@@ -80,6 +80,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -91,6 +92,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -159,6 +161,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -170,6 +173,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -237,6 +241,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ecfe4f208e2624fb43874c9be5b726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
+  HashID: -1
+  Water2DType: 0
+  Water2DEmissionType: 0
+  Water2DFillerType: 0
+  FillerColliderMasked: 0
+  Water2DRenderType: Legacy
+  Water2DVersion: 1.2
   DropObject: {fileID: 199430, guid: a4ae4fa7300c64972a4dc981fc93f0d2, type: 3}
   WaterDropsObjects:
   - {fileID: 0}
@@ -439,42 +451,76 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ParticlesTag: Metaball_liquid
+  PersistentFluid: 0
   size: 0.1
+  ScaleDown: 0
   LifeTime: 6.85
   DelayBetweenParticles: 0.098
   TrailStartSize: 0.77
   TrailEndSize: 0.27
   TrailDelay: 0.167
   WaterMaterial: {fileID: 2100000, guid: 1bcdd66cc83e54079b8580edbfd83d87, type: 2}
+  StyleByID: 0
+  Sorting: 0
+  ColorScheme: 1
   FillColor: {r: 0, g: 0.42678502, b: 0.9716981, a: 1}
   StrokeColor: {r: 0, g: 0.6039219, b: 1, a: 1}
+  Blending: 0
+  _lastBlending: 0
   AlphaCutOff: 0.2
   AlphaStroke: 0.2
   TintColor: {r: 0, g: 0.4392157, b: 1, a: 1}
   Intensity: 0.5
+  LensMag: 1.2
   Distortion: 0.5
   DistortionSpeed: 0.5
+  GlowEffect: 0
+  GlowColor: {r: 1, g: 1, b: 1, a: 0.4}
+  GlowSize: 1.5
+  GlowSortingOrder: -1
+  GlossOffset: 1
+  _lastGlowEnabledValue: 0
   initSpeed: {x: 0, y: 0}
   Speed: 7.323688
   PhysicMat: {fileID: 6200000, guid: 68ddb697a76638c4986f6ad960e37352, type: 2}
   ColliderSize: 1.05
+  AutoMass: 1
+  Mass: 1
   LinearDrag: 0
   AngularDrag: 0
   GravityScale: 1
+  FreezeRotation: 0
   SpeedLimiterX: {x: -300, y: 300}
   SpeedLimiterY: {x: -300, y: 300}
   SimulateOnAwake: 1
   SimulateInEditor: 0
   SimulateInPlayMode: 0
   DropCount: 200
+  _lastDropCount: 100
+  Loop: 1
   DropsUsed: 0
   DynamicChanges: 1
+  OnValidateShapeFill:
+    m_PersistentCalls:
+      m_Calls: []
+  ShapeFillCollider2D: []
+  ShapeFillCollider2DCount: 3
+  ShapeFillAccuracy: 1
   OnCollisionEnterList:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Water2D.Water2DEvents, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  isRefractingMaterial: 1
+  OnSpawnerAboutStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSpawnerAboutEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSpawnerEmitingParticle:
+    m_PersistentCalls:
+      m_Calls: []
+  TheIdentifier: 0
+  isRefractingMaterial: 0
 --- !u!1 &6144579088475985588
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +566,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -531,6 +578,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -599,6 +647,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -610,6 +659,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -678,6 +728,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -689,6 +740,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
