@@ -6,6 +6,7 @@ using TMPro;
 using Spine.Unity;
 using LoLSDK;
 using SimpleJSON;
+using UnityEngine.SceneManagement;
 
 public class TypeWriter : MonoBehaviour
 {
@@ -52,10 +53,16 @@ public class TypeWriter : MonoBehaviour
         textToType = "";
         textContinue.gameObject.SetActive(false);
 
-        if (UIBehaviour.instance.Bubble != null)
-        {
-            UIBehaviour.instance.Bubble.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name != "MainMenu") {
+
+            if (UIBehaviour.instance.Bubble != null)
+            {
+                UIBehaviour.instance.Bubble.SetActive(false);
+            }
         }
+
+
     }
 
     public void WriteText(string jsonKey)

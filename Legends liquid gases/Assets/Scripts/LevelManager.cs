@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    public int levelId = 0;
     [HideInInspector]
     public bool playerCanInteract = true;
     [HideInInspector]
@@ -82,7 +83,7 @@ public class LevelManager : MonoBehaviour
 
     public void addMoveCounter() {
         currentLvlMoves = currentLvlMoves + 1;
-        currentMovesText.text = "Current Moves = " + currentLvlMoves.ToString();
+        currentMovesText.text = currentLvlMoves.ToString();
     }
 
     void checkStarScore() {
@@ -119,7 +120,6 @@ public class LevelManager : MonoBehaviour
     }
 
     public void GoToNextLevelFromSlides() {
-
         UIBehaviour.instance.FadeTo(nextLevel);
     }
 }

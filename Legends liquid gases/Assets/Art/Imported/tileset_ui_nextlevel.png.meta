@@ -74,11 +74,77 @@ TextureImporter:
   - first:
       213: -552920257646615011
     second: tileset_ui_nextlevel_23
+  - first:
+      213: 6322003053077847905
+    second: tileset_ui_nextlevel_24
+  - first:
+      213: 498972953179436368
+    second: tileset_ui_nextlevel_25
+  - first:
+      213: 7420740037138314617
+    second: tileset_ui_nextlevel_26
+  - first:
+      213: -4553131292546166962
+    second: tileset_ui_nextlevel_27
+  - first:
+      213: 203640464156945533
+    second: tileset_ui_nextlevel_28
+  - first:
+      213: 780325644191778415
+    second: tileset_ui_nextlevel_29
+  - first:
+      213: 2187820269074444185
+    second: tileset_ui_nextlevel_30
+  - first:
+      213: 845536062425355374
+    second: tileset_ui_nextlevel_31
+  - first:
+      213: 3039499326097439561
+    second: tileset_ui_nextlevel_32
+  - first:
+      213: 1110685684284024631
+    second: tileset_ui_nextlevel_33
+  - first:
+      213: 2600618043626023888
+    second: tileset_ui_nextlevel_34
+  - first:
+      213: -1590974108267663309
+    second: tileset_ui_nextlevel_35
+  - first:
+      213: -220255888936705884
+    second: tileset_ui_nextlevel_36
+  - first:
+      213: 8238915294693857497
+    second: tileset_ui_nextlevel_37
+  - first:
+      213: 1207618746718828896
+    second: tileset_ui_nextlevel_38
+  - first:
+      213: 7017954146942939619
+    second: tileset_ui_nextlevel_39
+  - first:
+      213: -4491977229278646587
+    second: tileset_ui_nextlevel_40
+  - first:
+      213: 5195749142124852650
+    second: tileset_ui_nextlevel_41
+  - first:
+      213: 5172942872926190367
+    second: tileset_ui_nextlevel_42
+  - first:
+      213: -9001452423433618957
+    second: tileset_ui_nextlevel_43
+  - first:
+      213: 5061256022827516815
+    second: tileset_ui_nextlevel_44
+  - first:
+      213: -490257285572593359
+    second: tileset_ui_nextlevel_45
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -557,7 +623,7 @@ TextureImporter:
         width: 100
         height: 91
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -578,7 +644,7 @@ TextureImporter:
         width: 133
         height: 189
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -599,7 +665,7 @@ TextureImporter:
         width: 202
         height: 304
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -620,7 +686,7 @@ TextureImporter:
         width: 100
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -641,7 +707,7 @@ TextureImporter:
         width: 99
         height: 95
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -662,7 +728,7 @@ TextureImporter:
         width: 98
         height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -670,6 +736,468 @@ TextureImporter:
       bones: []
       spriteID: d162bd584f1a358f0800000000000000
       internalID: -552920257646615011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_24
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 426
+        width: 204
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16fd3a708444cb750800000000000000
+      internalID: 6322003053077847905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_25
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 345
+        width: 79
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 055b9cad145bce600800000000000000
+      internalID: 498972953179436368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_26
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 344
+        width: 78
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 975f52c3fb3cbf660800000000000000
+      internalID: 7420740037138314617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_27
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 331
+        width: 94
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4f0214863700d0c0800000000000000
+      internalID: -4553131292546166962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_28
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 382
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7c68f75ce973d200800000000000000
+      internalID: 203640464156945533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_29
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 233
+        width: 116
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f66cd2ff90644da00800000000000000
+      internalID: 780325644191778415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_30
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 177
+        width: 149
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99fe49271f2bc5e10800000000000000
+      internalID: 2187820269074444185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_31
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 327
+        width: 101
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6455a5a192fbbb00800000000000000
+      internalID: 845536062425355374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_32
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 216
+        width: 72
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94bb31b78887e2a20800000000000000
+      internalID: 3039499326097439561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_33
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 215
+        width: 72
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7376cd4ceb2f96f00800000000000000
+      internalID: 1110685684284024631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_34
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 215
+        width: 72
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dbeccef450471420800000000000000
+      internalID: 2600618043626023888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_35
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 215
+        width: 72
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 330bcd55a79bbe9e0800000000000000
+      internalID: -1590974108267663309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_36
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 148
+        width: 34
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a06d3c9f6e71fcf0800000000000000
+      internalID: -220255888936705884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_37
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 148
+        width: 38
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d892c21fc1865270800000000000000
+      internalID: 8238915294693857497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_38
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 148
+        width: 38
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06937461ad252c010800000000000000
+      internalID: 1207618746718828896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_39
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 148
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e1738a2d18c46160800000000000000
+      internalID: 7017954146942939619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_40
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 148
+        width: 37
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cee3bd628a49a1c0800000000000000
+      internalID: -4491977229278646587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_41
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 148
+        width: 38
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa5746601520b1840800000000000000
+      internalID: 5195749142124852650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_42
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 148
+        width: 37
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1b7720b22cf9c740800000000000000
+      internalID: 5172942872926190367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_43
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 149
+        width: 40
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f9f8ae66ba641380800000000000000
+      internalID: -9001452423433618957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_44
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 148
+        width: 38
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f83c0fd79813d3640800000000000000
+      internalID: 5061256022827516815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_45
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 148
+        width: 41
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 139f5e4a8914239f0800000000000000
+      internalID: -490257285572593359
       vertices: []
       indices: 
       edges: []

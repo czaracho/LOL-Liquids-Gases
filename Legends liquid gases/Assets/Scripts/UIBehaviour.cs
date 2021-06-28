@@ -173,11 +173,11 @@ public class UIBehaviour : MonoBehaviour
 
         if (activateBubble)
         {
-            seq.Append(Bubble.transform.DOScale(1.1f, 0.25f));
+            seq.Append(Bubble.transform.DOScale(1.05f, 0.25f));
             seq.Append(Bubble.transform.DOScale(1.0f, 0.25f));
         }
         else {
-            seq.Append(Bubble.transform.DOScale(1.1f, 0.25f));
+            seq.Append(Bubble.transform.DOScale(1.05f, 0.25f));
             seq.Append(Bubble.transform.DOScale(0f, 0.25f));
         }
     }

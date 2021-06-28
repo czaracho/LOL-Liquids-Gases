@@ -7,38 +7,36 @@ using LoLSDK;
 using SimpleJSON;
 using System.IO;
 
-public class SpaceData
+public class ProgressData
 {
 	public int CURRENT_PROGRESS = 0;
-	public int PLAYER_SCORE = 0;
-	public int GAME1_CURRENT_TIME = 5;
-	public int GAME1_NEXT_CURRENT_TIME = 5;
-	public int GAME2_STATUS = 0;
-	public int GAME2_DAY_TIME_MESSAGE = 0;
-	public int GAME2_BG_POS = 0;
-	public int GAME2_LAST_BG_POS = 0;
+	public int STARS_EARNED = 0;
+	public int TOTAL_LEVELS_UNLOCKED = 0;
+	public int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 }
 
 public class Loader : MonoBehaviour
 {
-
 	// Relative to Assets /StreamingAssets/
 	private const string languageJSONFilePath = "language.json";
 	private const string questionsJSONFilePath = "questions.json";
 	private const string startGameJSONFilePath = "startGame.json";
 
-	public static int MAX_STARS_EARNED = 0;
-	public static int CURRENT_STARS_EARNED = 0;
-	public static int CURRENT_LEVELS_UNLOCKED = 0;
+	public static int CURRENT_PROGRESS = 0;
+	public static int STARS_EARNED = 0;
+	public static int TOTAL_LEVELS_UNLOCKED = 0;
+	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {3,3,0,0,3,0,2,0,0,1};
 
 	private int _loaderCounter = 0;
 	public static void SaveData()
 	{
-		SpaceData spaceData = new SpaceData();
-		spaceData.CURRENT_PROGRESS = Loader.MAX_STARS_EARNED;
-		spaceData.PLAYER_SCORE = Loader.CURRENT_STARS_EARNED;
-		spaceData.GAME1_CURRENT_TIME = Loader.CURRENT_LEVELS_UNLOCKED;
-		LOLSDK.Instance.SaveState(spaceData);
+		ProgressData progressData = new ProgressData();
+		progressData.CURRENT_PROGRESS = Loader.CURRENT_PROGRESS;
+		progressData.STARS_EARNED = Loader.CURRENT_PROGRESS;
+		progressData.TOTAL_LEVELS_UNLOCKED = Loader.CURRENT_PROGRESS;
+		progressData.CURRENT_STARS_EARNED_PER_LEVEL = Loader.CURRENT_STARS_EARNED_PER_LEVEL;
+
+		LOLSDK.Instance.SaveState(progressData);
 	}
 
 	void Awake()
