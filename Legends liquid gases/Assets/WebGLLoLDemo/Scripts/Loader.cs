@@ -24,8 +24,8 @@ public class Loader : MonoBehaviour
 
 	public static int CURRENT_PROGRESS = 0;
 	public static int STARS_EARNED = 0;
-	public static int TOTAL_LEVELS_UNLOCKED = 0;
-	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {3,3,0,0,3,0,2,0,0,1};
+	public static int TOTAL_LEVELS_UNLOCKED = 8;
+	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {3,3,1,0,3,0,2,0,0,0};
 
 	private int _loaderCounter = 0;
 	public static void SaveData()

@@ -9,17 +9,11 @@ public class LevelSelector : MonoBehaviour
     public GameObject lockedIcon;
     public GameObject unlockedIcon;
     public GameObject[] starsIcon;
+    public GameObject levelNumber;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (levelId == 1) {
-
-            for (int i = 0; i < Loader.CURRENT_STARS_EARNED_PER_LEVEL.Length; i++) {
-                Debug.Log(Loader.CURRENT_STARS_EARNED_PER_LEVEL[i]);
-            }
-        }
-
         CheckIfLevelUnlocked();   
     }
 
@@ -28,6 +22,7 @@ public class LevelSelector : MonoBehaviour
         if (levelId <= Loader.TOTAL_LEVELS_UNLOCKED) {
             lockedIcon.SetActive(false);
             unlockedIcon.SetActive(true);
+            levelNumber.SetActive(true);
             GetLevelStars();
         }
     }
@@ -50,7 +45,7 @@ public class LevelSelector : MonoBehaviour
         }
     }
 
-    void GoToSelectedLevel() {
+    public void GoToSelectedLevel() {
         LevelManager.instance.nextLevel = level;
         LevelManager.instance.GoToNextLevelFromSlides();
     }

@@ -1,51 +1,21 @@
 {
-  "_meta": {
-    "maxChars": {
-      "welcome": 20,
-      "readyToPlay": 20,
-      "pressContinue": 50,
-      "greatJob": 20,
-      "onePlusOne": 30
-    }
-  },
-  "en": {
-    "welcome": "Welcome!",
-    "readyToPlay": "Are you ready to play?",
-    "greatJob": "Great job!",
-    "pressContinue": "Press the next button to continue.",
-    "onePlusOne": "One + One = Two",
-    "newGame": "New Game",
-    "continue": "Continue",
-    "pantry": "Pantry",
-    "purchasePan": "Purchase Pan  <color=#F9DD3B>{0}</color>",
-    "autoSave": "...Auto Saving Complete"
-  },
-  "es": {
-    "welcome": "¡Bienvenido!",
-    "readyToPlay": "¿Estás listo para jugar?",
-    "greatJob": "¡Gran trabajo!",
-    "pressContinue": "Presione el botón 'siguiente' para continuar.",
-    "onePlusOne": "Uno + Uno = Dos"
-  },
-  "zh": {
-    "welcome": "欢迎！",
-    "readyToPlay": "你准备好玩吗",
-    "greatJob": "做得好！",
-    "pressContinue": "按“下一步”按钮继续。",
-    "onePlusOne": "一+一=二"
-  },
-  "jp": {
-    "welcome": "ようこそ!",
-    "readyToPlay": "あなたは遊ぶ準備ができていますか？",
-    "greatJob": "よくやった！",
-    "pressContinue": "続行するには '次へ'ボタンを押してください。",
-    "onePlusOne": "1 + 1 = 2"
-  },
-  "ru": {
-    "welcome": "Добро пожаловать!",
-    "readyToPlay": "Вы готовы играть?",
-    "greatJob": "Отличная работа!",
-    "pressContinue": "Нажмите следующую кнопку, чтобы продолжить.",
-    "onePlusOne": "один + один"
-  }
+   "_meta":{
+      "maxChars":{
+         "welcome":20
+      }
+   },
+   "en":{
+	  "click_anywhere":"Click anywhere to continue...",
+	  "slide1_1": "Hey! I'm Pebbles the potion master. You and me we'll be preparing some nice potions.",
+	  "slide1_2": "But first, we need to know some useful concepts.",
+	  "slide1_3": "All matter is made from atoms. Individual atoms can combine with other atoms to form molecules.",
+      "slide1_4": "Everything we can see and touch is made up of matter. Matter exists in three main forms: solids, liquids, and gases.",
+	  "slide1_5": "There's also the plasma state and has certain properties that other states does not have.",
+	  "slide1_6": "Every state of matter has different properties.",
+	  "slide1_7": "Let's see if we can use some of the matter properties to create some potions.",	 
+	  "slide2_1": "In a liquid, particles of matter move relative to one another but remain in contact.",
+	  "slide2_2": "The movement of the particles causes the liquid to be variable in shape.",
+	  "slide2_3": "Liquids will flow and fill the lowest portion of a container, taking on the shape of the container but not changing in volume.",
+      "newGame":"New Game"
+   }
 }

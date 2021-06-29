@@ -315,6 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d367ec12873a8945bd4cdccd873a6fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelId: 1
   level: level2
   lockedIcon: {fileID: 4575205141127585315}
   unlockedIcon: {fileID: 4575205141511724255}
@@ -322,6 +323,7 @@ MonoBehaviour:
   - {fileID: 4575205139602401367}
   - {fileID: 4575205139892902360}
   - {fileID: 4575205141034216802}
+  levelNumber: {fileID: 4575205139943045141}
 --- !u!1 &4575205140541199728
 GameObject:
   m_ObjectHideFlags: 0

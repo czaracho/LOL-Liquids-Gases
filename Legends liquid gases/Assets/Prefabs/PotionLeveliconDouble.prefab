@@ -538,6 +538,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5708689800807631281}
+  - component: {fileID: 5708689801157700296}
   m_Layer: 5
   m_Name: PotionLeveliconDouble
   m_TagString: Untagged
@@ -552,7 +553,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5708689800807631278}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children:
@@ -569,6 +570,27 @@ RectTransform:
   m_AnchoredPosition: {x: 187, y: -107}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5708689801157700296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708689800807631278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d367ec12873a8945bd4cdccd873a6fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelId: 10
+  level: 
+  lockedIcon: {fileID: 5708689800809373311}
+  unlockedIcon: {fileID: 5708689800672549598}
+  starsIcon:
+  - {fileID: 5708689801815956391}
+  - {fileID: 5708689800462178708}
+  - {fileID: 5708689801194873200}
+  levelNumber: {fileID: 5708689799988041712}
 --- !u!1 &5708689800809373311
 GameObject:
   m_ObjectHideFlags: 0
