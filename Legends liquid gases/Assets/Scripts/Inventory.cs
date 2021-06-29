@@ -30,13 +30,20 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        EventManager.instance.HideBubbleTrigger += HideDialogBubble;
+
         bubbleScale = 1 + (bubbleScale / 100);
-        dialogBubble.transform.DOScale(dialogBubble.transform.localScale.x * bubbleScale, bubbleScaleSpeed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
+        dialogBubble.transform.DOScale(dialogBubble.transform.localScale.x * bubbleScale, bubbleScaleSpeed).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased().SetId("bubble"); ;
         
         for (int i = 0; i < pieceType.Length; i++)
         {
             instantiatePipes(pieceType[i], inventorySlots[i].transform.position);
         }
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.instance.HideBubbleTrigger -= HideDialogBubble;
     }
 
     public void instantiatePipes(Piece.PieceType type, Vector3 position) {
@@ -56,6 +63,14 @@ public class Inventory : MonoBehaviour
                 break;
 
         }
+    }
+
+    public void HideDialogBubble() {
+        Sequence s = DOTween.Sequence();
+        bubbleScale = 1 + (bubbleScale / 100);
+        //s.Append(dialogBubble.transform.DOScale(dialogBubble.transform.localScale.x * bubbleScale * 1.1f, 0.35f));
+        s.Append(dialogBubble.transform.DOScale(0, 0.25f));
+        DOTween.Kill("bubble");
     }
 
 }

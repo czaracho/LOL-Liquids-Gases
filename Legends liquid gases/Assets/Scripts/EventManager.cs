@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour
 
     public event Action WaitingForClickTrigger;
     public event Action WaitForNextLevelTrigger;
+    public event Action HideBubbleTrigger;
 
     private void Awake()
     {
@@ -30,5 +31,9 @@ public class EventManager : MonoBehaviour
     public void OnWaitForNextLevelTrigger()
     {
         WaitForNextLevelTrigger?.Invoke();
+    }
+
+    public void OnHideBubbleTrigger() {
+        HideBubbleTrigger?.Invoke();
     }
 }

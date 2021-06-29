@@ -109,7 +109,7 @@ public class Piece : MonoBehaviour
         transform.parent.parent = null;
         transform.parent.localScale = Vector3.one;
         isPlaced = true;
-        transform.parent.DOMove(new Vector2(tile.position.x, tile.position.y), 0.8f);
+        transform.parent.DOMove(new Vector2(tile.position.x, tile.position.y), 0.5f);
         pipePlacementManager.resetPiece();
     }
 

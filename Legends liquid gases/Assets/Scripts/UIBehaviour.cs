@@ -67,6 +67,7 @@ public class UIBehaviour : MonoBehaviour
 
         if (dialogLines.Length > 0) {
             EventManager.instance.WaitingForClickTrigger += SetWaitingForClickStatus;
+
             StartCoroutine(waitforReadFirstTime());
         }
     }
@@ -131,8 +132,9 @@ public class UIBehaviour : MonoBehaviour
 
     void bouncyAnimationButton(Button button, Sprite pressedSprite) {
 
+        Vector3 buttonScale = new Vector3(button.transform.localScale.x, button.transform.localScale.y);
         button.GetComponent<Button>().image.sprite = pressedSprite;
-        button.transform.DOScale(new Vector3(0.9f, 0.9f), 10f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
+        button.transform.DOScale(buttonScale * 0.9f, 10f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
         button.enabled = false;
     }
 
@@ -191,6 +193,7 @@ public class UIBehaviour : MonoBehaviour
             {
                 if (isWaitingForClick)
                 {
+                    BubbleAnimOnClick();
                     isWaitingForClick = false;
 
                     if (currentLine > 0 && currentLine < dialogLines.Length - 1)
@@ -247,5 +250,12 @@ public class UIBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         EventManager.instance.WaitingForClickTrigger -= SetWaitingForClickStatus;
+    }
+
+    void BubbleAnimOnClick() {
+        Sequence seqBubble = DOTween.Sequence();
+        seqBubble.Append(Bubble.transform.DOScale(new Vector2(1.05f, 1.05f), 0.25f));
+        seqBubble.Append(Bubble.transform.DOScale(new Vector2(1f, 1f), 0.25f));
+
     }
 }

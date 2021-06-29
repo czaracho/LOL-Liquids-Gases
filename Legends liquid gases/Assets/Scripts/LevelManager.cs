@@ -104,7 +104,8 @@ public class LevelManager : MonoBehaviour
             currentLvlStarsEarned = 0;
         }
 
-        GameMaster.instance.total_stars_earned = GameMaster.instance.total_stars_earned + currentLvlStarsEarned;
+        //TODO agregar aca la sumatoria de estrellas 
+        //GameMaster.instance.total_stars_earned = GameMaster.instance.total_stars_earned + currentLvlStarsEarned;
     }
 
     public void RestartToNonSelectedPiece()

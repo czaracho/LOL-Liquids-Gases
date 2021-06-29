@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LevelSelector : MonoBehaviour
 {
@@ -10,11 +11,14 @@ public class LevelSelector : MonoBehaviour
     public GameObject unlockedIcon;
     public GameObject[] starsIcon;
     public GameObject levelNumber;
+    float[] delay = {0, 0.2f, 0.35f, 0.4f, 0.5f };
+    float[] yMovement = {1.0f, 1.5f, 2.0f, 2.5f };
 
     // Start is called before the first frame update
     void Start()
     {
-        CheckIfLevelUnlocked();   
+        CheckIfLevelUnlocked();
+        StartCoroutine(WiggleBottle());
     }
 
     void CheckIfLevelUnlocked() {
@@ -48,5 +52,12 @@ public class LevelSelector : MonoBehaviour
     public void GoToSelectedLevel() {
         LevelManager.instance.nextLevel = level;
         LevelManager.instance.GoToNextLevelFromSlides();
+    }
+
+    IEnumerator WiggleBottle() {
+        int i = Random.Range(0, 4);
+        yield return new WaitForSeconds(delay[i]);
+        //lockedIcon.transform.DOMoveY(lockedIcon.transform.position.y + 2, 1f).SetLoops(-1, LoopType.Yoyo);
+        unlockedIcon.transform.DOMoveY(unlockedIcon.transform.position.y + yMovement[i] * 2.5f, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 }
