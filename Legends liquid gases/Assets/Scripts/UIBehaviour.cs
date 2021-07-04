@@ -13,7 +13,9 @@ public class UIBehaviour : MonoBehaviour
     //Layouts
     public GameObject ingameLayout;
     public GameObject nextLevelLayout;
-    public GameObject nextLevelPanel;
+    public GameObject pauseLayout;
+    public GameObject hintQuestionLayout;
+    public GameObject hintImageLayout;
 
     //Ingame
     public Button playButton;
@@ -26,6 +28,21 @@ public class UIBehaviour : MonoBehaviour
     public Sprite restartPressedNextSprite;
     public Button nextLvlButton;
     public Sprite nextLevelPressedSprite;
+    public GameObject nextLevelPanel;
+
+    //Pause
+    public GameObject pauseMenu;
+
+    //HintQuestion
+    public GameObject hintQuestionMenu;
+
+    //HintImage
+    public GameObject hintImageMenu;
+
+    //Backgrounds
+    public GameObject bgPause;
+    public GameObject bgHintPrompt;
+    public GameObject bgHintImage;
 
     //Transitions
     public float moveDuration = 0.45f;
@@ -33,7 +50,7 @@ public class UIBehaviour : MonoBehaviour
     public float levelCompleteDuration = 0.15f;
     public float starsMoveDuration = 0.25f;
     public GameObject levelCompleteText;
-    public GameObject Bubble;
+    public GameObject bubbleContainer;
 
     //Stars
     public GameObject[] stars;
@@ -138,6 +155,12 @@ public class UIBehaviour : MonoBehaviour
         button.enabled = false;
     }
 
+    void bouncyAnimationButtonSimple(Button button)
+    {
+        Vector3 buttonScale = new Vector3(button.transform.localScale.x, button.transform.localScale.y);
+        button.transform.DOScale(buttonScale * 0.9f, 10f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
+    }
+
     public void toNextLevelTransition() {
 
         ingameLayout.SetActive(false);
@@ -175,12 +198,12 @@ public class UIBehaviour : MonoBehaviour
 
         if (activateBubble)
         {
-            seq.Append(Bubble.transform.DOScale(1.05f, 0.25f));
-            seq.Append(Bubble.transform.DOScale(1.0f, 0.25f));
+            seq.Append(bubbleContainer.transform.DOScale(1.05f, 0.25f));
+            seq.Append(bubbleContainer.transform.DOScale(1.0f, 0.25f));
         }
         else {
-            seq.Append(Bubble.transform.DOScale(1.05f, 0.25f));
-            seq.Append(Bubble.transform.DOScale(0f, 0.25f));
+            seq.Append(bubbleContainer.transform.DOScale(1.05f, 0.25f));
+            seq.Append(bubbleContainer.transform.DOScale(0f, 0.25f));
         }
     }
 
@@ -254,8 +277,94 @@ public class UIBehaviour : MonoBehaviour
 
     void BubbleAnimOnClick() {
         Sequence seqBubble = DOTween.Sequence();
-        seqBubble.Append(Bubble.transform.DOScale(new Vector2(1.05f, 1.05f), 0.25f));
-        seqBubble.Append(Bubble.transform.DOScale(new Vector2(1f, 1f), 0.25f));
+        seqBubble.Append(bubbleContainer.transform.DOScale(new Vector2(1.05f, 1.05f), 0.25f));
+        seqBubble.Append(bubbleContainer.transform.DOScale(new Vector2(1f, 1f), 0.25f));
 
+    }
+
+    void OpenHorizontalTransitionMenu(GameObject layoutMenu)
+    {
+        ingameLayout.SetActive(false);
+        pauseLayout.SetActive(true);
+        Sequence pauseSeq = DOTween.Sequence();
+        pauseSeq.Append(layoutMenu.transform.DOLocalMove(new Vector2(0, 0), moveDuration));
+        pauseSeq.Insert(0.25f, layoutMenu.transform.DOScale(new Vector2(0.85f, 1f), panelScaleDuration));
+        pauseSeq.Append(layoutMenu.transform.DOScale(new Vector2(1f, 1f), panelScaleDuration));
+    }
+
+    void OpenVerticalTransitionHintQuestion(GameObject layoutMenu) {
+        ingameLayout.SetActive(false);
+        hintQuestionLayout.SetActive(true);
+        Sequence pauseSeq = DOTween.Sequence();
+        pauseSeq.Append(layoutMenu.transform.DOLocalMove(new Vector2(0, 0), moveDuration));
+        pauseSeq.Insert(0.25f, layoutMenu.transform.DOScale(new Vector2(1, 0.85f), panelScaleDuration));
+        pauseSeq.Append(layoutMenu.transform.DOScale(new Vector2(1, 1), panelScaleDuration));
+    }
+
+    void OpenVerticalTransitionHint(GameObject layoutMenu)
+    {
+        ingameLayout.SetActive(false);
+        hintImageLayout.SetActive(true);
+        Sequence pauseSeq = DOTween.Sequence();
+        pauseSeq.Append(layoutMenu.transform.DOLocalMove(new Vector2(0, 0), moveDuration));
+        pauseSeq.Insert(0.25f, layoutMenu.transform.DOScale(new Vector2(1, 0.85f), panelScaleDuration));
+        pauseSeq.Append(layoutMenu.transform.DOScale(new Vector2(1, 1), panelScaleDuration));
+    }
+
+    public void ReturnToGameFromPause(GameObject menu) {
+        bgPause.SetActive(false);
+        Sequence returnPauseSeq = DOTween.Sequence();
+        returnPauseSeq.Append(menu.transform.DOLocalMove(new Vector2(-800, 0), moveDuration * 0.5f));
+        StartCoroutine(WaitToActivateIngameLayout());
+    }
+
+    public void ReturnToGameFromHint(GameObject menu)
+    {
+        bgHintImage.SetActive(false);
+        bgHintPrompt.SetActive(false);
+        Sequence returnPauseSeq = DOTween.Sequence();
+        returnPauseSeq.Append(menu.transform.DOLocalMove(new Vector2(0, -600), moveDuration *0.5f));
+        StartCoroutine(WaitToActivateIngameLayout());
+    }
+
+    IEnumerator WaitToActivateIngameLayout() {
+        ingameLayout.SetActive(true);
+        yield return new WaitForSeconds(0.35f);
+        pauseLayout.SetActive(false);
+        hintImageLayout.SetActive(false);
+        hintQuestionLayout.SetActive(false);
+    }
+
+    public void PauseMenu() {
+        bgPause.SetActive(true);
+        OpenHorizontalTransitionMenu(pauseMenu);
+    }
+
+    public void HintMenu() {
+        bgHintPrompt.SetActive(true); ;
+        OpenVerticalTransitionHintQuestion(hintQuestionMenu);
+    }
+    public void HintImage()
+    {
+        bgHintPrompt.SetActive(false);
+        bgHintImage.SetActive(true);
+        hintQuestionMenu.transform.localPosition = new Vector2(0,-600);
+        hintQuestionLayout.SetActive(false);
+        OpenVerticalTransitionHint(hintImageMenu);
+    }
+
+    public void ShowMenu(GameObject menu) {
+        menu.SetActive(true);
+    }
+
+    public void HideMenu(GameObject menu)
+    {
+        menu.SetActive(false);
+    }
+
+    public void SkipLevel() {
+        pauseLayout.SetActive(false);
+        //TODO sacar las estrellitas del total
+        LevelManager.instance.GoToNextLevel();
     }
 }

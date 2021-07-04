@@ -61,7 +61,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void goToNextLevel()
+    public void GoToNextLevel()
     {
         playerCanInteract = false;
         UIBehaviour.instance.PlayBouncyAnimation("nextLevel");

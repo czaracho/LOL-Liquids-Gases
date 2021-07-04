@@ -28,7 +28,7 @@ public class TypeWriter : MonoBehaviour
     {
         text = GetComponent<TextMeshProUGUI>();
         _lang = SharedState.LanguageDefs;
-        HideAll();
+        //HideAll();
         text.text = "";
     }
 
@@ -45,6 +45,11 @@ public class TypeWriter : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        HideAll();
+    }
+
     public void HideAll()
     {
         StopAllCoroutines();
@@ -54,22 +59,20 @@ public class TypeWriter : MonoBehaviour
         textContinue.gameObject.SetActive(false);
 
 
-        if (SceneManager.GetActiveScene().name != "MainMenu") {
-
-            if (UIBehaviour.instance.Bubble != null)
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            if (UIBehaviour.instance.bubbleContainer != null)
             {
-                UIBehaviour.instance.Bubble.SetActive(false);
+                UIBehaviour.instance.bubbleContainer.SetActive(false);
             }
         }
-
-
     }
 
     public void WriteText(string jsonKey)
     {
         canSpeedUptext = true;
         StopAllCoroutines();
-        UIBehaviour.instance.Bubble.SetActive(true);
+        UIBehaviour.instance.bubbleContainer.SetActive(true);
         textContinue.gameObject.SetActive(false);
         LOLSDK.Instance.SpeakText(jsonKey);
         text.text = "";
@@ -118,7 +121,7 @@ public class TypeWriter : MonoBehaviour
     public void WriteNewText(string jsonKey)
     {
         StopAllCoroutines();
-        UIBehaviour.instance.Bubble.SetActive(true);
+        UIBehaviour.instance.bubbleContainer.SetActive(true);
         textContinue.gameObject.SetActive(false);
         LOLSDK.Instance.SpeakText(jsonKey);
         text.text = "";
@@ -130,7 +133,7 @@ public class TypeWriter : MonoBehaviour
 
     IEnumerator TypeText()
     {
-        UIBehaviour.instance.Bubble.SetActive(true);
+        UIBehaviour.instance.bubbleContainer.SetActive(true);
         while (currentText.Length != textToType.Length)
         {
             for (int i = 0; i < textToType.Length; i++)

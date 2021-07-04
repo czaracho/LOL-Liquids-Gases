@@ -5,7 +5,7 @@ using UnityEngine;
 public class PipeImpulser : MonoBehaviour
 {
     public Piece piece;
-    public bool pieceOffBoard = false;
+    public bool pieceHasFixedPlace = false;
     public bool pieceIsPlaced = false;
     [HideInInspector]
     public string direction = "down";

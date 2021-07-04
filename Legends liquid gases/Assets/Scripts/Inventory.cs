@@ -15,8 +15,8 @@ public class Inventory : MonoBehaviour
     public float bubbleScale = 1f;
     public float bubbleScaleSpeed = 0.25f;
     public Piece.PieceType[] pieceType;
-
-
+    //GameObject[] pipes = new GameObject[6];
+    List<GameObject> pipes = new List<GameObject>();
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class Inventory : MonoBehaviour
         
         for (int i = 0; i < pieceType.Length; i++)
         {
-            instantiatePipes(pieceType[i], inventorySlots[i].transform.position);
+            instantiatePipes(pieceType[i], inventorySlots[i].transform.position, i);
         }
     }
 
@@ -46,26 +46,33 @@ public class Inventory : MonoBehaviour
         EventManager.instance.HideBubbleTrigger -= HideDialogBubble;
     }
 
-    public void instantiatePipes(Piece.PieceType type, Vector3 position) {
+    public void instantiatePipes(Piece.PieceType type, Vector3 position, int arrayPos) {
 
         switch (type) {
             case Piece.PieceType.straight:
-                GameObject pipe = (GameObject)Instantiate(pipeStraight, position, Quaternion.identity);
+                pipes.Add((GameObject)Instantiate(pipeStraight, position, Quaternion.identity));
                 break;
             case Piece.PieceType.pipeL:
-                GameObject pipeLshape = (GameObject)Instantiate(pipeL, position, Quaternion.identity);
+                pipes.Add((GameObject)Instantiate(pipeL, position, Quaternion.identity));
                 break;
             case Piece.PieceType.pipeT:
-                GameObject pipeTshape = (GameObject)Instantiate(pipeT, position, Quaternion.identity);
+                pipes.Add((GameObject)Instantiate(pipeT, position, Quaternion.identity));
                 break;
             case Piece.PieceType.burner:
-                GameObject burnerShape = (GameObject)Instantiate(burner, position, Quaternion.identity);
+                pipes.Add((GameObject)Instantiate(burner, position, Quaternion.identity));
                 break;
-
         }
     }
 
     public void HideDialogBubble() {
+
+        foreach (GameObject pipe in pipes) {
+
+            if (pipe.GetComponent<PipeImpulser>().pieceIsPlaced == false) {
+                pipe.SetActive(false);
+            }
+        }
+
         Sequence s = DOTween.Sequence();
         bubbleScale = 1 + (bubbleScale / 100);
         //s.Append(dialogBubble.transform.DOScale(dialogBubble.transform.localScale.x * bubbleScale * 1.1f, 0.35f));

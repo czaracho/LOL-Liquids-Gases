@@ -480,6 +480,19 @@ public class MetaballParticleClass : MonoBehaviour
             case "Destroyer":
                 this.Active = false;
                 break;
+            case "Player":  //this is the burner
+                if (this.gameObject.tag == "Metaball_liquid")
+                {
+                    this.Active = false;
+                }
+                break;
+            case "Finish":  //this is the condenser
+                if (this.gameObject.tag == "Smoke")
+                {
+                    this.Active = false;
+                }
+
+                break;
             default:
                 break;
         }
@@ -503,9 +516,6 @@ public class MetaballParticleClass : MonoBehaviour
                 break;
             case "WaterTankPumper":
                 StartCoroutine(ActivateTrailSprite());
-                break;
-            case "Burner":
-                this.Active = false;
                 break;
             default:
                 break;

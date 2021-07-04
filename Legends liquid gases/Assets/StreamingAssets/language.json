@@ -16,6 +16,14 @@
 	  "slide2_1": "In a liquid, particles of matter move relative to one another but remain in contact.",
 	  "slide2_2": "The movement of the particles causes the liquid to be variable in shape.",
 	  "slide2_3": "Liquids will flow and fill the lowest portion of a container, taking on the shape of the container but not changing in volume.",
-      "newGame":"New Game"
+      "newGame":"New Game",
+	  "paused": "Paused",
+	  "return": "return",
+	  "level_selection": "level selection",
+	  "hint_text_question": "Watch the solution? You won't earn any stars.",
+	  "skip_level": "Skip level? I'll cost you 3 stars",
+	  "yes": "yes",
+	  "no": "no",
+	  "or_less_moves": "or less moves"
    }
 }

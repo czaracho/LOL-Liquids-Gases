@@ -1010,6 +1010,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2028629595598931104, guid: 52f9c5eb5367e6b478bf7859bf8439ca,
         type: 3}
+      propertyPath: bubbleContainer
+      value: 
+      objectReference: {fileID: 2433272175080982917}
+    - target: {fileID: 2028629595598931104, guid: 52f9c5eb5367e6b478bf7859bf8439ca,
+        type: 3}
       propertyPath: slides.Array.data[0]
       value: 
       objectReference: {fileID: 1609553685}
@@ -1165,3 +1170,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52f9c5eb5367e6b478bf7859bf8439ca, type: 3}
+--- !u!1 &2433272175080982917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3837665294315109327, guid: 52f9c5eb5367e6b478bf7859bf8439ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 2433272175080982916}
+  m_PrefabAsset: {fileID: 0}

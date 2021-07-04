@@ -5,19 +5,25 @@ using UnityEngine;
 public class Burner : MonoBehaviour
 {
     public Water2D.Water2D_Spawner SmokeSpawner;
+
+    public enum ManipulatorType { burner, condenser };
+    public ManipulatorType manipulatorType = ManipulatorType.burner;
     public SwitchOnOff switchOnOff;
-    bool burnerIsActive = false;
+    bool manipulatorIsActive = false;
     float counter = 0f;
     float checkRate = 0.4f;
 
     private void Update()
     {
-        if (burnerIsActive)
+        if (manipulatorIsActive)
         {
             if (counter >= checkRate)
             {
-                switchOnOff.BurnerGlowFade();
-                burnerIsActive = false;
+                if (manipulatorType == ManipulatorType.burner) {
+                    switchOnOff.BurnerGlowFade();
+                }
+
+                manipulatorIsActive = false;
                 SmokeSpawner.StopSpawning();
             }
 
@@ -28,20 +34,35 @@ public class Burner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Metaball_liquid")
-        {
-            counter = 0;
+        if (collision.tag == "Metaball_liquid") {
 
-            if (burnerIsActive == false)
-            {
-                switchOnOff.BurnerGlow();
-                burnerIsActive = true;
-                StartCoroutine(activateSpawner());
+            if (manipulatorType == ManipulatorType.burner) {
+                ActivateRespawner();
             }
+            if (manipulatorType == ManipulatorType.condenser)
+            {
+                //congelar la tuberia
+            }
+
+        }
+        else if (collision.tag == "Smoke") {
+            ActivateRespawner();
         }
     }
 
-    IEnumerator activateSpawner() {
+    void ActivateRespawner() {
+
+        counter = 0;
+
+        if (manipulatorIsActive == false)
+        {
+            switchOnOff.BurnerGlow();
+            manipulatorIsActive = true;
+            StartCoroutine(waitToActivateRespawner());
+        }
+    }
+
+    IEnumerator waitToActivateRespawner() {
         
         yield return new WaitForSeconds(0.35f);
         SmokeSpawner.StartSmokeSpawner();

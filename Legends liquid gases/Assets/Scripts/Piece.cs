@@ -25,12 +25,17 @@ public class Piece : MonoBehaviour
     public Transform parentSlot;
     public Burner burner;
     public PipeImpulser pipeImpulser;
+    public GameObject grating;
 
     private void Start()
     {
         currentAngle = (int)transform.parent.rotation.eulerAngles.z;
-        pieceIsFixed = pipeImpulser.pieceOffBoard;
+        pieceIsFixed = pipeImpulser.pieceHasFixedPlace;
         isPlaced = pipeImpulser.pieceIsPlaced;
+
+        if (pieceIsFixed) {
+            grating.SetActive(true);
+        }
 
         if (isPlaced)
         {
@@ -109,6 +114,7 @@ public class Piece : MonoBehaviour
         transform.parent.parent = null;
         transform.parent.localScale = Vector3.one;
         isPlaced = true;
+        pipeImpulser.pieceIsPlaced = true;
         transform.parent.DOMove(new Vector2(tile.position.x, tile.position.y), 0.5f);
         pipePlacementManager.resetPiece();
     }

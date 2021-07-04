@@ -118,7 +118,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 25419281}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2982794307637926996}
+        m_MethodName: PauseMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &251994841
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +157,7 @@ RectTransform:
   m_GameObject: {fileID: 251994841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 1}
   m_Children:
   - {fileID: 1747657532}
   m_Father: {fileID: 415625240172951514}
@@ -791,7 +802,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075148308}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2982794307637926996}
+        m_MethodName: HintMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &341469929130768031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,7 +1267,9 @@ MonoBehaviour:
   isSlideLevel: 0
   ingameLayout: {fileID: 415625240942054969}
   nextLevelLayout: {fileID: 415625240423820663}
-  nextLevelPanel: {fileID: 415625241489011014}
+  pauseLayout: {fileID: 0}
+  hintQuestionLayout: {fileID: 0}
+  hintImageLayout: {fileID: 0}
   playButton: {fileID: 6166111741411062826}
   restartButton: {fileID: 1817029708}
   playPressedSprite: {fileID: 2029885423140135143, guid: 8c499d3a84d9d71409b6667783567a10,
@@ -1258,6 +1282,13 @@ MonoBehaviour:
   nextLvlButton: {fileID: 415625239519125602}
   nextLevelPressedSprite: {fileID: 4789762955286400846, guid: 8c499d3a84d9d71409b6667783567a10,
     type: 3}
+  nextLevelPanel: {fileID: 415625241489011014}
+  pauseMenu: {fileID: 0}
+  hintQuestionMenu: {fileID: 0}
+  hintImageMenu: {fileID: 0}
+  bgPause: {fileID: 0}
+  bgHintPrompt: {fileID: 0}
+  bgHintImage: {fileID: 0}
   moveDuration: 0.45
   panelScaleDuration: 0.125
   levelCompleteDuration: 0.2
