@@ -151,7 +151,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 6- Wait until the container is filled with the fluid
+  m_Text: 
 --- !u!1 &169825562
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -765,7 +765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2- Click on a tile to put the selected pipe on top of it
+  m_Text: 
 --- !u!1 &349800786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,7 +1297,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4- Pipes with a grating on top can't be rotated
+  m_Text: 
 --- !u!1 &793085921
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,7 +2118,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 5- Click on the play button to run the fluid
+  m_Text: 
 --- !u!1 &1254199049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,7 +2400,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3- You can click on placed tiles to rotate them
+  m_Text: 
 --- !u!1 &1301772094
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,7 +2640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2659,7 +2659,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Redirect the fluid through the pipes to fill the glass container!
+  m_Text: 
 --- !u!1 &1521565200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,7 +2719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3081,6 +3081,7 @@ MonoBehaviour:
   - {fileID: 169825562}
   backBT: {fileID: 215397244}
   nextBT: {fileID: 1256869830}
+  transitionTime: 0.45
 --- !u!1 &1762350454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3519,7 +3520,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1- Select a pipe
+  m_Text: 
 --- !u!1 &1916430713
 GameObject:
   m_ObjectHideFlags: 0
@@ -3772,7 +3773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4007,7 +4008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSlideLevel: 0
-  hasTutorial: 0
+  hasTutorial: 1
   playerCanInteractUI: 1
   ingameLayout: {fileID: 415625239375072468}
   nextLevelLayout: {fileID: 415625241001144218}
@@ -4075,6 +4076,14 @@ MonoBehaviour:
   slides: []
   dialogLines: []
   lineToSwitchImages: 0
+  levelSelectionTxt: {fileID: 8391354409335924101}
+  skipLevelTxt: {fileID: 8391354409850301042}
+  oneStarMovesTxt: {fileID: 8391354408676738226}
+  twoStarMovesTxt: {fileID: 8391354409502613101}
+  threeStarMovesTxt: {fileID: 8391354408579597860}
+  skipLevelScreenText: {fileID: 8391354410301925548}
+  currentStarsText: {fileID: 8391354409796094677}
+  solutionQuestionText: {fileID: 8391354410387329491}
 --- !u!1 &415625239901877163
 GameObject:
   m_ObjectHideFlags: 0
@@ -5926,7 +5935,7 @@ GameObject:
   - component: {fileID: 8391354408266710836}
   - component: {fileID: 8391354408266710843}
   m_Layer: 5
-  m_Name: stars
+  m_Name: stars1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6195,7 +6204,7 @@ GameObject:
   - component: {fileID: 8391354408579597861}
   - component: {fileID: 8391354408579597860}
   m_Layer: 5
-  m_Name: starsText
+  m_Name: starsTxt3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6366,7 +6375,7 @@ GameObject:
   - component: {fileID: 8391354408676738227}
   - component: {fileID: 8391354408676738226}
   m_Layer: 5
-  m_Name: starsText
+  m_Name: starsTxt1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6842,7 +6851,7 @@ GameObject:
   - component: {fileID: 8391354408903888533}
   - component: {fileID: 8391354408903888532}
   m_Layer: 5
-  m_Name: stars
+  m_Name: stars2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7511,7 +7520,7 @@ GameObject:
   - component: {fileID: 8391354409335924102}
   - component: {fileID: 8391354409335924101}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: lvlSelectionTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8259,7 +8268,7 @@ GameObject:
   - component: {fileID: 8391354409502613102}
   - component: {fileID: 8391354409502613101}
   m_Layer: 5
-  m_Name: starsText
+  m_Name: starsTxt2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8827,9 +8836,9 @@ RectTransform:
   m_Father: {fileID: 8391354408818799058}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48.5, y: -47}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -48.5, y: -47}
   m_SizeDelta: {x: 97, y: 94}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8391354409672174825
@@ -8859,7 +8868,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 498972953179436368, guid: 8c499d3a84d9d71409b6667783567a10, type: 3}
+  m_Sprite: {fileID: -8022265183432769536, guid: 8c499d3a84d9d71409b6667783567a10,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9168,7 +9178,7 @@ GameObject:
   - component: {fileID: 8391354409850301043}
   - component: {fileID: 8391354409850301042}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: skipLevelTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9413,7 +9423,7 @@ GameObject:
   - component: {fileID: 8391354410093337435}
   - component: {fileID: 8391354410093337434}
   m_Layer: 5
-  m_Name: stars
+  m_Name: stars3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10095,7 +10105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Watch the solution? \nYou won't earn any stars."
+  m_text: "See the solution? \nYou won't earn any stars."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -10582,7 +10592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
       propertyPath: TheIdentifier
-      value: -1089168
+      value: -1848
       objectReference: {fileID: 0}
     - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
       propertyPath: Water2DRenderType

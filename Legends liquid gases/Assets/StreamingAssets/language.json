@@ -23,10 +23,6 @@
 	  "tutorial_4":"4- Pipes with a grating on top can't be rotated",
 	  "tutorial_5":"5- Click on the play button to run the liquid",
 	  "tutorial_6":"6- Wait until the container is filled with the fluid",
-	  "start":"START",
-	  "continue":"continue",
-	  "paused": "Paused",
-	  "return": "return",
 	  "level_selection": "level selection",
 	  "watch_the_solution": "See the solution?\\nYou won't earn any stars.",
 	  "wont_earn_stars": "You won't earn any stars.",
@@ -37,6 +33,11 @@
 	  "no": "no",
 	  "thanks_help": "THANKS FOR YOUR HELP!",
 	  "stars_earned": "Stars Earned",
-	  "or_less_moves": "or less moves"
+	  "or_less_moves": "or less moves",
+	  	  "start":"START",
+	  "continue":"continue",
+	  "paused": "Paused",
+	  "return": "return",
+	  "loading": "Loading..."
    }
 }

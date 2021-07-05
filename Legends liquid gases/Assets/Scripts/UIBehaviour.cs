@@ -1,19 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using TMPro;
+
 
 public class UIBehaviour : MonoBehaviour
 {
+    [HideInInspector]
+    public static UIBehaviour instance;
+
     //Basics
+    [Header("Basics")]
     public bool isSlideLevel = false;
     public bool hasTutorial = false;
     [HideInInspector]
     public bool playerCanInteractUI = true;
 
     //Layouts
+    [Header("UILayouts")]
     public GameObject ingameLayout;
     public GameObject nextLevelLayout;
     public GameObject pauseLayout;
@@ -22,37 +30,36 @@ public class UIBehaviour : MonoBehaviour
     public GameObject tutorialLayout;
 
     //Ingame
+    [Header("Ingame elements")]
     public Button playButton;
     public Button restartButton;
     public Sprite playPressedSprite;
     public Sprite restartPressedSprite;
 
     //Next Level Layout
+    [Header("Next level elements")]
     public Button restartButtonNxt;
     public Sprite restartPressedNextSprite;
     public Button nextLvlButton;
     public Sprite nextLevelPressedSprite;
     public GameObject nextLevelPanel;
+    public GameObject[] stars;
 
-    //Pause
+    [Header("Menus")]
     public GameObject pauseMenu;
-
-    //HintQuestion
     public GameObject hintQuestionMenu;
-
-    //HintImage
     public GameObject hintImageMenu;
 
-    //public Return to play buttons
+    [Header("Go back buttons")]
     public GameObject returnFromPauseBT;
     public GameObject returnFromHintBT;
 
-    //Backgrounds
+    [Header("Backgrounds")]
     public GameObject bgPause;
     public GameObject bgHintPrompt;
     public GameObject bgHintImage;
 
-    //Transitions
+    [Header("Transitions values")]
     public float moveDuration = 0.45f;
     public float panelScaleDuration = 0.15f;
     public float levelCompleteDuration = 0.15f;
@@ -60,23 +67,28 @@ public class UIBehaviour : MonoBehaviour
     public GameObject levelCompleteText;
     public GameObject bubbleContainer;
 
-    //Stars
-    public GameObject[] stars;
-
-    [HideInInspector]
-    public static UIBehaviour instance;
-
-    //Scene Fader
+    [Header("Fader")]
     public Image img;
     public AnimationCurve curve;
 
-    //Bubble Text Controller
+    [Header("Bubble text")]
     public TypeWriter TypeWriter;
     public SpriteRenderer[] slides;
     public string[] dialogLines;
     private int currentLine = 0;
     public int lineToSwitchImages = 0;
     bool isWaitingForClick = false;
+
+    [Header("Texts")]
+    public TextMeshProUGUI levelSelectionTxt;
+    public TextMeshProUGUI skipLevelTxt;
+    public TextMeshProUGUI oneStarMovesTxt;
+    public TextMeshProUGUI twoStarMovesTxt;
+    public TextMeshProUGUI threeStarMovesTxt;
+    public TextMeshProUGUI skipLevelScreenText;
+    public TextMeshProUGUI currentStarsText;
+    public TextMeshProUGUI solutionQuestionText;
+
 
     private void Awake()
     {
@@ -92,6 +104,8 @@ public class UIBehaviour : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("la debugeacion " + basicStuff.hasTutorial2);
+
         StartCoroutine(FadeIn());
 
         if (dialogLines.Length > 0) {
