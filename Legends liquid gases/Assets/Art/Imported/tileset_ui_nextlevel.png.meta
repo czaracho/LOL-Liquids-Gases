@@ -167,6 +167,12 @@ TextureImporter:
   - first:
       213: 101718880510872017
     second: tileset_ui_nextlevel_54
+  - first:
+      213: 3592122574444542596
+    second: tileset_ui_nextlevel_55
+  - first:
+      213: -5520468015204814679
+    second: tileset_ui_nextlevel_56
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1414,6 +1420,48 @@ TextureImporter:
       bones: []
       spriteID: 1d90dcb68c0696100800000000000000
       internalID: 101718880510872017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_55
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 207
+        width: 176
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48abd671378c9d130800000000000000
+      internalID: 3592122574444542596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tileset_ui_nextlevel_56
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 148
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a0bfcfb69b5363b0800000000000000
+      internalID: -5520468015204814679
       vertices: []
       indices: 
       edges: []

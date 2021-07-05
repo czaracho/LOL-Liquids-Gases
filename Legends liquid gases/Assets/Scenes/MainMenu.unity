@@ -279,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 1910618015502302362, guid: 02a9a7e153b1eed4ca1d9385123b1349,
         type: 3}
       propertyPath: nextLevel
-      value: slide1
+      value: level1
       objectReference: {fileID: 0}
     - target: {fileID: 1910618015502302362, guid: 02a9a7e153b1eed4ca1d9385123b1349,
         type: 3}
@@ -3244,12 +3244,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSlideLevel: 0
+  hasTutorial: 0
   playerCanInteractUI: 1
   ingameLayout: {fileID: 415625240491906958}
   nextLevelLayout: {fileID: 415625239936414912}
   pauseLayout: {fileID: 0}
   hintQuestionLayout: {fileID: 0}
   hintImageLayout: {fileID: 0}
+  tutorialLayout: {fileID: 0}
   playButton: {fileID: 6166111741090901405}
   restartButton: {fileID: 1903228411}
   playPressedSprite: {fileID: 2029885423140135143, guid: 8c499d3a84d9d71409b6667783567a10,

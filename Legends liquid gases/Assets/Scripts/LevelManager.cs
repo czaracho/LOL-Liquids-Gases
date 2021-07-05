@@ -177,4 +177,8 @@ public class LevelManager : MonoBehaviour
         LOLSDK.Instance.CompleteGame();
         UIBehaviour.instance.FadeTo(nextLevel);
     }
+
+    public void ShowTutorialScreen() { 
+        
+    }
 }

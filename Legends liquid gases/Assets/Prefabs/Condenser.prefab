@@ -393,8 +393,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 902753182732590636, guid: 8c499d3a84d9d71409b6667783567a10, type: 3}
-  m_Color: {r: 0.033018887, g: 0.27130598, b: 1, a: 1}
+  m_Sprite: {fileID: -2818033625213039589, guid: 8c499d3a84d9d71409b6667783567a10,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -717,7 +718,7 @@ MonoBehaviour:
   OnSpawnerEmitingParticle:
     m_PersistentCalls:
       m_Calls: []
-  TheIdentifier: -537908
+  TheIdentifier: -869640
   isRefractingMaterial: 0
 --- !u!1 &7074742400984985740
 GameObject:
@@ -787,7 +788,7 @@ GameObject:
   - component: {fileID: 7078681192530979698}
   - component: {fileID: 7078681192530979697}
   m_Layer: 0
-  m_Name: BurnerOn
+  m_Name: CondenserOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -846,9 +847,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 8547367060620917263, guid: 8c499d3a84d9d71409b6667783567a10,
+  m_Sprite: {fileID: -8123477745527786243, guid: 8c499d3a84d9d71409b6667783567a10,
     type: 3}
-  m_Color: {r: 0.033018887, g: 0.27130598, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -999,7 +1000,7 @@ GameObject:
   - component: {fileID: 1946257843204791029}
   - component: {fileID: 1789232628444938710}
   m_Layer: 0
-  m_Name: BurnerOff
+  m_Name: CondenserOff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,9 +1059,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -5229493926900506652, guid: 8c499d3a84d9d71409b6667783567a10,
+  m_Sprite: {fileID: -4840016063359921729, guid: 8c499d3a84d9d71409b6667783567a10,
     type: 3}
-  m_Color: {r: 0.033018887, g: 0.27130598, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -9,9 +9,9 @@ public class UIBehaviour : MonoBehaviour
 {
     //Basics
     public bool isSlideLevel = false;
+    public bool hasTutorial = false;
     [HideInInspector]
     public bool playerCanInteractUI = true;
-
 
     //Layouts
     public GameObject ingameLayout;
@@ -19,6 +19,7 @@ public class UIBehaviour : MonoBehaviour
     public GameObject pauseLayout;
     public GameObject hintQuestionLayout;
     public GameObject hintImageLayout;
+    public GameObject tutorialLayout;
 
     //Ingame
     public Button playButton;
@@ -97,6 +98,10 @@ public class UIBehaviour : MonoBehaviour
             EventManager.instance.WaitingForClickTrigger += SetWaitingForClickStatus;
 
             StartCoroutine(waitforReadFirstTime());
+        }
+
+        if (hasTutorial) {
+            tutorialLayout.SetActive(true);
         }
     }
 
