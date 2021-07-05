@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour
     public event Action WaitingForClickTrigger;
     public event Action WaitForNextLevelTrigger;
     public event Action HideBubbleTrigger;
+    public event Action<GameObject> ButtonClickAnimTrigger;
 
     private void Awake()
     {

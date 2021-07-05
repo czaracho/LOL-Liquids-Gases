@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using LoLSDK;
 
 public class LevelManager : MonoBehaviour
 {
     public int levelId = 0;
     [HideInInspector]
-    public bool playerCanInteract = true;
+    public bool playerCanInteractGame = true;
     [HideInInspector]
     public bool levelCleared = false;
     public int requiredDropQuantity = 100;
@@ -63,14 +63,19 @@ public class LevelManager : MonoBehaviour
 
     public void GoToNextLevel()
     {
-        playerCanInteract = false;
+        if (nextLevel == "EndGame") {
+            EndGame();
+            return;
+        }
+
+        playerCanInteractGame = false;
         UIBehaviour.instance.PlayBouncyAnimation("nextLevel");
         UIBehaviour.instance.FadeTo(nextLevel);
     }
 
     public void restartLevel()
     {
-        playerCanInteract = false;
+        playerCanInteractGame = false;
         UIBehaviour.instance.PlayBouncyAnimation("restart");
         UIBehaviour.instance.FadeTo(SceneManager.GetActiveScene().name);
     }
@@ -104,8 +109,8 @@ public class LevelManager : MonoBehaviour
             currentLvlStarsEarned = 0;
         }
 
-        //TODO agregar aca la sumatoria de estrellas 
-        //GameMaster.instance.total_stars_earned = GameMaster.instance.total_stars_earned + currentLvlStarsEarned;
+        AddGameProgress();
+
     }
 
     public void RestartToNonSelectedPiece()
@@ -121,6 +126,55 @@ public class LevelManager : MonoBehaviour
     }
 
     public void GoToNextLevelFromSlides() {
+        UIBehaviour.instance.FadeTo(nextLevel);
+    }
+
+    public void GoToLevelSelectionScreen() {
+        UIBehaviour.instance.FadeTo("LevelSelector");
+    }
+
+    public void StartNewGame() {
+
+        Loader.CURRENT_PROGRESS = 0;
+        Loader.STARS_EARNED = 0;
+        LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
+        SaveData();
+
+        UIBehaviour.instance.FadeTo(nextLevel);
+    }
+
+    void SaveData()
+    {
+        ProgressData progressData = new ProgressData();
+        progressData.CURRENT_PROGRESS = Loader.CURRENT_PROGRESS;
+        progressData.STARS_EARNED = Loader.STARS_EARNED;
+        progressData.CURRENT_STARS_EARNED_PER_LEVEL = Loader.CURRENT_STARS_EARNED_PER_LEVEL;
+
+        LOLSDK.Instance.SaveState(progressData);
+    }
+
+    public void ContinueGame() {
+        LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
+        UIBehaviour.instance.FadeTo("LevelSelector");
+    }
+
+    void AddGameProgress() {
+
+        Loader.STARS_EARNED = 0;
+
+        for (int i = 0; i < Loader.CURRENT_STARS_EARNED_PER_LEVEL.Length; i++) {
+            Loader.STARS_EARNED += Loader.CURRENT_STARS_EARNED_PER_LEVEL[i];
+        }
+
+        Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = currentLvlStarsEarned;
+        Loader.CURRENT_PROGRESS++;
+        Loader.LEVELS_UNLOCKED[levelId] = true; //levelId of current level, since arrays id starts at 0
+        LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
+        Loader.SaveData();
+    }
+
+    public void EndGame() {
+        LOLSDK.Instance.CompleteGame();
         UIBehaviour.instance.FadeTo(nextLevel);
     }
 }

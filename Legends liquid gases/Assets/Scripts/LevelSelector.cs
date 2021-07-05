@@ -23,7 +23,7 @@ public class LevelSelector : MonoBehaviour
 
     void CheckIfLevelUnlocked() {
 
-        if (levelId <= Loader.TOTAL_LEVELS_UNLOCKED) {
+        if (Loader.LEVELS_UNLOCKED[levelId-1]) {
             lockedIcon.SetActive(false);
             unlockedIcon.SetActive(true);
             levelNumber.SetActive(true);
@@ -57,7 +57,6 @@ public class LevelSelector : MonoBehaviour
     IEnumerator WiggleBottle() {
         int i = Random.Range(0, 4);
         yield return new WaitForSeconds(delay[i]);
-        //lockedIcon.transform.DOMoveY(lockedIcon.transform.position.y + 2, 1f).SetLoops(-1, LoopType.Yoyo);
         unlockedIcon.transform.DOMoveY(unlockedIcon.transform.position.y + yMovement[i] * 2.5f, 1f).SetLoops(-1, LoopType.Yoyo);
     }
 }

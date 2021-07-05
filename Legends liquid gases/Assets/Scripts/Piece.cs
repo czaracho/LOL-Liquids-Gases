@@ -84,7 +84,7 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!LevelManager.instance.playerCanInteract || pieceIsFixed) {
+        if (!LevelManager.instance.playerCanInteractGame || pieceIsFixed) {
             return;
         }
 

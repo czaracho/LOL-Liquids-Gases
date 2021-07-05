@@ -438,6 +438,11 @@ PrefabInstance:
       propertyPath: level
       value: level10
       objectReference: {fileID: 0}
+    - target: {fileID: 5708689801157700296, guid: 0d021185b21617b40a0040887310ab94,
+        type: 3}
+      propertyPath: levelId
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d021185b21617b40a0040887310ab94, type: 3}
 --- !u!224 &92252447 stripped
@@ -738,6 +743,11 @@ PrefabInstance:
         type: 3}
       propertyPath: level
       value: level10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708689801157700296, guid: 0d021185b21617b40a0040887310ab94,
+        type: 3}
+      propertyPath: levelId
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d021185b21617b40a0040887310ab94, type: 3}
@@ -2482,6 +2492,11 @@ PrefabInstance:
       propertyPath: level
       value: level10
       objectReference: {fileID: 0}
+    - target: {fileID: 5708689801157700296, guid: 0d021185b21617b40a0040887310ab94,
+        type: 3}
+      propertyPath: levelId
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d021185b21617b40a0040887310ab94, type: 3}
 --- !u!224 &1185915177 stripped
@@ -3039,6 +3054,11 @@ PrefabInstance:
         type: 3}
       propertyPath: level
       value: level10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708689801157700296, guid: 0d021185b21617b40a0040887310ab94,
+        type: 3}
+      propertyPath: levelId
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d021185b21617b40a0040887310ab94, type: 3}
@@ -3665,6 +3685,11 @@ PrefabInstance:
         type: 3}
       propertyPath: level
       value: level10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708689801157700296, guid: 0d021185b21617b40a0040887310ab94,
+        type: 3}
+      propertyPath: levelId
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d021185b21617b40a0040887310ab94, type: 3}
@@ -5291,9 +5316,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSlideLevel: 0
+  playerCanInteractUI: 1
   ingameLayout: {fileID: 415625240029530627}
   nextLevelLayout: {fileID: 415625240547813709}
-  nextLevelPanel: {fileID: 415625239482824060}
+  pauseLayout: {fileID: 0}
+  hintQuestionLayout: {fileID: 0}
+  hintImageLayout: {fileID: 0}
   playButton: {fileID: 6166111742641827856}
   restartButton: {fileID: 367110262}
   playPressedSprite: {fileID: 2029885423140135143, guid: 8c499d3a84d9d71409b6667783567a10,
@@ -5306,12 +5334,21 @@ MonoBehaviour:
   nextLvlButton: {fileID: 415625241253209176}
   nextLevelPressedSprite: {fileID: 4789762955286400846, guid: 8c499d3a84d9d71409b6667783567a10,
     type: 3}
+  nextLevelPanel: {fileID: 415625239482824060}
+  pauseMenu: {fileID: 0}
+  hintQuestionMenu: {fileID: 0}
+  hintImageMenu: {fileID: 0}
+  returnFromPauseBT: {fileID: 0}
+  returnFromHintBT: {fileID: 0}
+  bgPause: {fileID: 0}
+  bgHintPrompt: {fileID: 0}
+  bgHintImage: {fileID: 0}
   moveDuration: 0.45
   panelScaleDuration: 0.125
   levelCompleteDuration: 0.2
   starsMoveDuration: 0.2
   levelCompleteText: {fileID: 2821388393425426081}
-  Bubble: {fileID: 1990797027}
+  bubbleContainer: {fileID: 0}
   stars:
   - {fileID: 5497969454604523806}
   - {fileID: 3906234601223645684}
@@ -6223,6 +6260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: level
       value: level10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5708689801157700296, guid: 0d021185b21617b40a0040887310ab94,
+        type: 3}
+      propertyPath: levelId
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d021185b21617b40a0040887310ab94, type: 3}

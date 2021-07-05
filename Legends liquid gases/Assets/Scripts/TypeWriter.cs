@@ -63,7 +63,7 @@ public class TypeWriter : MonoBehaviour
         {
             if (UIBehaviour.instance.bubbleContainer != null)
             {
-                UIBehaviour.instance.bubbleContainer.SetActive(false);
+                //UIBehaviour.instance.bubbleContainer.SetActive(false);
             }
         }
     }

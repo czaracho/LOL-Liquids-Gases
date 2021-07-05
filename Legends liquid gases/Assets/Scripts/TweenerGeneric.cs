@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class TweenerGeneric : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        //escala del logo es 0.75f
-        Sequence s = DOTween.Sequence();
-        s.Append(gameObject.transform.DOScale(new Vector2(0.75f * 1.1f, 0.75f * 1.1f), 0.45f));
-        s.Append(gameObject.transform.DOScale(new Vector2(0.75f, 0.75f), 0.45f));
-        StartCoroutine(DoLogoAnimation());
+        if (SceneManager.GetActiveScene().name == "MainMenu") {
+
+            //logo scale is 0.75f
+            Sequence s = DOTween.Sequence();
+            s.Append(gameObject.transform.DOScale(new Vector2(gameObject.transform.localScale.x * 1.1f, gameObject.transform.localScale.x * 1.1f), 0.45f));
+            s.Append(gameObject.transform.DOScale(new Vector2(0.75f, 0.75f), 0.45f));
+            StartCoroutine(DoLogoAnimation());
+        }
+
     }
 
     IEnumerator DoLogoAnimation() {

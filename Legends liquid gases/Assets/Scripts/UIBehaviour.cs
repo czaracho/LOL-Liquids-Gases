@@ -7,8 +7,11 @@ using DG.Tweening;
 
 public class UIBehaviour : MonoBehaviour
 {
-    //UI Type
+    //Basics
     public bool isSlideLevel = false;
+    [HideInInspector]
+    public bool playerCanInteractUI = true;
+
 
     //Layouts
     public GameObject ingameLayout;
@@ -38,6 +41,10 @@ public class UIBehaviour : MonoBehaviour
 
     //HintImage
     public GameObject hintImageMenu;
+
+    //public Return to play buttons
+    public GameObject returnFromPauseBT;
+    public GameObject returnFromHintBT;
 
     //Backgrounds
     public GameObject bgPause;
@@ -70,16 +77,20 @@ public class UIBehaviour : MonoBehaviour
     public int lineToSwitchImages = 0;
     bool isWaitingForClick = false;
 
-    private void Start()
+    private void Awake()
     {
         if (instance != null)
         {
             return;
         }
-        else {
+        else
+        {
             instance = this;
         }
+    }
 
+    private void Start()
+    {
         StartCoroutine(FadeIn());
 
         if (dialogLines.Length > 0) {
@@ -115,7 +126,6 @@ public class UIBehaviour : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        LevelManager.instance.playerCanInteract = true;
         float t = 2f;
 
         while (t > 0f)
@@ -144,6 +154,7 @@ public class UIBehaviour : MonoBehaviour
 
     public void FadeTo(string scene)
     {
+        ingameLayout.SetActive(false);
         StartCoroutine(FadeOut(scene));
     }
 
@@ -212,7 +223,7 @@ public class UIBehaviour : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!LevelManager.instance.playerCanInteract)
+            if (!LevelManager.instance.playerCanInteractGame)
             {
                 if (isWaitingForClick)
                 {
@@ -236,7 +247,7 @@ public class UIBehaviour : MonoBehaviour
                     else if (currentLine == dialogLines.Length - 1)
                     {
                         //Si el nivel es de slides, ir directo a la siguiente pantalla                        
-                        LevelManager.instance.playerCanInteract = true;
+                        LevelManager.instance.playerCanInteractGame = true;
 
                         currentLine++;
 
@@ -266,7 +277,7 @@ public class UIBehaviour : MonoBehaviour
 
     void SetWaitingForClickStatus()
     {
-        LevelManager.instance.playerCanInteract = false;
+        LevelManager.instance.playerCanInteractGame = false;
         isWaitingForClick = true;
     }
 
@@ -282,19 +293,13 @@ public class UIBehaviour : MonoBehaviour
 
     }
 
-    void OpenHorizontalTransitionMenu(GameObject layoutMenu)
-    {
-        ingameLayout.SetActive(false);
-        pauseLayout.SetActive(true);
-        Sequence pauseSeq = DOTween.Sequence();
-        pauseSeq.Append(layoutMenu.transform.DOLocalMove(new Vector2(0, 0), moveDuration));
-        pauseSeq.Insert(0.25f, layoutMenu.transform.DOScale(new Vector2(0.85f, 1f), panelScaleDuration));
-        pauseSeq.Append(layoutMenu.transform.DOScale(new Vector2(1f, 1f), panelScaleDuration));
-    }
+    void OpenVerticalTransition(GameObject layoutMenu, GameObject layoutObject) {
+        
+        returnFromHintBT.SetActive(true);
+        returnFromPauseBT.SetActive(true);
 
-    void OpenVerticalTransitionHintQuestion(GameObject layoutMenu) {
         ingameLayout.SetActive(false);
-        hintQuestionLayout.SetActive(true);
+        layoutObject.SetActive(true);
         Sequence pauseSeq = DOTween.Sequence();
         pauseSeq.Append(layoutMenu.transform.DOLocalMove(new Vector2(0, 0), moveDuration));
         pauseSeq.Insert(0.25f, layoutMenu.transform.DOScale(new Vector2(1, 0.85f), panelScaleDuration));
@@ -303,6 +308,9 @@ public class UIBehaviour : MonoBehaviour
 
     void OpenVerticalTransitionHint(GameObject layoutMenu)
     {
+        returnFromHintBT.SetActive(true);
+        returnFromPauseBT.SetActive(true);
+
         ingameLayout.SetActive(false);
         hintImageLayout.SetActive(true);
         Sequence pauseSeq = DOTween.Sequence();
@@ -314,7 +322,7 @@ public class UIBehaviour : MonoBehaviour
     public void ReturnToGameFromPause(GameObject menu) {
         bgPause.SetActive(false);
         Sequence returnPauseSeq = DOTween.Sequence();
-        returnPauseSeq.Append(menu.transform.DOLocalMove(new Vector2(-800, 0), moveDuration * 0.5f));
+        returnPauseSeq.Append(menu.transform.DOLocalMove(new Vector2(0, -900), moveDuration * 0.5f));
         StartCoroutine(WaitToActivateIngameLayout());
     }
 
@@ -328,29 +336,47 @@ public class UIBehaviour : MonoBehaviour
     }
 
     IEnumerator WaitToActivateIngameLayout() {
+        playerCanInteractUI = false;
+        returnFromHintBT.SetActive(false);
+        returnFromPauseBT.SetActive(false);
         ingameLayout.SetActive(true);
         yield return new WaitForSeconds(0.35f);
+        playerCanInteractUI = true;
         pauseLayout.SetActive(false);
         hintImageLayout.SetActive(false);
         hintQuestionLayout.SetActive(false);
+        LevelManager.instance.playerCanInteractGame = true;
+
     }
 
     public void PauseMenu() {
-        bgPause.SetActive(true);
-        OpenHorizontalTransitionMenu(pauseMenu);
+
+        if (playerCanInteractUI) {
+            LevelManager.instance.playerCanInteractGame = false;
+            bgPause.SetActive(true);
+            OpenVerticalTransition(pauseMenu, pauseLayout);
+        }
     }
 
     public void HintMenu() {
-        bgHintPrompt.SetActive(true); ;
-        OpenVerticalTransitionHintQuestion(hintQuestionMenu);
+
+        if (playerCanInteractUI) {
+            LevelManager.instance.playerCanInteractGame = false;
+            bgHintPrompt.SetActive(true); ;
+            OpenVerticalTransition(hintQuestionMenu, hintQuestionLayout);
+        }
     }
     public void HintImage()
     {
-        bgHintPrompt.SetActive(false);
-        bgHintImage.SetActive(true);
-        hintQuestionMenu.transform.localPosition = new Vector2(0,-600);
-        hintQuestionLayout.SetActive(false);
-        OpenVerticalTransitionHint(hintImageMenu);
+        if (playerCanInteractUI) {
+            LevelManager.instance.playerCanInteractGame = false;
+            bgHintPrompt.SetActive(false);
+            bgHintImage.SetActive(true);
+            hintQuestionMenu.transform.localPosition = new Vector2(0, -600);
+            hintQuestionLayout.SetActive(false);
+            OpenVerticalTransitionHint(hintImageMenu);
+        }
+
     }
 
     public void ShowMenu(GameObject menu) {
@@ -367,4 +393,6 @@ public class UIBehaviour : MonoBehaviour
         //TODO sacar las estrellitas del total
         LevelManager.instance.GoToNextLevel();
     }
+
+
 }
