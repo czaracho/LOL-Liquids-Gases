@@ -21,6 +21,7 @@ public class TypeWriter : MonoBehaviour
     public bool canSpeedUptext = false;
     [HideInInspector]
     public float textspeed = 0.025f;
+    bool canGoToNextLevel = false;
 
     JSONNode _lang;
 
@@ -40,9 +41,18 @@ public class TypeWriter : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0)) {
             textspeed = 0.025f;
-
         }
 
+        if (Input.GetMouseButtonDown(0)) {
+            if (isLastSlide)
+            {
+                if (canGoToNextLevel)
+                {
+                    canGoToNextLevel = false;
+                    StartCoroutine(WaitForLastSlide());
+                }
+            }
+        }
     }
 
     private void Start()
@@ -98,7 +108,8 @@ public class TypeWriter : MonoBehaviour
             StartCoroutine(WaitForClick());
         }
         else {
-            StartCoroutine(WaitForLastSlide());
+            canGoToNextLevel = true;
+            textContinue.gameObject.SetActive(true);
         }
     }
 
@@ -147,5 +158,4 @@ public class TypeWriter : MonoBehaviour
 
         StartCoroutine(WaitForClick());
     }
-
 }

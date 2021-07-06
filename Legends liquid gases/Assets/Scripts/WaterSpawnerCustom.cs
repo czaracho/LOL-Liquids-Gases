@@ -8,6 +8,7 @@ public class WaterSpawnerCustom : MonoBehaviour
     public SwitchOnOff switchOnOff;
 
     public void SpawnTheWater() {
+        SoundsFX.instance.PlayStartWater();
         EventManager.instance.OnHideBubbleTrigger();
         switchOnOff.SwitchOn();
         waterSpawner.instance.StartWaterSpawner();      

@@ -11,9 +11,12 @@ public class LevelManager : MonoBehaviour
     public int levelId = 0;
     [HideInInspector]
     public bool playerCanInteractGame = true;
+    private bool waterIsRunning = false;
     [HideInInspector]
     public bool levelCleared = false;
-    public int requiredDropQuantity = 100;
+    public int requiredDropQuantity = 100;   
+    //AudioSource audioSource;
+    //public AudioClip waterRunning;
     [HideInInspector]
     public int currentDropQuantity = 0;
     public string nextLevel = "";
@@ -31,18 +34,22 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-        {
+        if (instance != null) {
             return;
         }
         instance = this;
+
+        //audioSource = GetComponent<AudioSource>();
+        //audioSource.volume = 0.75f;
+        //audioSource.clip = waterRunning;
+        //audioSource.loop = true;
+
     }
 
     private void Start()
     {
         EventManager.instance.WaitForNextLevelTrigger += GoToNextLevelFromSlides;
         pieces = FindObjectsOfType<Piece>();
-
     }
 
     private void OnDestroy()
@@ -51,13 +58,19 @@ public class LevelManager : MonoBehaviour
     }
 
     public void AddWaterDrop() {
-        
+
+        if (!waterIsRunning) {
+            waterIsRunning = true;
+            //audioSource.Play();
+        }
+
         currentDropQuantity++;
 
         if (currentDropQuantity == requiredDropQuantity) {
             checkStarScore();
             UIBehaviour.instance.toNextLevelTransition();
             levelCleared = true;
+            //audioSource.Stop();
         }
     }
 
@@ -129,18 +142,23 @@ public class LevelManager : MonoBehaviour
         UIBehaviour.instance.FadeTo(nextLevel);
     }
 
+
     public void GoToLevelSelectionScreen() {
+        SoundsFX.instance.PlayClick();
         UIBehaviour.instance.FadeTo("LevelSelector");
     }
 
     public void StartNewGame() {
-
+        int[] currentStarsUnlockedTemp = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }; //no stars at the start of the game
+        bool[] levelsUnlockedTemp = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
         Loader.CURRENT_PROGRESS = 0;
         Loader.STARS_EARNED = 0;
+        Loader.CURRENT_STARS_EARNED_PER_LEVEL = currentStarsUnlockedTemp;
+        Loader.LEVELS_UNLOCKED = levelsUnlockedTemp;
         LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
-        SaveData();
 
-        UIBehaviour.instance.FadeTo(nextLevel);
+        SaveData();
+        UIBehaviour.instance.FadeTo(nextLevel); //always has to be slide1
     }
 
     void SaveData()
@@ -153,9 +171,10 @@ public class LevelManager : MonoBehaviour
         LOLSDK.Instance.SaveState(progressData);
     }
 
-    public void ContinueGame() {
+    public void ContinueGame() {       
         LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
-        UIBehaviour.instance.FadeTo("LevelSelector");
+        SoundsFX.instance.PlayClick();
+        UIBehaviour.instance.FadeTo("LevelSelector"); //always has to be LevelSelector
     }
 
     void AddGameProgress() {
@@ -174,6 +193,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public void EndGame() {
+        MusicController.instance.StopMainSong();
         LOLSDK.Instance.CompleteGame();
         UIBehaviour.instance.FadeTo(nextLevel);
     }

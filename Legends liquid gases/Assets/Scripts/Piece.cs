@@ -117,10 +117,12 @@ public class Piece : MonoBehaviour
         pipeImpulser.pieceIsPlaced = true;
         transform.parent.DOMove(new Vector2(tile.position.x, tile.position.y), 0.5f);
         pipePlacementManager.resetPiece();
+        StartCoroutine(WaitToPlayPipePlacedSound());
     }
 
     public void RotatePiece()
     {
+        SoundsFX.instance.PlayRotatePiece();
         LevelManager.instance.addMoveCounter();
         isRotating = true;
         transform.parent.DORotate(new Vector3(transform.parent.rotation.x, transform.parent.rotation.y, transform.parent.rotation.z + 90f), 0.4f, RotateMode.WorldAxisAdd);
@@ -191,6 +193,11 @@ public class Piece : MonoBehaviour
 
     public void ResumeFloatAnimation() {
         DOTween.Play("float" + transform.parent.name);
+    }
+
+    public IEnumerator WaitToPlayPipePlacedSound() {
+        yield return new WaitForSeconds(0.5f);
+        SoundsFX.instance.PlayPipePlaced();
     }
 
 }

@@ -23,11 +23,11 @@ public class Loader : MonoBehaviour
 	private const string questionsJSONFilePath = "questions.json";
 	private const string startGameJSONFilePath = "startGame.json";
 
-	public static int MAX_PROGRESS = 15;
-	public static int CURRENT_PROGRESS = 0;
-	public static int STARS_EARNED = 0;
-	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	public static bool[] LEVELS_UNLOCKED= { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+	public static int MAX_PROGRESS = 15;		//15 levels
+	public static int CURRENT_PROGRESS = 0;	
+	public static int STARS_EARNED = 0;			//total stars earned
+	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //no stars earned at the start of the game
+	public static bool[] LEVELS_UNLOCKED= { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
 
 	private int _loaderCounter = 0;
 	public static void SaveData()

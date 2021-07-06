@@ -37,4 +37,8 @@ public class EventManager : MonoBehaviour
     public void OnHideBubbleTrigger() {
         HideBubbleTrigger?.Invoke();
     }
+
+    public void OnButtonSimpleClick(GameObject button) {
+        ButtonClickAnimTrigger?.Invoke(button);
+    }
 }

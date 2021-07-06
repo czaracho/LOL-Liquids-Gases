@@ -38,7 +38,7 @@ public class TutorialSlide : MonoBehaviour
         slide.DOFade(1, tutorialParent.transitionTime);
         slideText.DOFade(1, tutorialParent.transitionTime);
         handPointer.DOFade(1, tutorialParent.transitionTime);
-        handPointer.transform.DOScale(new Vector2(handPointer.transform.localScale.x * 0.9f, handPointer.transform.localScale.y * 0.9f), 0.75f).SetLoops(-1, LoopType.Yoyo);
+        handPointer.transform.DOScale(new Vector2(handPointer.transform.localScale.x * 0.9f, handPointer.transform.localScale.y * 0.9f), 0.55f).SetLoops(-1, LoopType.Yoyo);
     }
 
     public void EndSlide() {

@@ -9,10 +9,10 @@ public class Tutorial : MonoBehaviour
     public GameObject[] slides;
     public GameObject backBT;
     public GameObject nextBT;
+    public GameObject closeButton;
     JSONNode _lang;
     private int currentSlide = 1;
     public float transitionTime = 0.45f;
-    private TutorialSlide[] tutorialSlides;
 
     void Awake()
     {
@@ -22,11 +22,6 @@ public class Tutorial : MonoBehaviour
         {
             backBT.SetActive(false);
         }
-
-        //for (int i = 0; i < slides.Length; i++)
-        //{
-        //    tutorialSlides[i] = slides[i].GetComponent<TutorialSlide>();
-        //}
     }
 
     private void Start()
@@ -36,9 +31,10 @@ public class Tutorial : MonoBehaviour
 
     public void PreviousSlide() {
 
-        slides[currentSlide-1].gameObject.GetComponent<TutorialSlide>().EndSlide();
-        //tutorialSlides[currentSlide - 1].EndSlide();
+        SoundsFX.instance.PlayClick();
+        EventManager.instance.OnButtonSimpleClick(backBT);
 
+        slides[currentSlide-1].gameObject.GetComponent<TutorialSlide>().EndSlide();
 
         if (currentSlide > 1) {
             currentSlide--;
@@ -52,16 +48,16 @@ public class Tutorial : MonoBehaviour
         }
 
         slides[currentSlide-1].SetActive(true);
-        //tutorialSlides[currentSlide - 1].StartSlide();
         slides[currentSlide-1].GetComponent<TutorialSlide>().StartSlide();
 
     }
 
     public void NextSlide() {
 
-        slides[currentSlide-1].gameObject.GetComponent<TutorialSlide>().EndSlide();
-        //tutorialSlides[currentSlide - 1].EndSlide();
+        SoundsFX.instance.PlayClick();
+        EventManager.instance.OnButtonSimpleClick(backBT);
 
+        slides[currentSlide-1].gameObject.GetComponent<TutorialSlide>().EndSlide();
 
         if (currentSlide < slides.Length){
             currentSlide++;
@@ -77,7 +73,6 @@ public class Tutorial : MonoBehaviour
 
         slides[currentSlide - 1].SetActive(true);
         slides[currentSlide - 1].GetComponent<TutorialSlide>().StartSlide();
-        //tutorialSlides[currentSlide - 1].StartSlide();
 
     }
 
@@ -92,5 +87,6 @@ public class Tutorial : MonoBehaviour
     public void CloseTutorial() {
         LevelManager.instance.playerCanInteractGame = true;
         UIBehaviour.instance.HideMenu(this.gameObject);
+        UIBehaviour.instance.ingameLayout.SetActive(true);
     }
 }

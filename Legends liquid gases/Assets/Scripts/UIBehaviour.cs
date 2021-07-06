@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
-
+using SimpleJSON;
 
 public class UIBehaviour : MonoBehaviour
 {
@@ -19,6 +19,7 @@ public class UIBehaviour : MonoBehaviour
     public bool hasTutorial = false;
     [HideInInspector]
     public bool playerCanInteractUI = true;
+    JSONNode _lang;
 
     //Layouts
     [Header("UILayouts")]
@@ -68,7 +69,7 @@ public class UIBehaviour : MonoBehaviour
     public GameObject bubbleContainer;
 
     [Header("Fader")]
-    public Image img;
+    public Image faderImg;
     public AnimationCurve curve;
 
     [Header("Bubble text")]
@@ -88,23 +89,22 @@ public class UIBehaviour : MonoBehaviour
     public TextMeshProUGUI skipLevelScreenText;
     public TextMeshProUGUI currentStarsText;
     public TextMeshProUGUI solutionQuestionText;
+    public TextMeshProUGUI costYouText;
 
 
     private void Awake()
     {
-        if (instance != null)
-        {
+        if (instance != null) {
             return;
         }
-        else
-        {
+        else {
             instance = this;
         }
     }
 
     private void Start()
     {
-        Debug.Log("la debugeacion " + basicStuff.hasTutorial2);
+        _lang = SharedState.LanguageDefs;
 
         StartCoroutine(FadeIn());
 
@@ -115,30 +115,49 @@ public class UIBehaviour : MonoBehaviour
         }
 
         if (hasTutorial) {
-            tutorialLayout.SetActive(true);
+            ingameLayout.SetActive(false);
+            StartCoroutine(WaitToStartTutorial());
         }
+
+        if (!isSlideLevel) {
+
+            if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "LevelSelector"  
+                && SceneManager.GetActiveScene().name != "EndGame")
+            {
+                SetUITexts();
+            }
+        }
+
+        EventManager.instance.ButtonClickAnimTrigger += BouncyAnimationButton;
+
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.instance.WaitingForClickTrigger -= SetWaitingForClickStatus;
+        EventManager.instance.ButtonClickAnimTrigger -= BouncyAnimationButton;
     }
 
     public void PlayBouncyAnimation(string button) {
 
         switch (button) {
             case "spawnWater":
-                bouncyAnimationButton(playButton, playPressedSprite);
+                BouncyAnimation(playButton, playPressedSprite);
                 break;
 
             case "restart":
                 if (!LevelManager.instance.levelCleared)
                 {
-                    bouncyAnimationButton(restartButton, restartPressedSprite);
+                    BouncyAnimation(restartButton, restartPressedSprite);
                 }
                 else
                 {
-                    bouncyAnimationButton(restartButtonNxt, restartPressedNextSprite);
+                    BouncyAnimation(restartButtonNxt, restartPressedNextSprite);
                 }
                break;
 
             case "nextLevel":
-                    bouncyAnimationButton(nextLvlButton, nextLevelPressedSprite);
+                    BouncyAnimation(nextLvlButton, nextLevelPressedSprite);
                 break;
         }
     }
@@ -151,7 +170,7 @@ public class UIBehaviour : MonoBehaviour
         {
             t -= Time.deltaTime;
             float a = curve.Evaluate(t);
-            img.color = new Color(0f, 0f, 0f, a);
+            faderImg.color = new Color(0f, 0f, 0f, a);
             yield return 0;
         }
     }
@@ -164,7 +183,7 @@ public class UIBehaviour : MonoBehaviour
         {
             t += Time.deltaTime;
             float a = curve.Evaluate(t);
-            img.color = new Color(0f, 0f, 0f, a);
+            faderImg.color = new Color(0f, 0f, 0f, a);
             yield return 0;
         }
 
@@ -177,25 +196,24 @@ public class UIBehaviour : MonoBehaviour
         StartCoroutine(FadeOut(scene));
     }
 
-    void bouncyAnimationButton(Button button, Sprite pressedSprite) {
-
+    void BouncyAnimation(Button button, Sprite pressedSprite) {
+        SoundsFX.instance.PlayClick();
         Vector3 buttonScale = new Vector3(button.transform.localScale.x, button.transform.localScale.y);
         button.GetComponent<Button>().image.sprite = pressedSprite;
         button.transform.DOScale(buttonScale * 0.9f, 10f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
         button.enabled = false;
     }
 
-    void bouncyAnimationButtonSimple(Button button)
-    {
+    void BouncyAnimationButton(GameObject button) {
         Vector3 buttonScale = new Vector3(button.transform.localScale.x, button.transform.localScale.y);
-        button.transform.DOScale(buttonScale * 0.9f, 10f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased();
+        button.transform.DOScale(buttonScale * 0.95f, 0.1f).SetLoops(2, LoopType.Yoyo);
     }
 
     public void toNextLevelTransition() {
 
         ingameLayout.SetActive(false);
         nextLevelLayout.SetActive(true);
-
+        SoundsFX.instance.PlayLevelFinished();
 
         Sequence seq = DOTween.Sequence();
         seq.Append(nextLevelPanel.transform.DOLocalMove(new Vector2(0,0), moveDuration));
@@ -287,9 +305,9 @@ public class UIBehaviour : MonoBehaviour
 
     IEnumerator waitforReadFirstTime()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         BubbleTextController(true);
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
         TypeWriter.WriteText(dialogLines[0]);
         currentLine++;
     }
@@ -298,11 +316,6 @@ public class UIBehaviour : MonoBehaviour
     {
         LevelManager.instance.playerCanInteractGame = false;
         isWaitingForClick = true;
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.instance.WaitingForClickTrigger -= SetWaitingForClickStatus;
     }
 
     void BubbleAnimOnClick() {
@@ -339,6 +352,7 @@ public class UIBehaviour : MonoBehaviour
     }
 
     public void ReturnToGameFromPause(GameObject menu) {
+        SoundsFX.instance.PlayClose();
         bgPause.SetActive(false);
         Sequence returnPauseSeq = DOTween.Sequence();
         returnPauseSeq.Append(menu.transform.DOLocalMove(new Vector2(0, -900), moveDuration * 0.5f));
@@ -347,6 +361,7 @@ public class UIBehaviour : MonoBehaviour
 
     public void ReturnToGameFromHint(GameObject menu)
     {
+        SoundsFX.instance.PlayClose();
         bgHintImage.SetActive(false);
         bgHintPrompt.SetActive(false);
         Sequence returnPauseSeq = DOTween.Sequence();
@@ -371,6 +386,7 @@ public class UIBehaviour : MonoBehaviour
     public void PauseMenu() {
 
         if (playerCanInteractUI) {
+            SoundsFX.instance.PlayClick();
             LevelManager.instance.playerCanInteractGame = false;
             bgPause.SetActive(true);
             OpenVerticalTransition(pauseMenu, pauseLayout);
@@ -378,8 +394,8 @@ public class UIBehaviour : MonoBehaviour
     }
 
     public void HintMenu() {
-
         if (playerCanInteractUI) {
+            SoundsFX.instance.PlayClick();
             LevelManager.instance.playerCanInteractGame = false;
             bgHintPrompt.SetActive(true); ;
             OpenVerticalTransition(hintQuestionMenu, hintQuestionLayout);
@@ -388,6 +404,7 @@ public class UIBehaviour : MonoBehaviour
     public void HintImage()
     {
         if (playerCanInteractUI) {
+            SoundsFX.instance.PlayHint();
             LevelManager.instance.playerCanInteractGame = false;
             bgHintPrompt.SetActive(false);
             bgHintImage.SetActive(true);
@@ -399,19 +416,39 @@ public class UIBehaviour : MonoBehaviour
     }
 
     public void ShowMenu(GameObject menu) {
+        SoundsFX.instance.PlayClick();
         menu.SetActive(true);
     }
 
     public void HideMenu(GameObject menu)
     {
+        SoundsFX.instance.PlayClose();
         menu.SetActive(false);
     }
 
     public void SkipLevel() {
+        SoundsFX.instance.PlayClick();
         pauseLayout.SetActive(false);
         //TODO sacar las estrellitas del total
         LevelManager.instance.GoToNextLevel();
     }
 
+    void SetUITexts() {
+
+        levelSelectionTxt.text = _lang["level_selection"];
+        skipLevelTxt.text = _lang["skip_level"];
+        oneStarMovesTxt.text = LevelManager.instance.lvlMinScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        twoStarMovesTxt.text = LevelManager.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        threeStarMovesTxt.text = LevelManager.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        skipLevelScreenText.text = _lang["skip_level_question"];
+        currentStarsText.text = _lang["current_stars"];
+        solutionQuestionText.text = _lang["watch_the_solution"];
+        costYouText.text = _lang["cost_you"];
+    }
+
+    IEnumerator WaitToStartTutorial() {
+        yield return new WaitForSeconds(1.0f);
+        tutorialLayout.SetActive(true);
+    }
 
 }

@@ -9,9 +9,13 @@ public class SoundsFX : MonoBehaviour
     public static SoundsFX instance;
     public AudioClip click;
     public AudioClip typeWriter;
-    public AudioClip gameFinished;
+    public AudioClip levelFinished;
     public AudioClip correct;
-    public AudioClip incorrect;
+    public AudioClip rotatePiece;
+    public AudioClip pipePlaced;
+    public AudioClip hint;
+    public AudioClip closeButton;
+    public AudioClip startWater;
 
     private void Awake()
     {
@@ -19,37 +23,57 @@ public class SoundsFX : MonoBehaviour
         {
             instance = this;
             audioSource = GetComponent<AudioSource>();
-            audioSource.volume = 0.2f;
+            audioSource.volume = 0.95f;
             DontDestroyOnLoad(this);
         }
-        else
-        {
+        else {
             Destroy(this);
         }
     }
 
-    public void PlayGameFinished()
+    public void PlayLevelFinished()
     {
-        audioSource.PlayOneShot(gameFinished);
+        audioSource.pitch = 1;
+        audioSource.PlayOneShot(levelFinished);
     }
 
     public void PlayCorrect()
     {
+        audioSource.pitch = 1;
         audioSource.PlayOneShot(correct);
     }
 
-    public void PlayIncorrect()
+    public void PlayRotatePiece()
     {
-        audioSource.PlayOneShot(incorrect);
+        audioSource.pitch = 1;
+        audioSource.PlayOneShot(rotatePiece);
     }
 
     public void PlayClick()
     {
+        audioSource.pitch = 1;
         audioSource.PlayOneShot(click);
     }
 
     public void PlayType()
     {
+        audioSource.pitch = 1;
         audioSource.PlayOneShot(typeWriter, 0.1f);
+    }
+
+    public void PlayClose() {
+        audioSource.PlayOneShot(closeButton);
+    }
+
+    public void PlayPipePlaced() {
+        audioSource.PlayOneShot(pipePlaced);
+    }
+
+    public void PlayHint() {
+        audioSource.PlayOneShot(hint);
+    }
+
+    public void PlayStartWater() {
+        audioSource.PlayOneShot(startWater);
     }
 }
