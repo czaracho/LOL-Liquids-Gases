@@ -11,6 +11,9 @@ public class EventManager : MonoBehaviour
     public event Action WaitForNextLevelTrigger;
     public event Action HideBubbleTrigger;
     public event Action<GameObject> ButtonClickAnimTrigger;
+    public event Action StopWaterTankSoundTrigger;
+    public event Action<string> PlayCatAnimationTrigger;
+
 
     private void Awake()
     {
@@ -40,5 +43,13 @@ public class EventManager : MonoBehaviour
 
     public void OnButtonSimpleClick(GameObject button) {
         ButtonClickAnimTrigger?.Invoke(button);
+    }
+
+    public void OnStopWaterTankSoundTrigger() {
+        StopWaterTankSoundTrigger?.Invoke();
+    }
+
+    public void OnPlayCatAnimationTrigger(string animation) {
+        PlayCatAnimationTrigger?.Invoke(animation);
     }
 }

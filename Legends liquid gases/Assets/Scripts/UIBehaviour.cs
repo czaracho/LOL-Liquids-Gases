@@ -90,6 +90,7 @@ public class UIBehaviour : MonoBehaviour
     public TextMeshProUGUI currentStarsText;
     public TextMeshProUGUI solutionQuestionText;
     public TextMeshProUGUI costYouText;
+    public Text howToPlayText;
 
 
     private void Awake()
@@ -206,7 +207,7 @@ public class UIBehaviour : MonoBehaviour
 
     void BouncyAnimationButton(GameObject button) {
         Vector3 buttonScale = new Vector3(button.transform.localScale.x, button.transform.localScale.y);
-        button.transform.DOScale(buttonScale * 0.95f, 0.1f).SetLoops(2, LoopType.Yoyo);
+        button.transform.DOScale(buttonScale * 0.9f, 0.1f).SetLoops(2, LoopType.Yoyo);
     }
 
     public void toNextLevelTransition() {
@@ -444,6 +445,10 @@ public class UIBehaviour : MonoBehaviour
         currentStarsText.text = _lang["current_stars"];
         solutionQuestionText.text = _lang["watch_the_solution"];
         costYouText.text = _lang["cost_you"];
+
+        if (hasTutorial) {
+            howToPlayText.text = _lang["how_to_play"];
+        }
     }
 
     IEnumerator WaitToStartTutorial() {

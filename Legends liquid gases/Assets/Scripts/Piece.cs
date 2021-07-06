@@ -94,6 +94,7 @@ public class Piece : MonoBehaviour
 
         if (!isPlaced)
         {
+            SoundsFX.instance.PlayPipeSelected();
             pipePlacementManager.pieceSelected = this;
             transform.parent.DOScale(transform.parent.localScale.x * 1.1f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetSpeedBased().SetId("pulsing" + transform.parent.name);
         }
@@ -107,6 +108,7 @@ public class Piece : MonoBehaviour
     }
 
     public void MoveToTile(Transform tile) {
+        EventManager.instance.OnPlayCatAnimationTrigger("moving");
         DOTween.Kill("float" + transform.parent.name);
         DOTween.Kill("pulsing" + transform.parent.name);
         transform.parent.rotation = Quaternion.Euler(0, 0, 0);

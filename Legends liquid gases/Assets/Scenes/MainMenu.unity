@@ -1642,6 +1642,7 @@ MonoBehaviour:
   hint: {fileID: 8300000, guid: a5595362b363d8f4ca5d8aa19d8013f2, type: 3}
   closeButton: {fileID: 8300000, guid: 2e233b8543e27b343a4566e56c0d7f68, type: 3}
   startWater: {fileID: 8300000, guid: 5d272574dc2578240a80b0a8ce22b705, type: 3}
+  pipeSelected: {fileID: 8300000, guid: 708b05db6fa704347b49c887cebf65da, type: 3}
 --- !u!82 &459064643
 AudioSource:
   m_ObjectHideFlags: 0

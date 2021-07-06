@@ -55,7 +55,7 @@ public class Tutorial : MonoBehaviour
     public void NextSlide() {
 
         SoundsFX.instance.PlayClick();
-        EventManager.instance.OnButtonSimpleClick(backBT);
+        EventManager.instance.OnButtonSimpleClick(nextBT);
 
         slides[currentSlide-1].gameObject.GetComponent<TutorialSlide>().EndSlide();
 

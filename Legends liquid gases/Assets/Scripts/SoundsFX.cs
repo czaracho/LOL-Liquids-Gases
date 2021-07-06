@@ -16,6 +16,7 @@ public class SoundsFX : MonoBehaviour
     public AudioClip hint;
     public AudioClip closeButton;
     public AudioClip startWater;
+    public AudioClip pipeSelected;
 
     private void Awake()
     {
@@ -75,5 +76,9 @@ public class SoundsFX : MonoBehaviour
 
     public void PlayStartWater() {
         audioSource.PlayOneShot(startWater);
+    }
+
+    public void PlayPipeSelected() {
+        audioSource.PlayOneShot(pipeSelected);
     }
 }

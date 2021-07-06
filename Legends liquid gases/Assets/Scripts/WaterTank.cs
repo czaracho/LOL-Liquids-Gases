@@ -9,18 +9,57 @@ public class WaterTank : MonoBehaviour
     private int currentDropQuantity = 0;
     public SwitchOnOff switchOn;
     private bool tankIsActive = false;
+    AudioSource audioSource;
+    bool waterIsFalling;
+    float counter = 0f;
+    float checkRate = 0.4f;
 
     private void Awake()
     {
+        audioSource = gameObject.GetComponent<AudioSource>();
         GameObject lvlMan = GameObject.Find("LevelManager");
         levelManager = lvlMan.GetComponent<LevelManager>();
+    }
+
+    private void Start()
+    {
+        EventManager.instance.StopWaterTankSoundTrigger += StopBubblesSound;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.instance.StopWaterTankSoundTrigger -= StopBubblesSound;
+    }
+
+    private void Update()
+    {
+        if (waterIsFalling)
+        {
+            if (counter >= checkRate)
+            {
+                waterIsFalling = false;
+                StopBubblesSound();
+            }
+
+            counter = counter + Time.deltaTime;
+
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Metaball_liquid" || collision.tag == "Smoke") {
 
-            Debug.Log("Entramos al cosito bro");
+            //Restart the counter only if the water is flowing and the level isn't completed
+            if (currentDropQuantity < LevelManager.instance.requiredDropQuantity) {
+                counter = 0;
+            }
+
+            if (!waterIsFalling) {
+                PlayBubblesSound();
+            }
+
+            waterIsFalling = true;
 
             if (currentDropQuantity <= waterDropLimit) {
                 levelManager.AddWaterDrop();
@@ -33,5 +72,13 @@ public class WaterTank : MonoBehaviour
                 switchOn.SwitchOn();
             }
         }
+    }
+
+    void PlayBubblesSound() {
+        audioSource.Play();
+    }
+
+    void StopBubblesSound() {
+        audioSource.Stop();
     }
 }

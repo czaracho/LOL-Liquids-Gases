@@ -70,7 +70,8 @@ public class LevelManager : MonoBehaviour
             checkStarScore();
             UIBehaviour.instance.toNextLevelTransition();
             levelCleared = true;
-            //audioSource.Stop();
+            EventManager.instance.OnStopWaterTankSoundTrigger();
+            EventManager.instance.OnPlayCatAnimationTrigger("happy");
         }
     }
 
