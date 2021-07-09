@@ -6,28 +6,18 @@ using Spine;
 
 public class CatAnim : MonoBehaviour
 {
+    public string catName;
     public SkeletonAnimation catSkeleton;
     public AnimationReferenceAsset idleAnim;
     public AnimationReferenceAsset readingAnim;
-    public AnimationReferenceAsset happyAnim;
+    public AnimationReferenceAsset celebrationAnim;
     public AnimationReferenceAsset movingAnim;
-    public string currentState;
 
-
-    private void Start()
-    {
-        EventManager.instance.PlayCatAnimationTrigger += SetCharacterState;
-    }
-
-    private void OnDestroy()
-    {
-        EventManager.instance.PlayCatAnimationTrigger -= SetCharacterState;
-    }
 
     public void SetAnimation(AnimationReferenceAsset animation, bool loop, float timeScale) {
-        TrackEntry entry = catSkeleton.state.SetAnimation(1, animation, loop);
+        TrackEntry entry = catSkeleton.state.SetAnimation(0, animation, loop);
 
-        if (animation != happyAnim) {
+        if (animation != celebrationAnim) {
             entry.Complete += AnimationEntry_Complete;
         }
     }
@@ -40,13 +30,17 @@ public class CatAnim : MonoBehaviour
                 SetAnimation(idleAnim, true, 1f);
                 break;
             case "reading":
-                SetAnimation(readingAnim, true, 1f);
+                if (catName == "lana") {
+                    SetAnimation(readingAnim, true, 1f);
+                }
                 break;
-            case "happy":
-                SetAnimation(happyAnim, true, 1f);
+            case "celebration":
+                SetAnimation(celebrationAnim, true, 1f);
                 break;
             case "moving":
-                SetAnimation(movingAnim, false, 1f);
+                if (catName == "pebbles") {
+                    SetAnimation(movingAnim, false, 1f);
+                }
                 break;
             default:
                 break;

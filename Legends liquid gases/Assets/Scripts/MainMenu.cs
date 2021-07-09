@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
         EventManager.instance.OnButtonSimpleClick(startButton);
         Vector3 buttonScale = new Vector3(startButton.transform.localScale.x, startButton.transform.localScale.y);
         startButton.transform.DOScale(buttonScale * 0.95f, 0.1f).SetLoops(2, LoopType.Yoyo);
-        LevelManager.instance.StartNewGame();
+        GameManagerMain.instance.StartNewGame();
         DisableButtons();
     }
 
@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
         EventManager.instance.OnButtonSimpleClick(continueButton);
         Vector3 buttonScale = new Vector3(continueButton.transform.localScale.x, continueButton.transform.localScale.y);
         continueButton.transform.DOScale(buttonScale * 0.95f, 0.1f).SetLoops(2, LoopType.Yoyo);
-        LevelManager.instance.ContinueGame();
+        GameManagerMain.instance.ContinueGame();
         DisableButtons();
     }
 

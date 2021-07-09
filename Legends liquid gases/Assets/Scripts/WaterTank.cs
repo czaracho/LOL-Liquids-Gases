@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WaterTank : MonoBehaviour
 {
-    LevelManager levelManager;
+    GameManagerMain levelManager;
     public int waterDropLimit = 10;
     private int currentDropQuantity = 0;
     public SwitchOnOff switchOn;
@@ -18,7 +18,7 @@ public class WaterTank : MonoBehaviour
     {
         audioSource = gameObject.GetComponent<AudioSource>();
         GameObject lvlMan = GameObject.Find("LevelManager");
-        levelManager = lvlMan.GetComponent<LevelManager>();
+        levelManager = lvlMan.GetComponent<GameManagerMain>();
     }
 
     private void Start()
@@ -51,7 +51,7 @@ public class WaterTank : MonoBehaviour
         if (collision.tag == "Metaball_liquid" || collision.tag == "Smoke") {
 
             //Restart the counter only if the water is flowing and the level isn't completed
-            if (currentDropQuantity < LevelManager.instance.requiredDropQuantity) {
+            if (currentDropQuantity < GameManagerMain.instance.requiredDropQuantity) {
                 counter = 0;
             }
 

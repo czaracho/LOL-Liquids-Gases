@@ -1432,8 +1432,8 @@
 
         public void StartWaterSpawner()
         {
-            LevelManager.instance.playerCanInteractGame = false;
-            LevelManager.instance.DeactivatePieces();
+            GameManagerMain.instance.playerCanInteractGame = false;
+            GameManagerMain.instance.DeactivatePieces();
             UIBehaviour.instance.PlayBouncyAnimation("spawnWater");
             instance.Spawn();
         }

@@ -19,10 +19,7 @@ public class Burner : MonoBehaviour
         {
             if (counter >= checkRate)
             {
-                if (manipulatorType == ManipulatorType.burner) {
-                    switchOnOff.BurnerGlowFade();
-                }
-
+                switchOnOff.BurnerGlowFade();
                 manipulatorIsActive = false;
                 SmokeSpawner.StopSpawning();
             }

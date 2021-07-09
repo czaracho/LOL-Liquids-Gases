@@ -147,7 +147,7 @@ public class UIBehaviour : MonoBehaviour
                 break;
 
             case "restart":
-                if (!LevelManager.instance.levelCleared)
+                if (!GameManagerMain.instance.levelCleared)
                 {
                     BouncyAnimation(restartButton, restartPressedSprite);
                 }
@@ -223,7 +223,7 @@ public class UIBehaviour : MonoBehaviour
         seq.Insert(0.25f, levelCompleteText.transform.DOScale(new Vector2(1.2f, 1.2f), levelCompleteDuration * 0.5f));
         seq.Insert(0.35f, levelCompleteText.transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
 
-        int currentStars = LevelManager.instance.currentLvlStarsEarned;
+        int currentStars = GameManagerMain.instance.currentLvlStarsEarned;
 
         for (int i = 0; i < currentStars; i++)
         {
@@ -261,7 +261,7 @@ public class UIBehaviour : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!LevelManager.instance.playerCanInteractGame)
+            if (!GameManagerMain.instance.playerCanInteractGame)
             {
                 if (isWaitingForClick)
                 {
@@ -285,7 +285,7 @@ public class UIBehaviour : MonoBehaviour
                     else if (currentLine == dialogLines.Length - 1)
                     {
                         //Si el nivel es de slides, ir directo a la siguiente pantalla                        
-                        LevelManager.instance.playerCanInteractGame = true;
+                        GameManagerMain.instance.playerCanInteractGame = true;
 
                         currentLine++;
 
@@ -315,7 +315,7 @@ public class UIBehaviour : MonoBehaviour
 
     void SetWaitingForClickStatus()
     {
-        LevelManager.instance.playerCanInteractGame = false;
+        GameManagerMain.instance.playerCanInteractGame = false;
         isWaitingForClick = true;
     }
 
@@ -380,7 +380,7 @@ public class UIBehaviour : MonoBehaviour
         pauseLayout.SetActive(false);
         hintImageLayout.SetActive(false);
         hintQuestionLayout.SetActive(false);
-        LevelManager.instance.playerCanInteractGame = true;
+        GameManagerMain.instance.playerCanInteractGame = true;
 
     }
 
@@ -388,7 +388,7 @@ public class UIBehaviour : MonoBehaviour
 
         if (playerCanInteractUI) {
             SoundsFX.instance.PlayClick();
-            LevelManager.instance.playerCanInteractGame = false;
+            GameManagerMain.instance.playerCanInteractGame = false;
             bgPause.SetActive(true);
             OpenVerticalTransition(pauseMenu, pauseLayout);
         }
@@ -397,7 +397,7 @@ public class UIBehaviour : MonoBehaviour
     public void HintMenu() {
         if (playerCanInteractUI) {
             SoundsFX.instance.PlayClick();
-            LevelManager.instance.playerCanInteractGame = false;
+            GameManagerMain.instance.playerCanInteractGame = false;
             bgHintPrompt.SetActive(true); ;
             OpenVerticalTransition(hintQuestionMenu, hintQuestionLayout);
         }
@@ -406,7 +406,7 @@ public class UIBehaviour : MonoBehaviour
     {
         if (playerCanInteractUI) {
             SoundsFX.instance.PlayHint();
-            LevelManager.instance.playerCanInteractGame = false;
+            GameManagerMain.instance.playerCanInteractGame = false;
             bgHintPrompt.SetActive(false);
             bgHintImage.SetActive(true);
             hintQuestionMenu.transform.localPosition = new Vector2(0, -600);
@@ -431,16 +431,15 @@ public class UIBehaviour : MonoBehaviour
         SoundsFX.instance.PlayClick();
         pauseLayout.SetActive(false);
         //TODO sacar las estrellitas del total
-        LevelManager.instance.GoToNextLevel();
+        GameManagerMain.instance.GoToNextLevel();
     }
 
     void SetUITexts() {
-
         levelSelectionTxt.text = _lang["level_selection"];
         skipLevelTxt.text = _lang["skip_level"];
-        oneStarMovesTxt.text = LevelManager.instance.lvlMinScoreMoves.ToString() + " " + _lang["or_less_moves"];
-        twoStarMovesTxt.text = LevelManager.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
-        threeStarMovesTxt.text = LevelManager.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        oneStarMovesTxt.text = GameManagerMain.instance.lvlMinScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        twoStarMovesTxt.text = GameManagerMain.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        threeStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
         skipLevelScreenText.text = _lang["skip_level_question"];
         currentStarsText.text = _lang["current_stars"];
         solutionQuestionText.text = _lang["watch_the_solution"];

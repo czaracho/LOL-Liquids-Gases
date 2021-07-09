@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class Piece : MonoBehaviour
 {
-    public enum PieceType { straight, pipeL, pipeT, burner }
+    public enum PieceType { straight, pipeL, pipeT, burner, condenser }
     public PieceType pieceType;
     [HideInInspector]
     public bool pieceIsFixed = false;
@@ -84,11 +84,11 @@ public class Piece : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!LevelManager.instance.playerCanInteractGame || pieceIsFixed) {
+        if (!GameManagerMain.instance.playerCanInteractGame || pieceIsFixed) {
             return;
         }
 
-        LevelManager.instance.RestartToNonSelectedPiece();
+        GameManagerMain.instance.RestartToNonSelectedPiece();
 
         isSelected = true;
 
@@ -112,12 +112,12 @@ public class Piece : MonoBehaviour
         DOTween.Kill("float" + transform.parent.name);
         DOTween.Kill("pulsing" + transform.parent.name);
         transform.parent.rotation = Quaternion.Euler(0, 0, 0);
-        LevelManager.instance.addMoveCounter();
+        GameManagerMain.instance.addMoveCounter();
         transform.parent.parent = null;
         transform.parent.localScale = Vector3.one;
         isPlaced = true;
         pipeImpulser.pieceIsPlaced = true;
-        transform.parent.DOMove(new Vector2(tile.position.x, tile.position.y), 0.5f);
+        transform.parent.DOMove(new Vector2(tile.position.x, tile.position.y), 0.45f);
         pipePlacementManager.resetPiece();
         StartCoroutine(WaitToPlayPipePlacedSound());
     }
@@ -125,7 +125,7 @@ public class Piece : MonoBehaviour
     public void RotatePiece()
     {
         SoundsFX.instance.PlayRotatePiece();
-        LevelManager.instance.addMoveCounter();
+        GameManagerMain.instance.addMoveCounter();
         isRotating = true;
         transform.parent.DORotate(new Vector3(transform.parent.rotation.x, transform.parent.rotation.y, transform.parent.rotation.z + 90f), 0.4f, RotateMode.WorldAxisAdd);
 
@@ -198,7 +198,7 @@ public class Piece : MonoBehaviour
     }
 
     public IEnumerator WaitToPlayPipePlacedSound() {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.45f);
         SoundsFX.instance.PlayPipePlaced();
     }
 

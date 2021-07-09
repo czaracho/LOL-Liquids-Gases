@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2559786354351507598}
   - component: {fileID: 2559786354351507597}
   - component: {fileID: 2559786354351507596}
+  - component: {fileID: 2559786355515992858}
   m_Layer: 0
   m_Name: Lana
   m_TagString: Untagged
@@ -117,6 +118,24 @@ MonoBehaviour:
   _animationName: idle waiting
   loop: 1
   timeScale: 1
+--- !u!114 &2559786355515992858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559786354351507587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e5cfc3fe5972a4ea3c1be4b2ed6f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catName: lana
+  catSkeleton: {fileID: 2559786354351507596}
+  idleAnim: {fileID: 11400000, guid: f9c622827c8fa16408031b6625e8a528, type: 2}
+  readingAnim: {fileID: 11400000, guid: 4ef4226467ab973408a60f0c0a411ab3, type: 2}
+  celebrationAnim: {fileID: 11400000, guid: 32dd139cf9447524ba39c96dedd7f751, type: 2}
+  movingAnim: {fileID: 0}
 --- !u!1 &2559786355116698482
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +148,7 @@ GameObject:
   - component: {fileID: 2559786355116698493}
   - component: {fileID: 2559786355116698492}
   - component: {fileID: 2559786355116698483}
+  - component: {fileID: 2559786355515992855}
   m_Layer: 0
   m_Name: Pebbles
   m_TagString: Untagged
@@ -234,6 +254,24 @@ MonoBehaviour:
   _animationName: iddle
   loop: 1
   timeScale: 1
+--- !u!114 &2559786355515992855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559786355116698482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93e5cfc3fe5972a4ea3c1be4b2ed6f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catName: pebbles
+  catSkeleton: {fileID: 2559786355116698483}
+  idleAnim: {fileID: 11400000, guid: aa53e6651be879347991b98b473f3c60, type: 2}
+  readingAnim: {fileID: 0}
+  celebrationAnim: {fileID: 11400000, guid: 4ad0e4276464fde4aaf66bd75b90412f, type: 2}
+  movingAnim: {fileID: 11400000, guid: 80702fddcd7a0a2449cc23e1817acda5, type: 2}
 --- !u!1 &2559786355635953372
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,6 +281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2559786355635953373}
+  - component: {fileID: 1346360448908555137}
   m_Layer: 0
   m_Name: Cats
   m_TagString: Untagged
@@ -266,3 +305,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1346360448908555137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2559786355635953372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b56cc28f50dad49bc270f7bc47a6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

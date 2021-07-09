@@ -50,8 +50,8 @@ public class LevelSelector : MonoBehaviour
     }
 
     public void GoToSelectedLevel() {
-        LevelManager.instance.nextLevel = level;
-        LevelManager.instance.GoToNextLevelFromSlides();
+        GameManagerMain.instance.nextLevel = level;
+        GameManagerMain.instance.GoToNextLevelFromSlides();
     }
 
     IEnumerator WiggleBottle() {

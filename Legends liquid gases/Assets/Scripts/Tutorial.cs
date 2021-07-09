@@ -26,7 +26,7 @@ public class Tutorial : MonoBehaviour
 
     private void Start()
     {
-        LevelManager.instance.playerCanInteractGame = false;
+        GameManagerMain.instance.playerCanInteractGame = false;
     }
 
     public void PreviousSlide() {
@@ -85,7 +85,7 @@ public class Tutorial : MonoBehaviour
     }
 
     public void CloseTutorial() {
-        LevelManager.instance.playerCanInteractGame = true;
+        GameManagerMain.instance.playerCanInteractGame = true;
         UIBehaviour.instance.HideMenu(this.gameObject);
         UIBehaviour.instance.ingameLayout.SetActive(true);
     }

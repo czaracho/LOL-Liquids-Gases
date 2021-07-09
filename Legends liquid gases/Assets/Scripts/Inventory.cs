@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     public GameObject pipeL;
     public GameObject pipeT;
     public GameObject burner;
+    public GameObject condenser;
     Transform[] inventorySlots;
     public GameObject dialogBubble;
     public float bubbleScale = 1f;
@@ -60,6 +61,9 @@ public class Inventory : MonoBehaviour
                 break;
             case Piece.PieceType.burner:
                 pipes.Add((GameObject)Instantiate(burner, position, Quaternion.identity));
+                break;
+            case Piece.PieceType.condenser:
+                pipes.Add((GameObject)Instantiate(condenser, position, Quaternion.identity));
                 break;
         }
     }

@@ -12,7 +12,6 @@ public class WaterPump : MonoBehaviour
 
     private void Awake()
     {
-        //this.gameObject.transform.GetChild(0).name = pumpDirection.ToString();
         this.gameObject.name = pumpDirection.ToString(); 
     }
 
@@ -22,7 +21,7 @@ public class WaterPump : MonoBehaviour
 
             if (startedPumping == false) {
                 startedPumping = true;
-                switchOnOf.SwitchOn();
+                switchOnOf.SwitchOn();      
             }
 
             collision.gameObject.transform.position = PumpEnd.transform.position;
