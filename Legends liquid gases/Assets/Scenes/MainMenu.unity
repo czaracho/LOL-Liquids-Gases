@@ -731,7 +731,7 @@ PrefabInstance:
     - target: {fileID: 1910618015818586508, guid: febf16d91a934b84b9383d743956c41b,
         type: 3}
       propertyPath: nextLevel
-      value: level1
+      value: LevelSelector
       objectReference: {fileID: 0}
     - target: {fileID: 2982794308940865209, guid: febf16d91a934b84b9383d743956c41b,
         type: 3}
@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainThemeSong: {fileID: 8300000, guid: 4e9d09894ee06434795a267345c4f6f8, type: 3}
-  endingSong: {fileID: 8300000, guid: 2943dfeb26a27f84cb0cb714f3c3e09d, type: 3}
+  endingSong: {fileID: 8300000, guid: 66bd13e06ca26f94ea7748f2e12ed307, type: 3}
   secondsToFadeOut: 4
 --- !u!4 &432188911
 Transform:
@@ -2416,7 +2416,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: level13
+          m_StringArgument: tutorialCondenser
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &551494686
@@ -3018,7 +3018,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: level14
+          m_StringArgument: tutorialBurner
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &819486693
@@ -3205,7 +3205,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 13
+  m_Text: tutorial condenser
 --- !u!222 &846007985
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3434,7 +3434,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: level15
+          m_StringArgument: slide1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &917864252
@@ -3788,7 +3788,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 14
+  m_Text: tutorial burner
 --- !u!222 &1034372765
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7377,7 +7377,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   TypeWriter: {fileID: 1479037093016635589}
-  slides: []
+  slidesGroup1: {fileID: 0}
+  slidesGroup2: {fileID: 0}
   dialogLines: []
   lineToSwitchImages: 0
   levelSelectionTxt: {fileID: 0}

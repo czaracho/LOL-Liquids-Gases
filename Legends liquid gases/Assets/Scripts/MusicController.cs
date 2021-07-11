@@ -8,7 +8,7 @@ public class MusicController : MonoBehaviour
     public static MusicController instance;
     public AudioClip mainThemeSong;
     public AudioClip endingSong;
-    public float secondsToFadeOut = 3;
+    public float secondsToFadeOut = 1;
 
     private void Awake()
     {

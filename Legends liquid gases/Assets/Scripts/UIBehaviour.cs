@@ -74,7 +74,10 @@ public class UIBehaviour : MonoBehaviour
 
     [Header("Bubble text")]
     public TypeWriter TypeWriter;
-    public SpriteRenderer[] slides;
+    public GameObject slidesGroup1;
+    public GameObject slidesGroup2;
+    private List<SpriteRenderer> spritesGroup1;
+    private List<SpriteRenderer> spritesGroup2;
     public string[] dialogLines;
     private int currentLine = 0;
     public int lineToSwitchImages = 0;
@@ -92,7 +95,6 @@ public class UIBehaviour : MonoBehaviour
     public TextMeshProUGUI costYouText;
     public Text howToPlayText;
 
-
     private void Awake()
     {
         if (instance != null) {
@@ -101,6 +103,7 @@ public class UIBehaviour : MonoBehaviour
         else {
             instance = this;
         }
+
     }
 
     private void Start()
@@ -130,6 +133,8 @@ public class UIBehaviour : MonoBehaviour
         }
 
         EventManager.instance.ButtonClickAnimTrigger += BouncyAnimationButton;
+
+        GetAllSlideSprites();
 
     }
 
@@ -234,11 +239,18 @@ public class UIBehaviour : MonoBehaviour
         nextLvlButton.transform.DOScale(new Vector2(1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
-    public void SwitchToAnotherImage(SpriteRenderer image1, SpriteRenderer image2) {
-       
-        Sequence seq = DOTween.Sequence();
-        seq.Append(image1.DOFade(0f, 1f));
-        seq.Append(image2.DOFade(1f, 1f));
+    IEnumerator FadeImages() {
+
+        for (int i = 0;  i < spritesGroup1.Count; i++) {
+            spritesGroup1[i].DOFade(0f, 1f);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        for (int i = 0; i < spritesGroup2.Count; i++)
+        {
+            spritesGroup2[i].DOFade(1f, 1f);
+        }
     }
 
     public void BubbleTextController(bool activateBubble) {
@@ -275,10 +287,7 @@ public class UIBehaviour : MonoBehaviour
 
                         if (lineToSwitchImages > 0 && currentLine == lineToSwitchImages)
                         {
-                            if (slides.Length > 1)
-                            {
-                                SwitchToAnotherImage(slides[0], slides[1]);
-                            }
+                            StartCoroutine(FadeImages());                          
                         }
 
                     }
@@ -453,6 +462,37 @@ public class UIBehaviour : MonoBehaviour
     IEnumerator WaitToStartTutorial() {
         yield return new WaitForSeconds(1.0f);
         tutorialLayout.SetActive(true);
+    }
+
+    void GetAllSlideSprites() {
+                
+        if (isSlideLevel && slidesGroup2 != null) {
+
+            spritesGroup1 = new List<SpriteRenderer>();
+            spritesGroup2 = new List<SpriteRenderer>();
+            List<SpriteRenderer> tempSprites1 = new List<SpriteRenderer>();
+            List<SpriteRenderer> tempSprites2 = new List<SpriteRenderer>();
+
+            for (int i = 0; i < slidesGroup1.transform.childCount; i++)
+            {
+                tempSprites1.Add(slidesGroup1.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>());
+            }
+
+            for (int i = 0; i < slidesGroup2.transform.childCount; i++)
+            {
+                tempSprites2.Add(slidesGroup2.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>());
+            }
+
+            for (int i = 0; i < tempSprites1.Count; i++) {
+                spritesGroup1.Add(tempSprites1[i]); 
+            }
+
+            for (int i = 0; i < tempSprites2.Count; i++)
+            {
+                spritesGroup2.Add(tempSprites2[i]);
+            }
+        }
+
     }
 
 }

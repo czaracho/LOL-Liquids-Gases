@@ -45,7 +45,6 @@ public class GameManagerMain : MonoBehaviour
         EventManager.instance.WaitForNextLevelTrigger += GoToNextLevelFromSlides;
         pieces = FindObjectsOfType<Piece>();
         currentLevel = SceneManager.GetActiveScene().name;
-
     }
 
     private void OnDestroy()
@@ -57,7 +56,6 @@ public class GameManagerMain : MonoBehaviour
 
         if (!waterIsRunning) {
             waterIsRunning = true;
-            //audioSource.Play();
         }
 
         currentDropQuantity++;
