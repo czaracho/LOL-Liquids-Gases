@@ -729,6 +729,106 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ParticlesTag: Metaball_liquid
   PersistentFluid: 0
   size: 4.5
@@ -742,8 +842,8 @@ MonoBehaviour:
   StyleByID: 0
   Sorting: 0
   ColorScheme: 1
-  FillColor: {r: 0.20872845, g: 0.78538704, b: 0.93807864, a: 0.9}
-  StrokeColor: {r: 0.69803923, g: 0.69803923, b: 0.69803923, a: 0.5803922}
+  FillColor: {r: 0, g: 1, b: 0.16078432, a: 0.9}
+  StrokeColor: {r: 0.827451, g: 1, b: 0.7490196, a: 0.5803922}
   Blending: 0
   _lastBlending: 0
   AlphaCutOff: 0.533
@@ -760,7 +860,7 @@ MonoBehaviour:
   GlossOffset: 1
   _lastGlowEnabledValue: 0
   initSpeed: {x: 1, y: -1.8}
-  Speed: 5.7178516
+  Speed: 5.7178497
   PhysicMat: {fileID: 6200000, guid: 68ddb697a76638c4986f6ad960e37352, type: 2}
   ColliderSize: 0.0327
   AutoMass: 1
@@ -774,7 +874,7 @@ MonoBehaviour:
   SimulateOnAwake: 0
   SimulateInEditor: 0
   SimulateInPlayMode: 0
-  DropCount: 100
+  DropCount: 200
   _lastDropCount: 100
   Loop: 0
   DropsUsed: 0
@@ -800,7 +900,7 @@ MonoBehaviour:
   OnSpawnerEmitingParticle:
     m_PersistentCalls:
       m_Calls: []
-  TheIdentifier: -462830
+  TheIdentifier: -3814876
   isRefractingMaterial: 0
 --- !u!1 &7074742400984985740
 GameObject:

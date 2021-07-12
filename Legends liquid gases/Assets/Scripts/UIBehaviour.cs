@@ -36,6 +36,7 @@ public class UIBehaviour : MonoBehaviour
     public Button restartButton;
     public Sprite playPressedSprite;
     public Sprite restartPressedSprite;
+    public Button skipLevelButton;
 
     //Next Level Layout
     [Header("Next level elements")]
@@ -93,6 +94,8 @@ public class UIBehaviour : MonoBehaviour
     public TextMeshProUGUI currentStarsText;
     public TextMeshProUGUI solutionQuestionText;
     public TextMeshProUGUI costYouText;
+    public TextMeshProUGUI wontEarnText;
+    public TextMeshProUGUI earnedStarsCurrent;
     public Text howToPlayText;
 
     private void Awake()
@@ -440,6 +443,8 @@ public class UIBehaviour : MonoBehaviour
     }
 
     public void SkipLevel() {
+
+        earnedStarsCurrent.text = Loader.TOTAL_STARS_EARNED.ToString();
         SoundsFX.instance.PlayClick();
         pauseLayout.SetActive(false);
         GameManagerMain.instance.SubstractLevelStars();
@@ -447,28 +452,47 @@ public class UIBehaviour : MonoBehaviour
     }
 
     void SetUITexts() {
-        levelSelectionTxt.text = _lang["level_selection"];
-        skipLevelTxt.text = _lang["skip_level"];
-        //oneStarMovesTxt.text =  + " " + _lang["or_less_moves"];
-        //twoStarMovesTxt.text = GameManagerMain.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
-        //threeStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
-
-        //*This is wrong order, the correct is the commented code above, but because of time, in the editor we put the texts in the wrong order so this is the "correct" order for now
-        //*/
-        oneStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
-        twoStarMovesTxt.text = GameManagerMain.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
-        threeStarMovesTxt.text = GameManagerMain.instance.lvlMinScoreMoves.ToString() + " " + _lang["or_less_moves"];
-        /******************************/
-        skipLevelScreenText.text = _lang["skip_level_question"];
-        currentStarsText.text = _lang["current_stars"];
-        solutionQuestionText.text = _lang["watch_the_solution"];
-        costYouText.text = _lang["cost_you"];
 
         if (hasTutorial) {
             howToPlayText.text = _lang["how_to_play"];
         }
 
-        
+        if (!hasTutorial && !isSlideLevel) {
+
+            levelSelectionTxt.text = _lang["level_selection"];
+            skipLevelTxt.text = _lang["skip_level"];
+
+            //oneStarMovesTxt.text =  + " " + _lang["or_less_moves"];
+            //twoStarMovesTxt.text = GameManagerMain.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
+            //threeStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
+
+            //*This is wrong order, the correct is the commented code above, but because of time, in the editor we put the texts in the wrong order
+            //so this is the "correct" order for now
+            //*/
+            oneStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
+            twoStarMovesTxt.text = GameManagerMain.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
+            threeStarMovesTxt.text = GameManagerMain.instance.lvlMinScoreMoves.ToString() + " " + _lang["or_less_moves"];
+            /******************************/
+
+            skipLevelScreenText.text = _lang["skip_level_question"];
+            currentStarsText.text = _lang["current_stars"];
+            solutionQuestionText.text = _lang["watch_the_solution"];
+            costYouText.text = _lang["cost_you"];
+            wontEarnText.text = _lang["wont_earn_stars"];
+
+            if (SceneManager.GetActiveScene().name != "MainMenu" && 
+                SceneManager.GetActiveScene().name != "LevelSelector" && 
+                SceneManager.GetActiveScene().name != "EndGame") {
+
+                Loader.TOTAL_STARS_EARNED -= Loader.CURRENT_STARS_EARNED_PER_LEVEL[GameManagerMain.instance.levelId - 1];
+                earnedStarsCurrent.text = Loader.TOTAL_STARS_EARNED.ToString();
+            }
+
+            if (Loader.TOTAL_STARS_EARNED < 3)
+            {
+                skipLevelButton.interactable = false;
+            }
+        }
     }
 
     IEnumerator WaitToStartTutorial() {

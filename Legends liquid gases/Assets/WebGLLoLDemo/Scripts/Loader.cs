@@ -13,7 +13,9 @@ public class ProgressData
 	public int CURRENT_PROGRESS = 0;
 	public int TOTAL_LEVELS_UNLOCKED = 0;
 	public int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-	public bool[] LEVELS_UNLOCKED = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+	public bool[] LEVELS_UNLOCKED = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
+	public bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; 
+
 }
 
 public class Loader : MonoBehaviour
@@ -23,11 +25,13 @@ public class Loader : MonoBehaviour
 	private const string questionsJSONFilePath = "questions.json";
 	private const string startGameJSONFilePath = "startGame.json";
 
-	public static int MAX_PROGRESS = 15;		//15 levels
+	public static int MAX_PROGRESS = 14;		//10 levels + 4 slides
 	public static int CURRENT_PROGRESS = 0;	
 	public static int TOTAL_STARS_EARNED = 0;			//total stars earned
 	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //no stars earned at the start of the game
 	public static bool[] LEVELS_UNLOCKED= { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
+	public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; 
+
 
 	private int _loaderCounter = 0;
 	public static void SaveData()
@@ -37,7 +41,7 @@ public class Loader : MonoBehaviour
 		progressData.TOTAL_STARS_EARNED = Loader.TOTAL_STARS_EARNED;
 		progressData.CURRENT_STARS_EARNED_PER_LEVEL = Loader.CURRENT_STARS_EARNED_PER_LEVEL;
 		progressData.LEVELS_UNLOCKED = Loader.LEVELS_UNLOCKED;
-
+		progressData.LEVEL_PROGRESSED = Loader.LEVEL_PROGRESSED;
 		LOLSDK.Instance.SaveState(progressData);
 	}
 

@@ -7362,6 +7362,7 @@ MonoBehaviour:
     type: 3}
   restartPressedSprite: {fileID: -2306622209044628809, guid: 8c499d3a84d9d71409b6667783567a10,
     type: 3}
+  skipLevelButton: {fileID: 0}
   restartButtonNxt: {fileID: 415625240987956376}
   restartPressedNextSprite: {fileID: -2306622209044628809, guid: 8c499d3a84d9d71409b6667783567a10,
     type: 3}
@@ -7426,6 +7427,8 @@ MonoBehaviour:
   currentStarsText: {fileID: 0}
   solutionQuestionText: {fileID: 0}
   costYouText: {fileID: 0}
+  wontEarnText: {fileID: 0}
+  earnedStarsCurrent: {fileID: 0}
   howToPlayText: {fileID: 0}
 --- !u!114 &3097666701410328296
 MonoBehaviour:
