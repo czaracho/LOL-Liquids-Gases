@@ -5,6 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/_Init.unity
+    guid: e6e28b93cb5e0024188690a860c501c8
+  - enabled: 1
+    path: Assets/Scenes/EndGame.unity
+    guid: 82720a92823381b44835f25c071d2950
   - enabled: 1
     path: Assets/Scenes/level1.unity
     guid: c59a4bd15dae3d64994758de8f4c6fb1
@@ -36,11 +45,8 @@ EditorBuildSettings:
     path: Assets/Scenes/level10.unity
     guid: cae014cc66c59e14498878acc5569750
   - enabled: 1
-    path: Assets/Scenes/_Init.unity
-    guid: e6e28b93cb5e0024188690a860c501c8
-  - enabled: 1
-    path: Assets/Scenes/EndGame.unity
-    guid: 82720a92823381b44835f25c071d2950
+    path: Assets/Scenes/LevelSelector.unity
+    guid: 14a79a4895288e64c8b66cccd3679370
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: ccc0baf28c6d6ec40b40e6c08f234f15
@@ -65,10 +71,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/tutorialStart.unity
     guid: ea1b0e47628958d45b4016b8b225d3cc
-  - enabled: 1
-    path: Assets/Scenes/LevelSelector.unity
-    guid: 14a79a4895288e64c8b66cccd3679370
-  - enabled: 1
-    path: Assets/Scenes/LevelSelectorTest.unity
-    guid: e72a1cb0e48a62e468dc44518954728a
   m_configObjects: {}

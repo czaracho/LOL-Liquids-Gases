@@ -4651,7 +4651,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   TypeWriter: {fileID: 1479037091919008671}
-  slides: []
+  slidesGroup1: {fileID: 0}
+  slidesGroup2: {fileID: 0}
   dialogLines: []
   lineToSwitchImages: 0
   levelSelectionTxt: {fileID: 8391354409335924101}
@@ -11360,8 +11361,28 @@ PrefabInstance:
       value: 6.000002
       objectReference: {fileID: 0}
     - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
+      propertyPath: HashID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
+      propertyPath: FillColor.a
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
+      propertyPath: FillColor.b
+      value: 0.42629188
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
+      propertyPath: FillColor.g
+      value: 0.79866993
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
+      propertyPath: FillColor.r
+      value: 0.35506275
+      objectReference: {fileID: 0}
+    - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
       propertyPath: TheIdentifier
-      value: -188402
+      value: -573852
       objectReference: {fileID: 0}
     - target: {fileID: 1704136850, guid: 19f29510e33ec4341b19f5771fb947a2, type: 3}
       propertyPath: Water2DRenderType

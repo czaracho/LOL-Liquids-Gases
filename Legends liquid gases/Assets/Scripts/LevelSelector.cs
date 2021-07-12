@@ -50,6 +50,7 @@ public class LevelSelector : MonoBehaviour
     }
 
     public void GoToSelectedLevel() {
+        UIBehaviour.instance.BouncyAnimationButton(this.gameObject);
         GameManagerMain.instance.nextLevel = level;
         GameManagerMain.instance.GoToNextLevelFromSlides();
     }

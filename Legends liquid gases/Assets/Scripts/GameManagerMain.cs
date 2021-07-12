@@ -9,9 +9,13 @@ using LoLSDK;
 public class GameManagerMain : MonoBehaviour
 {
     public int levelId = 0;
+    public bool waterIsOrange = false;
     [HideInInspector]
     public bool playerCanInteractGame = true;
+    [HideInInspector]
     private bool waterIsRunning = false;
+    [HideInInspector]
+    public bool hasWatchedHint = false;
     [HideInInspector]
     public bool levelCleared = false;
     public int requiredDropQuantity = 100;   
@@ -111,20 +115,25 @@ public class GameManagerMain : MonoBehaviour
 
     void checkStarScore() {
 
-        if (currentLvlMoves <= lvlMaxScoreMoves)
+        //If the student watched the hint, stars can't be earned for this level
+        if (!hasWatchedHint)
         {
-            currentLvlStarsEarned = 3;
-        }
-        else if (currentLvlMoves <= lvlMidScoreMoves && currentLvlMoves > lvlMaxScoreMoves)
-        {
-            currentLvlStarsEarned = 2;
-        }
-        else if (currentLvlMoves <= lvlMinScoreMoves && currentLvlMoves > lvlMidScoreMoves)
-        {
-            currentLvlStarsEarned = 1;
-        }
-        else if (currentLvlMoves > lvlMinScoreMoves) {
-            currentLvlStarsEarned = 0;
+            if (currentLvlMoves <= lvlMaxScoreMoves)
+            {
+                currentLvlStarsEarned = 3;
+            }
+            else if (currentLvlMoves <= lvlMidScoreMoves && currentLvlMoves > lvlMaxScoreMoves)
+            {
+                currentLvlStarsEarned = 2;
+            }
+            else if (currentLvlMoves <= lvlMinScoreMoves && currentLvlMoves > lvlMidScoreMoves)
+            {
+                currentLvlStarsEarned = 1;
+            }
+            else if (currentLvlMoves > lvlMinScoreMoves)
+            {
+                currentLvlStarsEarned = 0;
+            }
         }
 
         AddGameProgress();
@@ -149,6 +158,7 @@ public class GameManagerMain : MonoBehaviour
 
 
     public void GoToLevelSelectionScreen() {
+        UIBehaviour.instance.pauseLayout.SetActive(false);
         SoundsFX.instance.PlayClick();
         UIBehaviour.instance.FadeTo("LevelSelector");
     }
@@ -185,12 +195,12 @@ public class GameManagerMain : MonoBehaviour
     void AddGameProgress() {
 
         Loader.STARS_EARNED = 0;
+        Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = currentLvlStarsEarned;
 
         for (int i = 0; i < Loader.CURRENT_STARS_EARNED_PER_LEVEL.Length; i++) {
             Loader.STARS_EARNED += Loader.CURRENT_STARS_EARNED_PER_LEVEL[i];
         }
 
-        Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = currentLvlStarsEarned;
         Loader.CURRENT_PROGRESS++;
         Loader.LEVELS_UNLOCKED[levelId] = true; //levelId of current level, since arrays id starts at 0
         LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);

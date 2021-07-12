@@ -210,7 +210,7 @@ public class UIBehaviour : MonoBehaviour
         button.enabled = false;
     }
 
-    void BouncyAnimationButton(GameObject button) {
+    public void BouncyAnimationButton(GameObject button) {
         Vector3 buttonScale = new Vector3(button.transform.localScale.x, button.transform.localScale.y);
         button.transform.DOScale(buttonScale * 0.9f, 0.1f).SetLoops(2, LoopType.Yoyo);
     }
@@ -421,8 +421,8 @@ public class UIBehaviour : MonoBehaviour
             hintQuestionMenu.transform.localPosition = new Vector2(0, -600);
             hintQuestionLayout.SetActive(false);
             OpenVerticalTransitionHint(hintImageMenu);
+            GameManagerMain.instance.hasWatchedHint = true;
         }
-
     }
 
     public void ShowMenu(GameObject menu) {

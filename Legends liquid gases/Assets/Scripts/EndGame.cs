@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SimpleJSON;
 
 public class EndGame : MonoBehaviour
 {
     AudioSource audioSource;
     public Image faderImg;
     public AnimationCurve curve;
+    public Text totalStarsText;
+    public Text thanksText;
+    JSONNode _lang;
+
 
     private void Awake()
     {
@@ -16,11 +21,13 @@ public class EndGame : MonoBehaviour
 
     private void Start()
     {
+        _lang = SharedState.LanguageDefs;
         StartCoroutine(FadeIn());
         StartCoroutine(WaitToPlayFinalSFX());
         StartCoroutine(WaitToPlayFinalSong());
+        thanksText.text = _lang["thanks_help"];
+        totalStarsText.text = Loader.STARS_EARNED.ToString() + "/30";
     }
-
 
     IEnumerator FadeIn()
     {

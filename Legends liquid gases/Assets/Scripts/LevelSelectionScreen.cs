@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimpleJSON;
+using UnityEngine.UI;
 
 public class LevelSelectionScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Text levelsText;
+    JSONNode _lang;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        _lang = SharedState.LanguageDefs;
+        levelsText.text = _lang["levels"];
+
     }
 }
