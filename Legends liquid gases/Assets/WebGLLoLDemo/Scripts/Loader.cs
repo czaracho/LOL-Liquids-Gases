@@ -9,7 +9,7 @@ using System.IO;
 
 public class ProgressData
 {
-	public int STARS_EARNED = 0;
+	public int TOTAL_STARS_EARNED = 0;
 	public int CURRENT_PROGRESS = 0;
 	public int TOTAL_LEVELS_UNLOCKED = 0;
 	public int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
@@ -25,7 +25,7 @@ public class Loader : MonoBehaviour
 
 	public static int MAX_PROGRESS = 15;		//15 levels
 	public static int CURRENT_PROGRESS = 0;	
-	public static int STARS_EARNED = 0;			//total stars earned
+	public static int TOTAL_STARS_EARNED = 0;			//total stars earned
 	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //no stars earned at the start of the game
 	public static bool[] LEVELS_UNLOCKED= { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
 
@@ -34,7 +34,7 @@ public class Loader : MonoBehaviour
 	{
 		ProgressData progressData = new ProgressData();
 		progressData.CURRENT_PROGRESS = Loader.CURRENT_PROGRESS;
-		progressData.STARS_EARNED = Loader.CURRENT_PROGRESS;
+		progressData.TOTAL_STARS_EARNED = Loader.TOTAL_STARS_EARNED;
 		progressData.CURRENT_STARS_EARNED_PER_LEVEL = Loader.CURRENT_STARS_EARNED_PER_LEVEL;
 		progressData.LEVELS_UNLOCKED = Loader.LEVELS_UNLOCKED;
 

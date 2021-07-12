@@ -661,6 +661,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  totalStarsText: {fileID: 1455407965}
   thanksText: {fileID: 1735291476}
 --- !u!1 &565938625
 GameObject:

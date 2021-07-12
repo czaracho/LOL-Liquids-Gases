@@ -426,15 +426,15 @@
 
         private void Start()
         {
-            if (!GameManagerMain.instance.waterIsOrange)
-            {
-                FillColor = new Color(0, 255, 41, 230);
-                StrokeColor = new Color(0, 255, 41, 230);
-            }
-            else {
-                FillColor = new Color(153, 150, 5, 230);
-                StrokeColor = new Color(250, 207, 145, 148);
-            }
+            //if (!GameManagerMain.instance.waterIsOrange)
+            //{
+            //    FillColor = new Color(0, 255, 41, 230);
+            //    StrokeColor = new Color(0, 255, 41, 230);
+            //}
+            //else {
+            //    FillColor = new Color(153, 150, 5, 230);
+            //    StrokeColor = new Color(250, 207, 145, 148);
+            //}
 
             TheIdentifier = GetHashCode();
 

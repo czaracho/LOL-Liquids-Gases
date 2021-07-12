@@ -217,26 +217,29 @@ public class UIBehaviour : MonoBehaviour
 
     public void toNextLevelTransition() {
 
-        ingameLayout.SetActive(false);
-        nextLevelLayout.SetActive(true);
-        SoundsFX.instance.PlayLevelFinished();
+        //if the level is restarting, even if the water fills the containers, the next level layout won't appear
+        if (!GameManagerMain.instance.levelIsReseting) {
+            ingameLayout.SetActive(false);
+            nextLevelLayout.SetActive(true);
+            SoundsFX.instance.PlayLevelFinished();
 
-        Sequence seq = DOTween.Sequence();
-        seq.Append(nextLevelPanel.transform.DOLocalMove(new Vector2(0,0), moveDuration));
-        seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 0.85f), panelScaleDuration));
-        seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 1), panelScaleDuration));
-        seq.Insert(0.25f, levelCompleteText.transform.DOScale(new Vector2(1.2f, 1.2f), levelCompleteDuration * 0.5f));
-        seq.Insert(0.35f, levelCompleteText.transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
+            Sequence seq = DOTween.Sequence();
+            seq.Append(nextLevelPanel.transform.DOLocalMove(new Vector2(0, 0), moveDuration));
+            seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 0.85f), panelScaleDuration));
+            seq.Append(nextLevelPanel.transform.DOScale(new Vector2(1, 1), panelScaleDuration));
+            seq.Insert(0.25f, levelCompleteText.transform.DOScale(new Vector2(1.2f, 1.2f), levelCompleteDuration * 0.5f));
+            seq.Insert(0.35f, levelCompleteText.transform.DOScale(new Vector2(1, 1), levelCompleteDuration));
 
-        int currentStars = GameManagerMain.instance.currentLvlStarsEarned;
+            int currentStars = GameManagerMain.instance.currentLvlStarsEarned;
 
-        for (int i = 0; i < currentStars; i++)
-        {
-            seq.Append(stars[i].transform.DOScale(new Vector2(1.25f, 1.25f), levelCompleteDuration * 0.5f));
-            seq.Append(stars[i].transform.DOScale(new Vector2(1, 1), levelCompleteDuration * 0.75f));
+            for (int i = 0; i < currentStars; i++)
+            {
+                seq.Append(stars[i].transform.DOScale(new Vector2(1.25f, 1.25f), levelCompleteDuration * 0.5f));
+                seq.Append(stars[i].transform.DOScale(new Vector2(1, 1), levelCompleteDuration * 0.75f));
+            }
+
+            nextLvlButton.transform.DOScale(new Vector2(1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo);
         }
-
-        nextLvlButton.transform.DOScale(new Vector2(1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo);
     }
 
     IEnumerator FadeImages() {
@@ -439,16 +442,23 @@ public class UIBehaviour : MonoBehaviour
     public void SkipLevel() {
         SoundsFX.instance.PlayClick();
         pauseLayout.SetActive(false);
-        //TODO sacar las estrellitas del total
+        GameManagerMain.instance.SubstractLevelStars();
         GameManagerMain.instance.GoToNextLevel();
     }
 
     void SetUITexts() {
         levelSelectionTxt.text = _lang["level_selection"];
         skipLevelTxt.text = _lang["skip_level"];
-        oneStarMovesTxt.text = GameManagerMain.instance.lvlMinScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        //oneStarMovesTxt.text =  + " " + _lang["or_less_moves"];
+        //twoStarMovesTxt.text = GameManagerMain.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        //threeStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
+
+        //*This is wrong order, the correct is the commented code above, but because of time, in the editor we put the texts in the wrong order so this is the "correct" order for now
+        //*/
+        oneStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
         twoStarMovesTxt.text = GameManagerMain.instance.lvlMidScoreMoves.ToString() + " " + _lang["or_less_moves"];
-        threeStarMovesTxt.text = GameManagerMain.instance.lvlMaxScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        threeStarMovesTxt.text = GameManagerMain.instance.lvlMinScoreMoves.ToString() + " " + _lang["or_less_moves"];
+        /******************************/
         skipLevelScreenText.text = _lang["skip_level_question"];
         currentStarsText.text = _lang["current_stars"];
         solutionQuestionText.text = _lang["watch_the_solution"];
@@ -457,6 +467,8 @@ public class UIBehaviour : MonoBehaviour
         if (hasTutorial) {
             howToPlayText.text = _lang["how_to_play"];
         }
+
+        
     }
 
     IEnumerator WaitToStartTutorial() {
@@ -492,7 +504,5 @@ public class UIBehaviour : MonoBehaviour
                 spritesGroup2.Add(tempSprites2[i]);
             }
         }
-
     }
-
 }

@@ -79,7 +79,6 @@ public class Inventory : MonoBehaviour
 
         Sequence s = DOTween.Sequence();
         bubbleScale = 1 + (bubbleScale / 100);
-        //s.Append(dialogBubble.transform.DOScale(dialogBubble.transform.localScale.x * bubbleScale * 1.1f, 0.35f));
         s.Append(dialogBubble.transform.DOScale(0, 0.25f));
         DOTween.Kill("bubble");
     }

@@ -26,7 +26,8 @@ public class EndGame : MonoBehaviour
         StartCoroutine(WaitToPlayFinalSFX());
         StartCoroutine(WaitToPlayFinalSong());
         thanksText.text = _lang["thanks_help"];
-        totalStarsText.text = Loader.STARS_EARNED.ToString() + "/30";
+        Debug.Log("Total stars earned endgame: " + Loader.TOTAL_STARS_EARNED.ToString());
+        totalStarsText.text = Loader.TOTAL_STARS_EARNED.ToString() + "/30";
     }
 
     IEnumerator FadeIn()

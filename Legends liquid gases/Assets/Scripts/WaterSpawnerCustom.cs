@@ -11,6 +11,6 @@ public class WaterSpawnerCustom : MonoBehaviour
         SoundsFX.instance.PlayStartWater();
         EventManager.instance.OnHideBubbleTrigger();
         switchOnOff.SwitchOn();
-        waterSpawner.instance.StartWaterSpawner();      
+        waterSpawner.instance.StartWaterSpawner();    
     }
 }

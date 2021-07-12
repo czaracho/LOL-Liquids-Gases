@@ -11,6 +11,8 @@ public class GameManagerMain : MonoBehaviour
     public int levelId = 0;
     public bool waterIsOrange = false;
     [HideInInspector]
+    public bool levelIsReseting = false;
+    [HideInInspector]
     public bool playerCanInteractGame = true;
     [HideInInspector]
     private bool waterIsRunning = false;
@@ -97,6 +99,13 @@ public class GameManagerMain : MonoBehaviour
 
     public void restartLevel()
     {
+        levelIsReseting = true;
+
+        if (!UIBehaviour.instance.hasTutorial) {
+            //If level is a tutorial level, restarting won't take stars from the student
+            SubstractLevelStars();
+        }
+
         playerCanInteractGame = false;
         UIBehaviour.instance.PlayBouncyAnimation("restart");
         UIBehaviour.instance.FadeTo(SceneManager.GetActiveScene().name);
@@ -167,10 +176,10 @@ public class GameManagerMain : MonoBehaviour
         int[] currentStarsUnlockedTemp = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }; //no stars at the start of the game
         bool[] levelsUnlockedTemp = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
         Loader.CURRENT_PROGRESS = 0;
-        Loader.STARS_EARNED = 0;
+        Loader.TOTAL_STARS_EARNED = 0;
         Loader.CURRENT_STARS_EARNED_PER_LEVEL = currentStarsUnlockedTemp;
         Loader.LEVELS_UNLOCKED = levelsUnlockedTemp;
-        LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
+        LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
 
         SaveData();
         UIBehaviour.instance.FadeTo(nextLevel); //always has to be slide1
@@ -180,31 +189,34 @@ public class GameManagerMain : MonoBehaviour
     {
         ProgressData progressData = new ProgressData();
         progressData.CURRENT_PROGRESS = Loader.CURRENT_PROGRESS;
-        progressData.STARS_EARNED = Loader.STARS_EARNED;
+        progressData.TOTAL_STARS_EARNED = Loader.TOTAL_STARS_EARNED;
         progressData.CURRENT_STARS_EARNED_PER_LEVEL = Loader.CURRENT_STARS_EARNED_PER_LEVEL;
 
         LOLSDK.Instance.SaveState(progressData);
     }
 
     public void ContinueGame() {       
-        LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
+        LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
         SoundsFX.instance.PlayClick();
         UIBehaviour.instance.FadeTo("LevelSelector"); //always has to be LevelSelector
     }
 
     void AddGameProgress() {
 
-        Loader.STARS_EARNED = 0;
+        Loader.TOTAL_STARS_EARNED = 0;
         Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = currentLvlStarsEarned;
 
         for (int i = 0; i < Loader.CURRENT_STARS_EARNED_PER_LEVEL.Length; i++) {
-            Loader.STARS_EARNED += Loader.CURRENT_STARS_EARNED_PER_LEVEL[i];
+            Loader.TOTAL_STARS_EARNED += Loader.CURRENT_STARS_EARNED_PER_LEVEL[i];
         }
 
         Loader.CURRENT_PROGRESS++;
         Loader.LEVELS_UNLOCKED[levelId] = true; //levelId of current level, since arrays id starts at 0
-        LOLSDK.Instance.SubmitProgress(Loader.STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
+        LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
         Loader.SaveData();
+
+        Debug.Log("LOL-Liquids - " + "CurrentLevel = " + SceneManager.GetActiveScene().name);
+        Debug.Log("LOL-Liquids - " + " TOTAL STARS EARNED FOR NOW: " + Loader.TOTAL_STARS_EARNED.ToString());
     }
 
     public void EndGame() {
@@ -215,5 +227,20 @@ public class GameManagerMain : MonoBehaviour
 
     public void DebugLevel(string level) {
         UIBehaviour.instance.FadeTo(level);
+    }
+
+
+    public void SubstractLevelStars() {
+
+        currentLvlStarsEarned = 0;
+        Loader.TOTAL_STARS_EARNED = 0;
+        Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = currentLvlStarsEarned;
+
+        for (int i = 0; i < Loader.CURRENT_STARS_EARNED_PER_LEVEL.Length; i++)
+        {
+            Loader.TOTAL_STARS_EARNED += Loader.CURRENT_STARS_EARNED_PER_LEVEL[i];
+        }
+
+        Loader.SaveData();
     }
 }
