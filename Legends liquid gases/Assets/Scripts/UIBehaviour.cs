@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
-using TMPro;
 using SimpleJSON;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIBehaviour : MonoBehaviour
 {
@@ -73,15 +72,16 @@ public class UIBehaviour : MonoBehaviour
     public Image faderImg;
     public AnimationCurve curve;
 
+    //Dialog and slides
     [Header("Bubble text")]
     public TypeWriter TypeWriter;
-    public GameObject slidesGroup1;
-    public GameObject slidesGroup2;
-    private List<SpriteRenderer> spritesGroup1;
-    private List<SpriteRenderer> spritesGroup2;
+    public GameObject[] slidesGroup;
+    private List<SlideSprites> spritesSlidesList;
     public string[] dialogLines;
     private int currentLine = 0;
-    public int lineToSwitchImages = 0;
+    public int[] lineToSwitchImages;  //dialog line
+    private int slideChangeIndex = 0;
+    private int dialogIndexCounter = 0;
     bool isWaitingForClick = false;
 
     [Header("Texts")]
@@ -97,6 +97,11 @@ public class UIBehaviour : MonoBehaviour
     public TextMeshProUGUI wontEarnText;
     public TextMeshProUGUI earnedStarsCurrent;
     public Text howToPlayText;
+
+    public class SlideSprites {
+        public int slideIndex;
+        public List<SpriteRenderer> sprites;
+    }
 
     private void Awake()
     {
@@ -126,18 +131,21 @@ public class UIBehaviour : MonoBehaviour
             StartCoroutine(WaitToStartTutorial());
         }
 
-        if (!isSlideLevel) {
+        if (!isSlideLevel)
+        {
 
-            if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "LevelSelector"  
+            if (SceneManager.GetActiveScene().name != "MainMenu" && SceneManager.GetActiveScene().name != "LevelSelector"
                 && SceneManager.GetActiveScene().name != "EndGame")
             {
                 SetUITexts();
             }
         }
+        else {
+            GetAllSlideSprites();
+        }
 
         EventManager.instance.ButtonClickAnimTrigger += BouncyAnimationButton;
 
-        GetAllSlideSprites();
 
     }
 
@@ -245,18 +253,43 @@ public class UIBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator FadeImages() {
+    void FadeImages() {
 
-        for (int i = 0;  i < spritesGroup1.Count; i++) {
-            spritesGroup1[i].DOFade(0f, 1f);
+        Debug.Log("Entered Fade Images");
+        
+        for (int i = 0; i < spritesSlidesList.Count; i++) {
+
+            Debug.Log("i = " + i + " - slideChangeIndex = " + slideChangeIndex);
+
+            if (i == slideChangeIndex) {
+
+                Debug.Log("Entramos al i == slideChangeIndex");
+
+                StartCoroutine(FadeSprites(spritesSlidesList[i], spritesSlidesList[i+1]));
+                
+                break;
+
+            }
+
+        }
+
+        slideChangeIndex++;
+
+    }
+
+    IEnumerator FadeSprites(SlideSprites slideGroupFirst, SlideSprites slideGroupSecond)
+    {
+        foreach (SpriteRenderer sprite in slideGroupFirst.sprites) {
+            sprite.DOFade(0f, 1f);
         }
 
         yield return new WaitForSeconds(1f);
 
-        for (int i = 0; i < spritesGroup2.Count; i++)
+        foreach (SpriteRenderer sprite in slideGroupSecond.sprites)
         {
-            spritesGroup2[i].DOFade(1f, 1f);
+            sprite.DOFade(1f, 1f);
         }
+
     }
 
     public void BubbleTextController(bool activateBubble) {
@@ -286,15 +319,22 @@ public class UIBehaviour : MonoBehaviour
                     BubbleAnimOnClick();
                     isWaitingForClick = false;
 
-                    if (currentLine > 0 && currentLine < dialogLines.Length - 1)
+                    if (isSlideLevel && currentLine < dialogLines.Length - 1)
                     {
+                        //Debug.Log("lineToSwitchImages[dialogIndexCounter] = " + lineToSwitchImages[dialogIndexCounter].ToString() + " - currentLine = " + currentLine);
+                        
                         TypeWriter.WriteText(dialogLines[currentLine]);
-                        currentLine++;
 
-                        if (lineToSwitchImages > 0 && currentLine == lineToSwitchImages)
-                        {
-                            StartCoroutine(FadeImages());                          
+                        if (lineToSwitchImages.Length-1 >= dialogIndexCounter) {
+
+                            if (lineToSwitchImages[dialogIndexCounter] == currentLine)
+                            {
+                                dialogIndexCounter++;
+                                FadeImages();
+                            }
                         }
+
+                        currentLine++;
 
                     }
                     else if (currentLine == dialogLines.Length - 1)
@@ -502,30 +542,21 @@ public class UIBehaviour : MonoBehaviour
 
     void GetAllSlideSprites() {
                 
-        if (isSlideLevel && slidesGroup2 != null) {
+        if (isSlideLevel) {
 
-            spritesGroup1 = new List<SpriteRenderer>();
-            spritesGroup2 = new List<SpriteRenderer>();
-            List<SpriteRenderer> tempSprites1 = new List<SpriteRenderer>();
-            List<SpriteRenderer> tempSprites2 = new List<SpriteRenderer>();
+            spritesSlidesList = new List<SlideSprites>();
 
-            for (int i = 0; i < slidesGroup1.transform.childCount; i++)
+            for (int i = 0; i < slidesGroup.Length; i++)
             {
-                tempSprites1.Add(slidesGroup1.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>());
-            }
+                SlideSprites slideElementSprite = new SlideSprites();
+                slideElementSprite.sprites = new List<SpriteRenderer>();
 
-            for (int i = 0; i < slidesGroup2.transform.childCount; i++)
-            {
-                tempSprites2.Add(slidesGroup2.transform.GetChild(i).gameObject.GetComponent<SpriteRenderer>());
-            }
+                for (int j = 0; j < slidesGroup[i].transform.childCount; j++) {
+                    slideElementSprite.sprites.Add(slidesGroup[i].transform.GetChild(j).gameObject.GetComponent<SpriteRenderer>()); 
+                }
 
-            for (int i = 0; i < tempSprites1.Count; i++) {
-                spritesGroup1.Add(tempSprites1[i]); 
-            }
-
-            for (int i = 0; i < tempSprites2.Count; i++)
-            {
-                spritesGroup2.Add(tempSprites2[i]);
+                slideElementSprite.slideIndex = i;
+                spritesSlidesList.Add(slideElementSprite);
             }
         }
     }

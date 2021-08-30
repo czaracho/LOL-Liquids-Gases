@@ -304,7 +304,7 @@ namespace LoLSDK
 
         public void SpeakText(string key)
         {
-            Debug.Log("SpeakText");
+            //Debug.Log("SpeakText");
         }
 
         public void CancelSpeakText()
