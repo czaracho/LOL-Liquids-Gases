@@ -1,0 +1,41 @@
+
+fire gas.png
+size: 199,282
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+base
+  rotate: true
+  xy: 2, 2
+  size: 125, 67
+  orig: 125, 67
+  offset: 0, 0
+  index: -1
+fire
+  rotate: true
+  xy: 146, 67
+  size: 65, 51
+  orig: 65, 51
+  offset: 0, 0
+  index: -1
+humo
+  rotate: false
+  xy: 2, 129
+  size: 83, 151
+  orig: 83, 151
+  offset: 0, 0
+  index: -1
+meat
+  rotate: true
+  xy: 71, 15
+  size: 112, 73
+  orig: 112, 73
+  offset: 0, 0
+  index: -1
+tenedor
+  rotate: true
+  xy: 87, 134
+  size: 146, 105
+  orig: 146, 105
+  offset: 0, 0
+  index: -1

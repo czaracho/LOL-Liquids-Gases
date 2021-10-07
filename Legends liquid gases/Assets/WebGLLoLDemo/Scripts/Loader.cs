@@ -25,18 +25,20 @@ public class Loader : MonoBehaviour
 	private const string questionsJSONFilePath = "questions.json";
 	private const string startGameJSONFilePath = "startGame.json";
 
-	public static int MAX_PROGRESS = 14;		//10 levels + 4 slides
+	public static int MAX_PROGRESS = 16;		//12 levels + 4 slides
 	public static int CURRENT_PROGRESS = 0;	
 	public static int TOTAL_STARS_EARNED = 0;           //total stars earned
-	//public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //no stars earned at the start of the game
-	//public static bool[] LEVELS_UNLOCKED= { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
-	//public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; 
-	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //no stars earned at the start of the game
-	public static bool[] LEVELS_UNLOCKED = { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }; //first level is always unlocked
-	public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+    public static int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //no stars earned at the start of the game
+    public static bool[] LEVELS_UNLOCKED = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
+    public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+
+    //*****For testing purposes****//
+    //public static int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //no stars earned at the start of the game
+    //public static bool[] LEVELS_UNLOCKED = { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }; //first level is always unlocked
+    //public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
 
-	private int _loaderCounter = 0;
+    private int _loaderCounter = 0;
 	public static void SaveData()
 	{
 		ProgressData progressData = new ProgressData();
@@ -50,6 +52,7 @@ public class Loader : MonoBehaviour
 
 	void Awake()
 	{
+		Application.runInBackground = false;
 		// Create the WebGL (or mock) object
 #if UNITY_EDITOR
 		ILOLSDK webGL = new LoLSDK.MockWebGL();

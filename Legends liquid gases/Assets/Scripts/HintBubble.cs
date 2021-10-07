@@ -11,6 +11,8 @@ public class HintBubble : MonoBehaviour
     JSONNode _lang;
     public Text hintText;
     public string hintLabel;
+    public bool autoClose = true;
+    public float startDelay = 0.5f;
 
     void Start()
     {
@@ -18,7 +20,10 @@ public class HintBubble : MonoBehaviour
         hintText.text = _lang[hintLabel];
         GameManagerMain.instance.playerCanInteractGame = false;
         StartCoroutine(StartHint());
-        StartCoroutine(CloseHint());
+
+        if (autoClose) {
+            StartCoroutine(CloseHint());
+        }
     }
 
     public void CloseBubble() {
@@ -35,7 +40,7 @@ public class HintBubble : MonoBehaviour
 
     public IEnumerator StartHint() {
         
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(startDelay);
 
         foreach (Transform child in transform)
         {
