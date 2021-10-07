@@ -12,9 +12,9 @@ public class ProgressData
 	public int TOTAL_STARS_EARNED = 0;
 	public int CURRENT_PROGRESS = 0;
 	public int TOTAL_LEVELS_UNLOCKED = 0;
-	public int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-	public bool[] LEVELS_UNLOCKED = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
-	public bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; 
+	public int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	public bool[] LEVELS_UNLOCKED = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
+	public bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; 
 
 }
 
@@ -27,10 +27,13 @@ public class Loader : MonoBehaviour
 
 	public static int MAX_PROGRESS = 14;		//10 levels + 4 slides
 	public static int CURRENT_PROGRESS = 0;	
-	public static int TOTAL_STARS_EARNED = 0;			//total stars earned
-	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //no stars earned at the start of the game
-	public static bool[] LEVELS_UNLOCKED= { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
-	public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; 
+	public static int TOTAL_STARS_EARNED = 0;           //total stars earned
+	//public static int[] CURRENT_STARS_EARNED_PER_LEVEL = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //no stars earned at the start of the game
+	//public static bool[] LEVELS_UNLOCKED= { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
+	//public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; 
+	public static int[] CURRENT_STARS_EARNED_PER_LEVEL = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //no stars earned at the start of the game
+	public static bool[] LEVELS_UNLOCKED = { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true }; //first level is always unlocked
+	public static bool[] LEVEL_PROGRESSED = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
 
 	private int _loaderCounter = 0;

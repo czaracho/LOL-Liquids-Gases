@@ -63,5 +63,9 @@ public class MusicController : MonoBehaviour
         audioSource.Play();
     }
 
+    public void DebugLowVolume() {
+        audioSource.volume = 0f;
+    }
+
 }
 

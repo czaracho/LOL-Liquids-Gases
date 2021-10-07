@@ -1,0 +1,27 @@
+
+illust 3.png
+size: 435,447
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ball
+  rotate: false
+  xy: 253, 65
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+lines
+  rotate: true
+  xy: 253, 96
+  size: 349, 180
+  orig: 349, 180
+  offset: 0, 0
+  index: -1
+nube
+  rotate: true
+  xy: 2, 2
+  size: 443, 249
+  orig: 443, 249
+  offset: 0, 0
+  index: -1

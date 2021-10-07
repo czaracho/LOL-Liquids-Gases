@@ -1,0 +1,20 @@
+
+catmolecula anim.png
+size: 517,414
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cat
+  rotate: true
+  xy: 2, 2
+  size: 410, 487
+  orig: 410, 487
+  offset: 0, 0
+  index: -1
+particle
+  rotate: false
+  xy: 491, 388
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1

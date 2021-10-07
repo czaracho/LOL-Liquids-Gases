@@ -1,0 +1,34 @@
+
+balloon.png
+size: 410,192
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ballon
+  rotate: true
+  xy: 2, 6
+  size: 184, 240
+  orig: 184, 240
+  offset: 0, 0
+  index: -1
+border
+  rotate: false
+  xy: 244, 2
+  size: 152, 188
+  orig: 152, 188
+  offset: 0, 0
+  index: -1
+particle
+  rotate: false
+  xy: 398, 180
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+particle ball
+  rotate: false
+  xy: 398, 180
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1

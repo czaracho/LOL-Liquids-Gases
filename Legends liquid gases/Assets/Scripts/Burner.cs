@@ -39,6 +39,7 @@ public class Burner : MonoBehaviour
             if (manipulatorType == ManipulatorType.condenser)
             {
                 //congelar la tuberia
+                collision.gameObject.SetActive(false);
             }
 
         }

@@ -1,0 +1,34 @@
+
+illust12.png
+size: 495,200
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: true
+  xy: 211, 35
+  size: 163, 152
+  orig: 163, 152
+  offset: 0, 0
+  index: -1
+2
+  rotate: true
+  xy: 365, 88
+  size: 110, 128
+  orig: 110, 128
+  offset: 0, 0
+  index: -1
+3
+  rotate: true
+  xy: 365, 2
+  size: 84, 121
+  orig: 84, 121
+  offset: 0, 0
+  index: -1
+base
+  rotate: true
+  xy: 2, 14
+  size: 184, 207
+  orig: 184, 207
+  offset: 0, 0
+  index: -1

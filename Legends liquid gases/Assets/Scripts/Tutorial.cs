@@ -13,6 +13,7 @@ public class Tutorial : MonoBehaviour
     JSONNode _lang;
     private int currentSlide = 1;
     public float transitionTime = 0.45f;
+    public GameObject levelHint;
 
     void Awake()
     {
@@ -88,5 +89,13 @@ public class Tutorial : MonoBehaviour
         GameManagerMain.instance.playerCanInteractGame = true;
         UIBehaviour.instance.HideMenu(this.gameObject);
         UIBehaviour.instance.ingameLayout.SetActive(true);
+    }
+
+    public void CloseTutorialWithHint()
+    {
+        GameManagerMain.instance.playerCanInteractGame = true;
+        UIBehaviour.instance.HideMenu(this.gameObject);
+        UIBehaviour.instance.ingameLayout.SetActive(true);
+        levelHint.SetActive(true);
     }
 }

@@ -1,0 +1,76 @@
+
+fire ice.png
+size: 1223,303
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+air
+  rotate: true
+  xy: 716, 13
+  size: 43, 76
+  orig: 43, 76
+  offset: 0, 0
+  index: -1
+fire off
+  rotate: true
+  xy: 1009, 166
+  size: 135, 102
+  orig: 135, 102
+  offset: 0, 0
+  index: -1
+fire on
+  rotate: true
+  xy: 1113, 166
+  size: 135, 102
+  orig: 135, 102
+  offset: 0, 0
+  index: -1
+frasco
+  rotate: false
+  xy: 888, 153
+  size: 119, 148
+  orig: 119, 148
+  offset: 0, 0
+  index: -1
+ice off
+  rotate: true
+  xy: 1122, 30
+  size: 134, 99
+  orig: 134, 99
+  offset: 0, 0
+  index: -1
+ice on
+  rotate: true
+  xy: 1020, 30
+  size: 134, 100
+  orig: 134, 100
+  offset: 0, 0
+  index: -1
+liquid 1
+  rotate: true
+  xy: 716, 58
+  size: 243, 170
+  orig: 243, 170
+  offset: 0, 0
+  index: -1
+liquid 2
+  rotate: false
+  xy: 607, 31
+  size: 107, 270
+  orig: 107, 270
+  offset: 0, 0
+  index: -1
+tubes
+  rotate: false
+  xy: 2, 2
+  size: 603, 299
+  orig: 603, 299
+  offset: 0, 0
+  index: -1
+water
+  rotate: false
+  xy: 888, 4
+  size: 130, 147
+  orig: 130, 147
+  offset: 0, 0
+  index: -1

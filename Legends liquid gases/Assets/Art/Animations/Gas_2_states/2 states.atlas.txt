@@ -1,0 +1,20 @@
+
+2 states.png
+size: 276,189
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1 gas ball
+  rotate: false
+  xy: 264, 177
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+gas
+  rotate: false
+  xy: 2, 2
+  size: 260, 185
+  orig: 260, 185
+  offset: 0, 0
+  index: -1

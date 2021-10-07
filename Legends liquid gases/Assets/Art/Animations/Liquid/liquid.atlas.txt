@@ -1,0 +1,20 @@
+
+liquid.png
+size: 204,148
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1liquid ball
+  rotate: false
+  xy: 192, 136
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+glass
+  rotate: true
+  xy: 2, 2
+  size: 144, 188
+  orig: 144, 188
+  offset: 0, 0
+  index: -1

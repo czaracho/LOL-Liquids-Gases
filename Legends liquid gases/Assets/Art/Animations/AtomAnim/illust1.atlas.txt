@@ -1,0 +1,55 @@
+
+illust1.png
+size: 824,148
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ball 1
+  rotate: false
+  xy: 463, 6
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+ball 2
+  rotate: false
+  xy: 463, 6
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+ball 3
+  rotate: false
+  xy: 463, 6
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+path 1
+  rotate: true
+  xy: 463, 32
+  size: 114, 224
+  orig: 114, 224
+  offset: 0, 0
+  index: -1
+path 2
+  rotate: false
+  xy: 233, 15
+  size: 228, 131
+  orig: 228, 131
+  offset: 0, 0
+  index: -1
+path 3
+  rotate: false
+  xy: 2, 2
+  size: 229, 144
+  orig: 229, 144
+  offset: 0, 0
+  index: -1
+states
+  rotate: true
+  xy: 689, 5
+  size: 141, 133
+  orig: 141, 133
+  offset: 0, 0
+  index: -1

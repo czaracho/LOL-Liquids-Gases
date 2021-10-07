@@ -77,6 +77,7 @@ public class UIBehaviour : MonoBehaviour
     public TypeWriter TypeWriter;
     public GameObject[] slidesGroup;
     private List<SlideSprites> spritesSlidesList;
+    private List<SlideImages> skeletonSlidesList;
     public string[] dialogLines;
     private int currentLine = 0;
     public int[] lineToSwitchImages;  //dialog line
@@ -101,6 +102,11 @@ public class UIBehaviour : MonoBehaviour
     public class SlideSprites {
         public int slideIndex;
         public List<SpriteRenderer> sprites;
+    }
+
+    public class SlideImages {
+        public int slideIndex;
+        public List<GameObject> slideImg;
     }
 
     private void Awake()
@@ -141,7 +147,7 @@ public class UIBehaviour : MonoBehaviour
             }
         }
         else {
-            GetAllSlideSprites();
+            GetAllSlides();
         }
 
         EventManager.instance.ButtonClickAnimTrigger += BouncyAnimationButton;
@@ -254,19 +260,13 @@ public class UIBehaviour : MonoBehaviour
     }
 
     void FadeImages() {
-
-        Debug.Log("Entered Fade Images");
         
-        for (int i = 0; i < spritesSlidesList.Count; i++) {
-
-            Debug.Log("i = " + i + " - slideChangeIndex = " + slideChangeIndex);
+        for (int i = 0; i < skeletonSlidesList.Count; i++) {
 
             if (i == slideChangeIndex) {
 
-                Debug.Log("Entramos al i == slideChangeIndex");
+                StartCoroutine(FadeSlides(skeletonSlidesList[i], skeletonSlidesList[i + 1]));
 
-                StartCoroutine(FadeSprites(spritesSlidesList[i], spritesSlidesList[i+1]));
-                
                 break;
 
             }
@@ -277,19 +277,58 @@ public class UIBehaviour : MonoBehaviour
 
     }
 
-    IEnumerator FadeSprites(SlideSprites slideGroupFirst, SlideSprites slideGroupSecond)
+    //IEnumerator FadeSprites(SlideSprites slideGroupFirst, SlideSprites slideGroupSecond)
+    //{
+    //    foreach (SpriteRenderer sprite in slideGroupFirst.sprites)
+    //    {
+    //        sprite.DOFade(0f, 1f);
+    //    }
+
+    //    yield return new WaitForSeconds(1f);
+
+    //    foreach (SpriteRenderer sprite in slideGroupSecond.sprites)
+    //    {
+    //        sprite.DOFade(1f, 1f);
+    //    }
+    //}
+
+    IEnumerator FadeSlides(SlideImages slideGroupFirst, SlideImages slideGroupSecond)
     {
-        foreach (SpriteRenderer sprite in slideGroupFirst.sprites) {
-            sprite.DOFade(0f, 1f);
+        foreach (GameObject slideImg in slideGroupFirst.slideImg)
+        {
+            if (slideImg.gameObject.GetComponent<SlideAnim>() != null)
+            {
+                SlideAnim animatedSprite = slideImg.gameObject.GetComponent<SlideAnim>();
+                animatedSprite.ResetTime();
+                animatedSprite.fadeIn = false;
+            }
+            else if (slideImg.gameObject.GetComponent<SpriteRenderer>())
+            {
+                slideImg.gameObject.GetComponent<SpriteRenderer>().DOFade(0f, 1f);
+            }
+            else {
+                slideImg.gameObject.SetActive(false);
+            }
         }
 
         yield return new WaitForSeconds(1f);
 
-        foreach (SpriteRenderer sprite in slideGroupSecond.sprites)
+        foreach (GameObject slideImg in slideGroupSecond.slideImg)
         {
-            sprite.DOFade(1f, 1f);
-        }
+            slideImg.SetActive(true);
 
+            if (slideImg.gameObject.GetComponent<SlideAnim>() != null)
+            {
+                slideImg.gameObject.SetActive(true);
+            }
+            else if (slideImg.gameObject.GetComponent<SpriteRenderer>())
+            {
+                slideImg.gameObject.GetComponent<SpriteRenderer>().DOFade(1f, 1f);
+            }
+            else {
+                slideImg.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void BubbleTextController(bool activateBubble) {
@@ -320,9 +359,7 @@ public class UIBehaviour : MonoBehaviour
                     isWaitingForClick = false;
 
                     if (isSlideLevel && currentLine < dialogLines.Length - 1)
-                    {
-                        //Debug.Log("lineToSwitchImages[dialogIndexCounter] = " + lineToSwitchImages[dialogIndexCounter].ToString() + " - currentLine = " + currentLine);
-                        
+                    {                        
                         TypeWriter.WriteText(dialogLines[currentLine]);
 
                         if (lineToSwitchImages.Length-1 >= dialogIndexCounter) {
@@ -540,23 +577,49 @@ public class UIBehaviour : MonoBehaviour
         tutorialLayout.SetActive(true);
     }
 
-    void GetAllSlideSprites() {
-                
-        if (isSlideLevel) {
+    //void GetAllSlideSprites()
+    //{
 
-            spritesSlidesList = new List<SlideSprites>();
+    //    if (isSlideLevel)
+    //    {
+
+    //        spritesSlidesList = new List<SlideSprites>();
+
+    //        for (int i = 0; i < slidesGroup.Length; i++)
+    //        {
+    //            SlideSprites slideElementSprite = new SlideSprites();
+    //            slideElementSprite.sprites = new List<SpriteRenderer>();
+
+    //            for (int j = 0; j < slidesGroup[i].transform.childCount; j++)
+    //            {
+    //                slideElementSprite.sprites.Add(slidesGroup[i].transform.GetChild(j).gameObject.GetComponent<SpriteRenderer>());
+    //            }
+
+    //            slideElementSprite.slideIndex = i;
+    //            spritesSlidesList.Add(slideElementSprite);
+    //        }
+    //    }
+    //}
+
+    void GetAllSlides()
+    {
+        if (isSlideLevel)
+        {
+
+            skeletonSlidesList = new List<SlideImages>();
 
             for (int i = 0; i < slidesGroup.Length; i++)
             {
-                SlideSprites slideElementSprite = new SlideSprites();
-                slideElementSprite.sprites = new List<SpriteRenderer>();
+                SlideImages slideSkeletons = new SlideImages();
+                slideSkeletons.slideImg = new List<GameObject>();
 
-                for (int j = 0; j < slidesGroup[i].transform.childCount; j++) {
-                    slideElementSprite.sprites.Add(slidesGroup[i].transform.GetChild(j).gameObject.GetComponent<SpriteRenderer>()); 
+                for (int j = 0; j < slidesGroup[i].transform.childCount; j++)
+                {
+                    slideSkeletons.slideImg.Add(slidesGroup[i].transform.GetChild(j).gameObject);
                 }
 
-                slideElementSprite.slideIndex = i;
-                spritesSlidesList.Add(slideElementSprite);
+                slideSkeletons.slideIndex = i;
+                skeletonSlidesList.Add(slideSkeletons);
             }
         }
     }

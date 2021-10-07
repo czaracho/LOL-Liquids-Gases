@@ -1,0 +1,20 @@
+
+solid.png
+size: 244,131
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ice
+  rotate: false
+  xy: 2, 2
+  size: 132, 127
+  orig: 132, 127
+  offset: 0, 0
+  index: -1
+solid ball
+  rotate: true
+  xy: 136, 15
+  size: 114, 106
+  orig: 114, 106
+  offset: 0, 0
+  index: -1

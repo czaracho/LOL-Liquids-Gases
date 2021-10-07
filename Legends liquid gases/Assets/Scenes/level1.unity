@@ -484,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cda267d49986984190cec1301ee815c, type: 3}
---- !u!43 &603737810
+--- !u!43 &580585712
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -796,6 +796,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2559786354351507597, guid: fcbcb8d25ce4c9845a02ceea31b139fc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2559786354351507598, guid: fcbcb8d25ce4c9845a02ceea31b139fc,
         type: 3}
       propertyPath: m_Mesh
@@ -3323,7 +3328,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839992068}
-  m_Mesh: {fileID: 603737810}
+  m_Mesh: {fileID: 580585712}
 --- !u!1001 &2027398015
 PrefabInstance:
   m_ObjectHideFlags: 0
