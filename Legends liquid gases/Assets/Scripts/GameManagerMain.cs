@@ -184,15 +184,6 @@ public class GameManagerMain : MonoBehaviour
     }
 
     public void StartNewGame() {
-        int[] currentStarsUnlockedTemp = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 }; //no stars at the start of the game
-        bool[] levelsUnlockedTemp = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false }; //first level is always unlocked
-        Loader.CURRENT_PROGRESS = 0;
-        Loader.TOTAL_STARS_EARNED = 0;
-        Loader.CURRENT_STARS_EARNED_PER_LEVEL = currentStarsUnlockedTemp;
-        Loader.LEVELS_UNLOCKED = levelsUnlockedTemp;
-        LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
-
-        SaveData();
         UIBehaviour.instance.FadeTo(nextLevel); //always has to be slide1
     }
 
@@ -207,12 +198,18 @@ public class GameManagerMain : MonoBehaviour
     }
 
     public void ContinueGame() {       
-        LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
+        //LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
         SoundsFX.instance.PlayClick();
         UIBehaviour.instance.FadeTo("LevelSelector"); //always has to be LevelSelector
     }
 
     void AddGameProgress() {
+
+        //Substract the former number of stars
+        if (Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] > 0) {
+            Loader.TOTAL_STARS_EARNED -= Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1];
+        }
+
 
         Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = currentLvlStarsEarned; //This is set to 0 at the start of the level
         Loader.TOTAL_STARS_EARNED += currentLvlStarsEarned;
@@ -227,9 +224,23 @@ public class GameManagerMain : MonoBehaviour
         LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
         Loader.SaveData();
 
-        Debug.Log("LOL-Liquids - " + "CURRENT LEVEL = " + SceneManager.GetActiveScene().name);
-        Debug.Log("LOL-Liquids - " + "TOTAL STARS EARNED FOR NOW: " + Loader.TOTAL_STARS_EARNED.ToString());
-        Debug.Log("LOL-Liquids - " + "CURRENT PROGRESS = " + Loader.CURRENT_PROGRESS.ToString());
+        //Debug.Log("**************************Add Game Progress*********************************************" + "\n" +
+        //    DebugReturnLevelsUnlocked +
+        //    "LOL-Liquids - " + "CURRENT LEVEL = " + SceneManager.GetActiveScene().name + "\n" +
+        //    "LOL-Liquids - " + "TOTAL STARS EARNED FOR NOW: " + Loader.TOTAL_STARS_EARNED.ToString() + "\n" +
+        //    "LOL-Liquids - " + "CURRENT PROGRESS = " + Loader.CURRENT_PROGRESS.ToString() + "\n" +
+        //    "**************************End Game Progress*********************************************");                
+    }
+
+    String DebugReturnLevelsUnlocked() {
+        String levelsUnlocked = "";
+
+        for (int i = 0; i < Loader.LEVELS_UNLOCKED.Length; i++) {
+            levelsUnlocked = levelsUnlocked + "LOL-Liquids - " + "level desbloqueado ID - LEVELS_UNLOCKED[" + i.ToString() + "] = " + Loader.LEVELS_UNLOCKED[i].ToString() + "\n";
+        }
+
+
+        return levelsUnlocked;
     }
 
     public void EndGame() {
@@ -244,7 +255,7 @@ public class GameManagerMain : MonoBehaviour
 
 
     public void SubstractLevelStars() {
-        Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = currentLvlStarsEarned;
+        Loader.CURRENT_STARS_EARNED_PER_LEVEL[levelId - 1] = 0;
         Loader.TOTAL_STARS_EARNED -= 3;
         LOLSDK.Instance.SubmitProgress(Loader.TOTAL_STARS_EARNED, Loader.CURRENT_PROGRESS, Loader.MAX_PROGRESS);
         Loader.SaveData();

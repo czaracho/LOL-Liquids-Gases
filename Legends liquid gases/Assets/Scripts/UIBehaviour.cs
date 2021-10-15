@@ -561,7 +561,7 @@ public class UIBehaviour : MonoBehaviour
                 SceneManager.GetActiveScene().name != "LevelSelector" && 
                 SceneManager.GetActiveScene().name != "EndGame") {
 
-                Loader.TOTAL_STARS_EARNED -= Loader.CURRENT_STARS_EARNED_PER_LEVEL[GameManagerMain.instance.levelId - 1];
+                //Loader.TOTAL_STARS_EARNED -= Loader.CURRENT_STARS_EARNED_PER_LEVEL[GameManagerMain.instance.levelId - 1];
                 earnedStarsCurrent.text = Loader.TOTAL_STARS_EARNED.ToString();
             }
 

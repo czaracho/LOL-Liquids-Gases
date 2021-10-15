@@ -122,7 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!43 &45189901
+--- !u!43 &123958951
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1417,7 +1417,7 @@ PrefabInstance:
     - target: {fileID: 1910618015818586508, guid: febf16d91a934b84b9383d743956c41b,
         type: 3}
       propertyPath: lvlMidScoreMoves
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1910618015818586508, guid: febf16d91a934b84b9383d743956c41b,
         type: 3}
@@ -1427,7 +1427,7 @@ PrefabInstance:
     - target: {fileID: 1910618015818586508, guid: febf16d91a934b84b9383d743956c41b,
         type: 3}
       propertyPath: requiredDropQuantity
-      value: 110
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 2982794308940865209, guid: febf16d91a934b84b9383d743956c41b,
         type: 3}
@@ -3421,7 +3421,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839992068}
-  m_Mesh: {fileID: 45189901}
+  m_Mesh: {fileID: 123958951}
 --- !u!1001 &1891376924
 PrefabInstance:
   m_ObjectHideFlags: 0

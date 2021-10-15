@@ -11,6 +11,7 @@ public class LevelSelector : MonoBehaviour
     public GameObject unlockedIcon;
     public GameObject[] starsIcon;
     public GameObject levelNumber;
+    bool levelIsUnlocked = false;
     float[] delay = {0, 0.2f, 0.35f, 0.4f, 0.5f };
     float[] yMovement = {1.0f, 1.5f, 2.0f, 2.5f };
 
@@ -24,6 +25,7 @@ public class LevelSelector : MonoBehaviour
     void CheckIfLevelUnlocked() {
 
         if (Loader.LEVELS_UNLOCKED[levelId-1]) {
+            levelIsUnlocked = true;
             lockedIcon.SetActive(false);
             unlockedIcon.SetActive(true);
             levelNumber.SetActive(true);
@@ -50,9 +52,11 @@ public class LevelSelector : MonoBehaviour
     }
 
     public void GoToSelectedLevel() {
-        UIBehaviour.instance.BouncyAnimationButton(this.gameObject);
-        GameManagerMain.instance.nextLevel = level;
-        GameManagerMain.instance.GoToNextLevelFromSlides();
+        if (levelIsUnlocked) {
+            UIBehaviour.instance.BouncyAnimationButton(this.gameObject);
+            GameManagerMain.instance.nextLevel = level;
+            GameManagerMain.instance.GoToNextLevelFromSlides();
+        }
     }
 
     IEnumerator WiggleBottle() {
